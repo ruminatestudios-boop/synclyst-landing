@@ -1,0 +1,31 @@
+{
+  "outputDirectory": "Landing Page",
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "query", "key": "mode", "value": "scan" }],
+      "destination": "https://synclyst.vercel.app/?mode=scan",
+      "permanent": false
+    },
+    {
+      "source": "/scan",
+      "destination": "https://synclyst.vercel.app/scan",
+      "permanent": false
+    },
+    {
+      "source": "/scan/:path*",
+      "destination": "https://synclyst.vercel.app/scan/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/list",
+      "destination": "https://synclyst.vercel.app/list",
+      "permanent": false
+    },
+    {
+      "source": "/list/:path*",
+      "destination": "https://synclyst.vercel.app/list/:path*",
+      "permanent": false
+    }
+  ]
+}

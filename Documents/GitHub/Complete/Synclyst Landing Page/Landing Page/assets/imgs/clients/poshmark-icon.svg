@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <!-- Upper link: arc at top-right, arms going down-left -->
+  <path fill="none" stroke="#111" stroke-width="60" stroke-linecap="round"
+    d="M 172,308 L 172,158 A 108,108 0 0,1 388,158 L 388,308"/>
+  <!-- Mask: upper link's left arm passes behind lower link -->
+  <rect x="142" y="205" width="60" height="103" fill="white"/>
+  <!-- Lower link: arc at bottom-left, arms going up-right -->
+  <path fill="none" stroke="#111" stroke-width="60" stroke-linecap="round"
+    d="M 328,205 L 328,355 A 108,108 0 0,1 112,355 L 112,205"/>
+</svg>
