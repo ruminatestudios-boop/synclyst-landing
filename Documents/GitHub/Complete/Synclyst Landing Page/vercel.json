@@ -1,31 +1,22 @@
 {
   "outputDirectory": "Landing Page",
   "redirects": [
-    {
-      "source": "/",
-      "has": [{ "type": "query", "key": "mode", "value": "scan" }],
-      "destination": "https://synclyst.vercel.app/?mode=scan",
-      "permanent": false
-    },
-    {
-      "source": "/scan",
-      "destination": "https://synclyst.vercel.app/scan",
-      "permanent": false
-    },
-    {
-      "source": "/scan/:path*",
-      "destination": "https://synclyst.vercel.app/scan/:path*",
-      "permanent": false
-    },
-    {
-      "source": "/list",
-      "destination": "https://synclyst.vercel.app/list",
-      "permanent": false
-    },
-    {
-      "source": "/list/:path*",
-      "destination": "https://synclyst.vercel.app/list/:path*",
-      "permanent": false
-    }
+    { "source": "/scan", "destination": "https://app.synclyst.app/scan", "permanent": false },
+    { "source": "/scan/:path*", "destination": "https://app.synclyst.app/scan/:path*", "permanent": false },
+    { "source": "/list", "destination": "https://app.synclyst.app/list", "permanent": false },
+    { "source": "/list/:path*", "destination": "https://app.synclyst.app/list/:path*", "permanent": false },
+    { "source": "/dashboard", "destination": "https://app.synclyst.app/dashboard", "permanent": false },
+    { "source": "/dashboard/:path*", "destination": "https://app.synclyst.app/dashboard/:path*", "permanent": false },
+    { "source": "/billing", "destination": "https://app.synclyst.app/billing", "permanent": false },
+    { "source": "/billing/:path*", "destination": "https://app.synclyst.app/billing/:path*", "permanent": false },
+    { "source": "/sign-in", "destination": "https://app.synclyst.app/sign-in", "permanent": false },
+    { "source": "/sign-in/:path*", "destination": "https://app.synclyst.app/sign-in/:path*", "permanent": false },
+    { "source": "/sign-up", "destination": "https://app.synclyst.app/sign-up", "permanent": false },
+    { "source": "/sign-up/:path*", "destination": "https://app.synclyst.app/sign-up/:path*", "permanent": false },
+    { "source": "/snap", "destination": "https://app.synclyst.app/snap", "permanent": false },
+    { "source": "/snap/:path*", "destination": "https://app.synclyst.app/snap/:path*", "permanent": false },
+    { "source": "/api/:path*", "destination": "https://app.synclyst.app/api/:path*", "permanent": false },
+    { "source": "/privacy", "destination": "https://app.synclyst.app/privacy", "permanent": false },
+    { "source": "/terms", "destination": "https://app.synclyst.app/terms", "permanent": false }
   ]
 }
