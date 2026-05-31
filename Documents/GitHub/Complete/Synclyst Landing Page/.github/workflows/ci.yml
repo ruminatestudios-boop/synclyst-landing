@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate landing page
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check index.html exists
+        run: test -f "Landing Page/index.html" && echo "✅ index.html found"
+
+      - name: Check no broken internal links to localhost
+        run: |
+          if grep -r "localhost\|127.0.0.1" "Landing Page/index.html"; then
+            echo "❌ localhost found in landing page"
+            exit 1
+          fi
+          echo "✅ No localhost links"
+
+      - name: Smoke — synclyst.app
+        if: github.ref == 'refs/heads/main'
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://synclyst.app)
+          if [ "$STATUS" != "200" ]; then echo "❌ synclyst.app down ($STATUS)"; exit 1; fi
+          echo "✅ synclyst.app OK"
