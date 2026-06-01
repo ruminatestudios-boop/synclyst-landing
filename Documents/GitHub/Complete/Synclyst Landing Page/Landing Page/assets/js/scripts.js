@@ -95,7 +95,9 @@ $(function () {
             if (w < 2 || h < 2) return;
 
             var inset = 0.5;
-            var radius = (h - 1) / 2;
+            var stroke = 1;
+            var size = stroke;
+            var radius = Math.max(0, (h - size) / 2);
 
             svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
             svg.setAttribute('width', w);
@@ -104,8 +106,8 @@ $(function () {
             svg.querySelectorAll('rect').forEach(function(rect) {
                 rect.setAttribute('x', inset);
                 rect.setAttribute('y', inset);
-                rect.setAttribute('width', w - 1);
-                rect.setAttribute('height', h - 1);
+                rect.setAttribute('width', w - size);
+                rect.setAttribute('height', h - size);
                 rect.setAttribute('rx', radius);
                 rect.setAttribute('ry', radius);
             });
