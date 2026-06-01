@@ -90,14 +90,16 @@ $(function () {
             var svg = btn.querySelector('.synclyst-hero-cta-border');
             if (!svg) return;
 
-            var w = btn.offsetWidth;
-            var h = btn.offsetHeight;
-            if (w < 2 || h < 2) return;
+            var pad = 0.5;
+            var bw = btn.offsetWidth;
+            var bh = btn.offsetHeight;
+            if (bw < 2 || bh < 2) return;
 
-            var inset = 0.5;
+            var w = bw + (pad * 2);
+            var h = bh + (pad * 2);
+            var inset = pad + 0.5;
             var stroke = 1;
-            var size = stroke;
-            var radius = Math.max(0, (h - size) / 2);
+            var radius = Math.max(0, (bh - stroke) / 2);
 
             svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
             svg.setAttribute('width', w);
@@ -106,8 +108,8 @@ $(function () {
             svg.querySelectorAll('rect').forEach(function(rect) {
                 rect.setAttribute('x', inset);
                 rect.setAttribute('y', inset);
-                rect.setAttribute('width', w - size);
-                rect.setAttribute('height', h - size);
+                rect.setAttribute('width', bw - stroke);
+                rect.setAttribute('height', bh - stroke);
                 rect.setAttribute('rx', radius);
                 rect.setAttribute('ry', radius);
             });
