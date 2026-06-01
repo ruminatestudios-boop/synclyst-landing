@@ -219,7 +219,7 @@
             stroke-width: 1;
             stroke-linecap: round;
             stroke-linejoin: round;
-            animation: synclyst-hero-cta-outline-trail 2.5s linear infinite;
+            animation: synclyst-hero-cta-outline-trail 3s linear infinite;
         }
         .synclyst-hero-cta-border-trail-glow {
             stroke: rgba(124, 58, 237, 0.14);
@@ -259,10 +259,22 @@
             z-index: 2;
         }
         @keyframes synclyst-hero-cta-outline-trail {
-            from {
+            0% {
                 stroke-dashoffset: 0;
             }
-            to {
+            20% {
+                stroke-dashoffset: -58;
+            }
+            42% {
+                stroke-dashoffset: -80;
+            }
+            68% {
+                stroke-dashoffset: -93;
+            }
+            88% {
+                stroke-dashoffset: -98.5;
+            }
+            100% {
                 stroke-dashoffset: -100;
             }
         }
