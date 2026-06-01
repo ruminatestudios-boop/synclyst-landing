@@ -428,6 +428,17 @@
             line-height: 1.7;
             margin: 0;
         }
+        .synclyst-stack-btn--soon {
+            background: rgba(124, 58, 237, 0.35);
+            color: rgba(255, 255, 255, 0.75);
+            cursor: default;
+            pointer-events: none;
+        }
+        .synclyst-stack-btn--soon:hover {
+            background: rgba(124, 58, 237, 0.35);
+            color: rgba(255, 255, 255, 0.75);
+            transform: none;
+        }
         .synclyst-video-card .tag {
             position: absolute;
             top: 14px;
@@ -1893,24 +1904,6 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="item pt-30 bord-thin-top-light md-mb50">
-                                    <div class="synclyst-stack-badge" aria-label="SyncLyst Mobile">
-                                        <span>📱 Mobile</span>
-                                        <span class="synclyst-stack-badge-sep" aria-hidden="true">·</span>
-                                        <span>SyncLyst</span>
-                                    </div>
-                                    <div class="text mb-50">
-                                        <h3 class="synclyst-stack-title">SyncLyst Mobile</h3>
-                                        <p class="synclyst-stack-tagline">Photo scan to Shopify draft in one flow</p>
-                                        <p class="synclyst-stack-desc">Open the mobile app, point your camera at any item, and AI generates the title, condition, description, and price. One tap pushes it straight to a Shopify draft — no typing, no guessing, no wasted time at the counter.</p>
-                                    </div>
-                                    <a href="https://synclyst.app/list" target="_blank" rel="noopener noreferrer" class="synclyst-stack-btn">
-                                        Scan an Item Now
-                                        <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="item pt-30 bord-thin-top-light md-mb50">
                                     <div class="synclyst-stack-badge" aria-label="Chrome Extension">
                                         <span>🧩 Chrome</span>
                                         <span class="synclyst-stack-badge-sep" aria-hidden="true">·</span>
@@ -1922,13 +1915,13 @@
                                         <p class="synclyst-stack-desc">Install the Chrome extension and visit any listing page — eBay, Depop, Vinted, and more. Hit Magic Fill and AI auto-populates every field: title, category, condition, description. List in seconds, not minutes.</p>
                                     </div>
                                     <a href="https://chromewebstore.google.com/detail/synclyst-listing-autopilo/copjkijolfpmhjgiggafngmdeibnmfnm" target="_blank" rel="noopener noreferrer" class="synclyst-stack-btn">
-                                        Get the Extension
+                                        Install SyncLyst
                                         <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                     </a>
                                 </div>
                             </div>
                             <div class="col-lg-4">
-                                <div class="item pt-30 bord-thin-top-light">
+                                <div class="item pt-30 bord-thin-top-light md-mb50">
                                     <div class="synclyst-stack-badge" aria-label="SyncIQ Free">
                                         <span>🔍 <span class="synclyst-stack-badge-accent">Free</span></span>
                                         <span class="synclyst-stack-badge-sep" aria-hidden="true">·</span>
@@ -1937,12 +1930,27 @@
                                     <div class="text mb-50">
                                         <h3 class="synclyst-stack-title">SyncIQ</h3>
                                         <p class="synclyst-stack-tagline">Know if a find is worth buying before you list</p>
-                                        <p class="synclyst-stack-desc">SyncIQ is free. Scan or search any item and instantly see what it sells for across eBay, Depop, and Vinted. Stop guessing — know your margin before you spend a penny. No account needed.</p>
+                                        <p class="synclyst-stack-desc">Scan or search any item and instantly see what it sells for across eBay, Depop, and Vinted. Stop guessing — know your margin before you spend a penny. Free — 10 scans/day, no account needed.</p>
                                     </div>
                                     <a href="https://scan.synclyst.app" target="_blank" rel="noopener noreferrer" class="synclyst-stack-btn">
-                                        Find Profitable Items
+                                        Try SyncIQ Free
                                         <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                     </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="item pt-30 bord-thin-top-light">
+                                    <div class="synclyst-stack-badge" aria-label="SyncLyst Mobile">
+                                        <span>📱 Mobile</span>
+                                        <span class="synclyst-stack-badge-sep" aria-hidden="true">·</span>
+                                        <span>SyncLyst</span>
+                                    </div>
+                                    <div class="text mb-50">
+                                        <h3 class="synclyst-stack-title">SyncLyst Mobile</h3>
+                                        <p class="synclyst-stack-tagline">Photo scan to Shopify draft in one flow — full version coming soon</p>
+                                        <p class="synclyst-stack-desc">Point your camera at any item and get a complete listing — title, condition, description, and price — ready for Shopify. The full mobile app is on the way; use the Chrome extension or SyncIQ today.</p>
+                                    </div>
+                                    <span class="synclyst-stack-btn synclyst-stack-btn--soon" role="status">SyncLyst Mobile — Coming Soon</span>
                                 </div>
                             </div>
                         </div>
