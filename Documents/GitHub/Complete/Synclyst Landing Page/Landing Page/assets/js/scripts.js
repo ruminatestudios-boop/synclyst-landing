@@ -85,6 +85,38 @@ $(function () {
     setTimeout(synclystSizeWorkVideos, 300);
     $(window).on("resize", synclystSizeWorkVideos);
 
+    function synclystHeroCtaBorder() {
+        document.querySelectorAll('.synclyst-hero-cta').forEach(function(btn) {
+            var svg = btn.querySelector('.synclyst-hero-cta-border');
+            if (!svg) return;
+
+            var w = btn.offsetWidth;
+            var h = btn.offsetHeight;
+            if (w < 2 || h < 2) return;
+
+            var inset = 0.5;
+            var radius = (h - 1) / 2;
+
+            svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+            svg.setAttribute('width', w);
+            svg.setAttribute('height', h);
+
+            svg.querySelectorAll('rect').forEach(function(rect) {
+                rect.setAttribute('x', inset);
+                rect.setAttribute('y', inset);
+                rect.setAttribute('width', w - 1);
+                rect.setAttribute('height', h - 1);
+                rect.setAttribute('rx', radius);
+                rect.setAttribute('ry', radius);
+            });
+        });
+    }
+
+    synclystHeroCtaBorder();
+    setTimeout(synclystHeroCtaBorder, 100);
+    setTimeout(synclystHeroCtaBorder, 500);
+    $(window).on('resize', synclystHeroCtaBorder);
+
     $(".monthly_price").show();
 
 

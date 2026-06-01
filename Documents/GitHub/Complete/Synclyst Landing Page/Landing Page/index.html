@@ -189,92 +189,60 @@
             isolation: isolate;
             overflow: visible;
         }
-        .synclyst-hero-cta::after {
-            content: '';
+        .synclyst-hero-cta-border {
             position: absolute;
-            inset: -1px;
-            border-radius: inherit;
-            padding: 1px;
-            background: rgba(124, 58, 237, 0.45);
-            -webkit-mask:
-                linear-gradient(#fff 0 0) content-box,
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask:
-                linear-gradient(#fff 0 0) content-box,
-                linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .synclyst-hero-cta::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: inherit;
-            padding: 1px;
-            background: conic-gradient(
-                from 0deg,
-                transparent 0deg 250deg,
-                rgba(124, 58, 237, 0.05) 265deg,
-                rgba(124, 58, 237, 0.12) 280deg,
-                rgba(167, 139, 250, 0.22) 295deg,
-                rgba(196, 181, 253, 0.42) 310deg,
-                rgba(221, 214, 254, 0.68) 322deg,
-                rgba(255, 255, 255, 0.92) 334deg,
-                rgba(255, 255, 255, 1) 340deg,
-                rgba(233, 213, 255, 0.55) 348deg,
-                rgba(167, 139, 250, 0.18) 356deg,
-                transparent 360deg
-            );
-            -webkit-mask:
-                linear-gradient(#fff 0 0) content-box,
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask:
-                linear-gradient(#fff 0 0) content-box,
-                linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            animation: synclyst-hero-cta-border-trail 4s linear infinite;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
             pointer-events: none;
             z-index: 1;
-            filter: none;
-            box-shadow: none;
+        }
+        .synclyst-hero-cta-border-base {
+            fill: none;
+            stroke: rgba(124, 58, 237, 0.45);
+            stroke-width: 1;
+        }
+        .synclyst-hero-cta-border-trail-fade {
+            fill: none;
+            stroke: rgba(196, 181, 253, 0.55);
+            stroke-width: 1;
+            stroke-linecap: round;
+            stroke-dasharray: 16 84;
+            animation: synclyst-hero-cta-outline-trail 4s linear infinite;
+        }
+        .synclyst-hero-cta-border-trail {
+            fill: none;
+            stroke: rgba(255, 255, 255, 1);
+            stroke-width: 1;
+            stroke-linecap: round;
+            stroke-dasharray: 5 95;
+            animation: synclyst-hero-cta-outline-trail 4s linear infinite;
         }
         .synclyst-hero-cta .d-flex {
             position: relative;
             z-index: 2;
         }
-        @keyframes synclyst-hero-cta-border-trail {
+        @keyframes synclyst-hero-cta-outline-trail {
             0% {
-                transform: rotate(0deg);
-                opacity: 1;
+                stroke-dashoffset: 0;
             }
             72% {
-                transform: rotate(360deg);
-                opacity: 1;
+                stroke-dashoffset: -100;
             }
             84% {
-                transform: rotate(360deg);
-                opacity: 1;
-            }
-            85% {
-                transform: rotate(0deg);
-                opacity: 0;
+                stroke-dashoffset: -100;
             }
             100% {
-                transform: rotate(0deg);
-                opacity: 1;
+                stroke-dashoffset: 0;
             }
         }
         @media (prefers-reduced-motion: reduce) {
-            .synclyst-hero-cta::before {
+            .synclyst-hero-cta-border-trail,
+            .synclyst-hero-cta-border-trail-fade {
                 animation: none;
-                transform: none;
+                stroke-dasharray: none;
                 opacity: 0;
-            }
-            .synclyst-hero-cta::after {
-                background: rgba(167, 139, 250, 0.5);
             }
         }
         .synclyst-video {
@@ -1019,6 +987,11 @@
                                         <p>Photograph any item and get a complete, ready-to-publish listing for Shopify, eBay, Etsy and more. No typing required.</p>
                                         <div class="synclyst-hero-button-row mt-40" style="flex-direction:column;align-items:center;gap:0;">
                                             <a href="https://chromewebstore.google.com/detail/synclyst-listing-autopilo/copjkijolfpmhjgiggafngmdeibnmfnm" target="_blank" rel="noopener noreferrer" class="butn butn-md butn-bg butn-rounded synclyst-hero-cta">
+                                                <svg class="synclyst-hero-cta-border" aria-hidden="true" focusable="false">
+                                                    <rect class="synclyst-hero-cta-border-base" pathLength="100"></rect>
+                                                    <rect class="synclyst-hero-cta-border-trail-fade" pathLength="100"></rect>
+                                                    <rect class="synclyst-hero-cta-border-trail" pathLength="100"></rect>
+                                                </svg>
                                                 <div class="d-flex align-items-center">
                                                     <span>Install Chrome Extension</span>
                                                     <span class="icon ml-10" style="color:#ffffff;font-size:18px;line-height:1;font-style:normal;">↗</span>
