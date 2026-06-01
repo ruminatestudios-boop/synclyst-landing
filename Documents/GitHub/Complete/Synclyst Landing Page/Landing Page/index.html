@@ -384,6 +384,50 @@
             height: 14px;
             flex-shrink: 0;
         }
+        .synclyst-stack-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: #fff;
+            line-height: 1.2;
+        }
+        .synclyst-stack-badge-sep {
+            color: rgba(255, 255, 255, 0.35);
+            font-weight: 400;
+        }
+        .synclyst-stack-badge-accent {
+            color: #7c3aed;
+        }
+        .synclyst-stack-title {
+            font-size: clamp(22px, 2.4vw, 30px);
+            font-weight: 700;
+            line-height: 1.2;
+            color: #fff;
+            margin: 0 0 12px;
+            letter-spacing: -0.03em;
+        }
+        .synclyst-stack-tagline {
+            font-size: 16px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.88);
+            line-height: 1.45;
+            margin: 0 0 14px;
+        }
+        .synclyst-stack-desc {
+            font-size: 14px;
+            color: #aaa;
+            line-height: 1.7;
+            margin: 0;
+        }
         .synclyst-video-card .tag {
             position: absolute;
             top: 14px;
@@ -1849,18 +1893,15 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="item pt-30 bord-thin-top-light md-mb50">
-                                    <div class="info d-flex align-items-center mb-20">
-                                        <a href="#0" class="tag">
-                                            <span>Workflow</span>
-                                        </a>
-                                        <span class="dash">/</span>
-                                        <a href="#0" class="date">
-                                            <span>SyncLyst</span>
-                                        </a>
+                                    <div class="synclyst-stack-badge" aria-label="SyncLyst Mobile">
+                                        <span>📱 Mobile</span>
+                                        <span class="synclyst-stack-badge-sep" aria-hidden="true">·</span>
+                                        <span>SyncLyst</span>
                                     </div>
                                     <div class="text mb-50">
-                                        <h6>Photo scan to Shopify draft <br> in one flow</h6>
-                                        <p style="font-size:14px;color:#aaa;margin-top:14px;line-height:1.7;">Open the mobile app, point your camera at any item, and AI generates the title, condition, description, and price. One tap pushes it straight to a Shopify draft — no typing, no guessing, no wasted time at the counter.</p>
+                                        <h3 class="synclyst-stack-title">SyncLyst Mobile</h3>
+                                        <p class="synclyst-stack-tagline">Photo scan to Shopify draft in one flow</p>
+                                        <p class="synclyst-stack-desc">Open the mobile app, point your camera at any item, and AI generates the title, condition, description, and price. One tap pushes it straight to a Shopify draft — no typing, no guessing, no wasted time at the counter.</p>
                                     </div>
                                     <a href="https://synclyst.app/list" target="_blank" rel="noopener noreferrer" class="synclyst-stack-btn">
                                         Scan an Item Now
@@ -1870,18 +1911,15 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="item pt-30 bord-thin-top-light md-mb50">
-                                    <div class="info d-flex align-items-center mb-20">
-                                        <a href="#0" class="tag">
-                                            <span>Extension</span>
-                                        </a>
-                                        <span class="dash">/</span>
-                                        <a href="#0" class="date">
-                                            <span>Chrome</span>
-                                        </a>
+                                    <div class="synclyst-stack-badge" aria-label="Chrome Extension">
+                                        <span>🧩 Chrome</span>
+                                        <span class="synclyst-stack-badge-sep" aria-hidden="true">·</span>
+                                        <span>Extension</span>
                                     </div>
                                     <div class="text mb-50">
-                                        <h6>Magic Fill listing pages <br> across marketplaces</h6>
-                                        <p style="font-size:14px;color:#aaa;margin-top:14px;line-height:1.7;">Install the Chrome extension and visit any listing page — eBay, Depop, Vinted, and more. Hit Magic Fill and AI auto-populates every field: title, category, condition, description. List in seconds, not minutes.</p>
+                                        <h3 class="synclyst-stack-title">Chrome Extension</h3>
+                                        <p class="synclyst-stack-tagline">Magic Fill listing pages across marketplaces</p>
+                                        <p class="synclyst-stack-desc">Install the Chrome extension and visit any listing page — eBay, Depop, Vinted, and more. Hit Magic Fill and AI auto-populates every field: title, category, condition, description. List in seconds, not minutes.</p>
                                     </div>
                                     <a href="https://chromewebstore.google.com/detail/synclyst-listing-autopilo/copjkijolfpmhjgiggafngmdeibnmfnm" target="_blank" rel="noopener noreferrer" class="synclyst-stack-btn">
                                         Get the Extension
@@ -1891,18 +1929,15 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="item pt-30 bord-thin-top-light">
-                                    <div class="info d-flex align-items-center mb-20">
-                                        <a href="#0" class="tag">
-                                            <span>Sourcing</span>
-                                        </a>
-                                        <span class="dash">/</span>
-                                        <a href="#0" class="date">
-                                            <span>SyncIQ</span>
-                                        </a>
+                                    <div class="synclyst-stack-badge" aria-label="SyncIQ Free">
+                                        <span>🔍 <span class="synclyst-stack-badge-accent">Free</span></span>
+                                        <span class="synclyst-stack-badge-sep" aria-hidden="true">·</span>
+                                        <span>SyncIQ</span>
                                     </div>
                                     <div class="text mb-50">
-                                        <h6>Know if a find is worth buying before you list</h6>
-                                        <p style="font-size:14px;color:#aaa;margin-top:14px;line-height:1.7;">SyncIQ is free. Scan or search any item and instantly see what it sells for across eBay, Depop, and Vinted. Stop guessing — know your margin before you spend a penny. No account needed.</p>
+                                        <h3 class="synclyst-stack-title">SyncIQ</h3>
+                                        <p class="synclyst-stack-tagline">Know if a find is worth buying before you list</p>
+                                        <p class="synclyst-stack-desc">SyncIQ is free. Scan or search any item and instantly see what it sells for across eBay, Depop, and Vinted. Stop guessing — know your margin before you spend a penny. No account needed.</p>
                                     </div>
                                     <a href="https://scan.synclyst.app" target="_blank" rel="noopener noreferrer" class="synclyst-stack-btn">
                                         Find Profitable Items
