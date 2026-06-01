@@ -186,20 +186,72 @@
         }
         .synclyst-hero-cta {
             position: relative;
-            animation: synclyst-hero-cta-border-pulse 2.4s ease-in-out infinite;
+            isolation: isolate;
+            overflow: visible;
         }
-        @keyframes synclyst-hero-cta-border-pulse {
-            0%, 100% {
-                box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.35);
+        .synclyst-hero-cta::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            padding: 2px;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg 290deg,
+                rgba(167, 139, 250, 0.25) 305deg,
+                rgba(196, 181, 253, 0.95) 325deg,
+                rgba(124, 58, 237, 1) 340deg,
+                rgba(196, 181, 253, 0.95) 355deg,
+                transparent 360deg
+            );
+            -webkit-mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            animation: synclyst-hero-cta-border-travel 3.4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .synclyst-hero-cta .d-flex {
+            position: relative;
+            z-index: 2;
+        }
+        @keyframes synclyst-hero-cta-border-travel {
+            0% {
+                transform: rotate(0deg);
+                opacity: 1;
             }
-            50% {
-                box-shadow: 0 0 0 2px rgba(196, 181, 253, 0.95), 0 0 10px 0 rgba(124, 58, 237, 0.45);
+            68% {
+                transform: rotate(360deg);
+                opacity: 1;
+            }
+            82% {
+                transform: rotate(360deg);
+                opacity: 1;
+            }
+            83% {
+                transform: rotate(0deg);
+                opacity: 0;
+            }
+            100% {
+                transform: rotate(0deg);
+                opacity: 1;
             }
         }
         @media (prefers-reduced-motion: reduce) {
-            .synclyst-hero-cta {
+            .synclyst-hero-cta::before {
                 animation: none;
-                box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.5);
+                transform: none;
+                opacity: 1;
+                background: conic-gradient(
+                    from 0deg,
+                    rgba(167, 139, 250, 0.35) 0deg,
+                    rgba(167, 139, 250, 0.35) 360deg
+                );
             }
         }
         .synclyst-video {
@@ -938,7 +990,7 @@
                             <div class="col-lg-11">
                                 <div class="synclyst-hero-copy">
                                     <div class="caption md-mb30">
-                                        <h1>Your Listing is Already Written. <br> <span class="play-font">Just take the photo.</span></h1>
+                                        <h1>AI Turns Your Photos Into Ready-to-Publish Listings. <br> <span class="play-font">No typing. No effort. Just sell.</span></h1>
                                     </div>
                                     <div class="text">
                                         <p>Photograph any item and get a complete, ready-to-publish listing for Shopify, eBay, Etsy and more. No typing required.</p>
