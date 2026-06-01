@@ -184,6 +184,24 @@
             margin-left: 0;
             margin-right: 0;
         }
+        .synclyst-hero-cta {
+            position: relative;
+            animation: synclyst-hero-cta-border-pulse 2.4s ease-in-out infinite;
+        }
+        @keyframes synclyst-hero-cta-border-pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.35);
+            }
+            50% {
+                box-shadow: 0 0 0 2px rgba(196, 181, 253, 0.95), 0 0 10px 0 rgba(124, 58, 237, 0.45);
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .synclyst-hero-cta {
+                animation: none;
+                box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.5);
+            }
+        }
         .synclyst-video {
             max-width: 1180px;
             margin: 78px auto 0;
@@ -925,7 +943,7 @@
                                     <div class="text">
                                         <p>Photograph any item and get a complete, ready-to-publish listing for Shopify, eBay, Etsy and more. No typing required.</p>
                                         <div class="synclyst-hero-button-row mt-40" style="flex-direction:column;align-items:center;gap:0;">
-                                            <a href="https://chromewebstore.google.com/detail/synclyst-listing-autopilo/copjkijolfpmhjgiggafngmdeibnmfnm" target="_blank" rel="noopener noreferrer" class="butn butn-md butn-bg butn-rounded">
+                                            <a href="https://chromewebstore.google.com/detail/synclyst-listing-autopilo/copjkijolfpmhjgiggafngmdeibnmfnm" target="_blank" rel="noopener noreferrer" class="butn butn-md butn-bg butn-rounded synclyst-hero-cta">
                                                 <div class="d-flex align-items-center">
                                                     <span>Install Chrome Extension</span>
                                                     <span class="icon ml-10" style="color:#ffffff;font-size:18px;line-height:1;font-style:normal;">↗</span>
