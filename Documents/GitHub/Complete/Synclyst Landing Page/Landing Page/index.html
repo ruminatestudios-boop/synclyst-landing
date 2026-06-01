@@ -189,19 +189,38 @@
             isolation: isolate;
             overflow: visible;
         }
+        .synclyst-hero-cta::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: rgba(124, 58, 237, 0.45);
+            -webkit-mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 0;
+        }
         .synclyst-hero-cta::before {
             content: '';
             position: absolute;
-            inset: -2px;
+            inset: -1px;
             border-radius: inherit;
-            padding: 2px;
+            padding: 1px;
             background: conic-gradient(
                 from 0deg,
-                transparent 0deg 290deg,
-                rgba(167, 139, 250, 0.25) 305deg,
-                rgba(196, 181, 253, 0.95) 325deg,
-                rgba(124, 58, 237, 1) 340deg,
-                rgba(196, 181, 253, 0.95) 355deg,
+                transparent 0deg 312deg,
+                rgba(124, 58, 237, 0.2) 322deg,
+                rgba(196, 181, 253, 0.75) 332deg,
+                rgba(255, 255, 255, 1) 340deg,
+                rgba(196, 181, 253, 0.75) 348deg,
+                rgba(124, 58, 237, 0.2) 358deg,
                 transparent 360deg
             );
             -webkit-mask:
@@ -215,6 +234,8 @@
             animation: synclyst-hero-cta-border-travel 3.4s ease-in-out infinite;
             pointer-events: none;
             z-index: 1;
+            filter: none;
+            box-shadow: none;
         }
         .synclyst-hero-cta .d-flex {
             position: relative;
@@ -246,12 +267,10 @@
             .synclyst-hero-cta::before {
                 animation: none;
                 transform: none;
-                opacity: 1;
-                background: conic-gradient(
-                    from 0deg,
-                    rgba(167, 139, 250, 0.35) 0deg,
-                    rgba(167, 139, 250, 0.35) 360deg
-                );
+                opacity: 0;
+            }
+            .synclyst-hero-cta::after {
+                background: rgba(167, 139, 250, 0.5);
             }
         }
         .synclyst-video {
