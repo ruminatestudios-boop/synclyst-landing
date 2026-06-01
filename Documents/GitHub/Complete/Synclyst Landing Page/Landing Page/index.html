@@ -207,31 +207,52 @@
             stroke: rgba(124, 58, 237, 0.22);
             stroke-width: 1;
         }
-        .synclyst-hero-cta-border-trail-tail,
-        .synclyst-hero-cta-border-trail-mid,
-        .synclyst-hero-cta-border-trail-soft,
+        .synclyst-hero-cta-border-trail-glow,
+        .synclyst-hero-cta-border-trail-fade-6,
+        .synclyst-hero-cta-border-trail-fade-5,
+        .synclyst-hero-cta-border-trail-fade-4,
+        .synclyst-hero-cta-border-trail-fade-3,
+        .synclyst-hero-cta-border-trail-fade-2,
+        .synclyst-hero-cta-border-trail-fade-1,
         .synclyst-hero-cta-border-trail-head {
             fill: none;
             stroke-width: 1;
             stroke-linecap: round;
             stroke-linejoin: round;
-            animation: synclyst-hero-cta-outline-trail 3.6s linear infinite;
+            animation: synclyst-hero-cta-outline-trail 4.2s linear infinite;
         }
-        .synclyst-hero-cta-border-trail-tail {
-            stroke: rgba(124, 58, 237, 0.1);
-            stroke-dasharray: 24 76;
+        .synclyst-hero-cta-border-trail-glow {
+            stroke: rgba(124, 58, 237, 0.14);
+            stroke-width: 1.6;
+            stroke-dasharray: 44 56;
         }
-        .synclyst-hero-cta-border-trail-mid {
-            stroke: rgba(167, 139, 250, 0.18);
-            stroke-dasharray: 14 86;
+        .synclyst-hero-cta-border-trail-fade-6 {
+            stroke: rgba(124, 58, 237, 0.04);
+            stroke-dasharray: 38 62;
         }
-        .synclyst-hero-cta-border-trail-soft {
-            stroke: rgba(196, 181, 253, 0.32);
-            stroke-dasharray: 7 93;
+        .synclyst-hero-cta-border-trail-fade-5 {
+            stroke: rgba(124, 58, 237, 0.06);
+            stroke-dasharray: 30 70;
+        }
+        .synclyst-hero-cta-border-trail-fade-4 {
+            stroke: rgba(139, 92, 246, 0.09);
+            stroke-dasharray: 22 78;
+        }
+        .synclyst-hero-cta-border-trail-fade-3 {
+            stroke: rgba(167, 139, 250, 0.13);
+            stroke-dasharray: 15 85;
+        }
+        .synclyst-hero-cta-border-trail-fade-2 {
+            stroke: rgba(180, 160, 252, 0.19);
+            stroke-dasharray: 9 91;
+        }
+        .synclyst-hero-cta-border-trail-fade-1 {
+            stroke: rgba(196, 181, 253, 0.26);
+            stroke-dasharray: 5 95;
         }
         .synclyst-hero-cta-border-trail-head {
-            stroke: rgba(255, 255, 255, 0.5);
-            stroke-dasharray: 2 98;
+            stroke: rgba(221, 214, 254, 0.34);
+            stroke-dasharray: 2.5 97.5;
         }
         .synclyst-hero-cta .d-flex {
             position: relative;
@@ -246,9 +267,13 @@
             }
         }
         @media (prefers-reduced-motion: reduce) {
-            .synclyst-hero-cta-border-trail-tail,
-            .synclyst-hero-cta-border-trail-mid,
-            .synclyst-hero-cta-border-trail-soft,
+            .synclyst-hero-cta-border-trail-glow,
+            .synclyst-hero-cta-border-trail-fade-6,
+            .synclyst-hero-cta-border-trail-fade-5,
+            .synclyst-hero-cta-border-trail-fade-4,
+            .synclyst-hero-cta-border-trail-fade-3,
+            .synclyst-hero-cta-border-trail-fade-2,
+            .synclyst-hero-cta-border-trail-fade-1,
             .synclyst-hero-cta-border-trail-head {
                 animation: none;
                 stroke-dasharray: none;
@@ -998,11 +1023,31 @@
                                         <div class="synclyst-hero-button-row mt-40" style="flex-direction:column;align-items:center;gap:0;">
                                             <a href="https://chromewebstore.google.com/detail/synclyst-listing-autopilo/copjkijolfpmhjgiggafngmdeibnmfnm" target="_blank" rel="noopener noreferrer" class="butn butn-md butn-bg butn-rounded synclyst-hero-cta">
                                                 <svg class="synclyst-hero-cta-border" aria-hidden="true" focusable="false">
+                                                    <defs>
+                                                        <filter id="synclyst-cta-trail-glow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+                                                            <feGaussianBlur in="SourceGraphic" stdDeviation="2.4"></feGaussianBlur>
+                                                        </filter>
+                                                        <filter id="synclyst-cta-trail-soften" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+                                                            <feGaussianBlur in="SourceGraphic" stdDeviation="0.85" result="blur"></feGaussianBlur>
+                                                            <feMerge>
+                                                                <feMergeNode in="blur"></feMergeNode>
+                                                                <feMergeNode in="SourceGraphic"></feMergeNode>
+                                                            </feMerge>
+                                                        </filter>
+                                                    </defs>
                                                     <rect class="synclyst-hero-cta-border-base" pathLength="100"></rect>
-                                                    <rect class="synclyst-hero-cta-border-trail-tail" pathLength="100"></rect>
-                                                    <rect class="synclyst-hero-cta-border-trail-mid" pathLength="100"></rect>
-                                                    <rect class="synclyst-hero-cta-border-trail-soft" pathLength="100"></rect>
-                                                    <rect class="synclyst-hero-cta-border-trail-head" pathLength="100"></rect>
+                                                    <g class="synclyst-hero-cta-border-trail-glow-wrap" filter="url(#synclyst-cta-trail-glow)">
+                                                        <rect class="synclyst-hero-cta-border-trail-glow" pathLength="100"></rect>
+                                                    </g>
+                                                    <g class="synclyst-hero-cta-border-trail" filter="url(#synclyst-cta-trail-soften)">
+                                                        <rect class="synclyst-hero-cta-border-trail-fade-6" pathLength="100"></rect>
+                                                        <rect class="synclyst-hero-cta-border-trail-fade-5" pathLength="100"></rect>
+                                                        <rect class="synclyst-hero-cta-border-trail-fade-4" pathLength="100"></rect>
+                                                        <rect class="synclyst-hero-cta-border-trail-fade-3" pathLength="100"></rect>
+                                                        <rect class="synclyst-hero-cta-border-trail-fade-2" pathLength="100"></rect>
+                                                        <rect class="synclyst-hero-cta-border-trail-fade-1" pathLength="100"></rect>
+                                                        <rect class="synclyst-hero-cta-border-trail-head" pathLength="100"></rect>
+                                                    </g>
                                                 </svg>
                                                 <div class="d-flex align-items-center">
                                                     <span>Install Chrome Extension</span>
@@ -1010,12 +1055,12 @@
                                                 </div>
                                             </a>
                                             <div style="margin-top:14px;text-align:center;">
-                                                <span style="font-size:13px;color:#888;display:block;">Chrome Extension · desktop only · mobile soon.</span>
+                                                <span style="font-size:13px;color:#888;display:block;">Chrome Extension · Desktop only · Mobile soon.</span>
                                             </div>
                                             <div style="margin-top:14px;text-align:center;">
                                                 <span style="font-size:13px;color:#888;display:block;margin-bottom:6px;">Also available:</span>
-                                                <span style="font-size:13px;color:#666;">
-                                                    <a href="https://scan.synclyst.app" target="_blank" rel="noopener noreferrer" style="color:#888;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#888'">🔍 SyncIQ <span style="color:#7c3aed;font-weight:600;">FREE</span> — Price check for resellers</a>
+                                                <span style="font-size:13px;">
+                                                    <a href="https://scan.synclyst.app" target="_blank" rel="noopener noreferrer" style="color:#fff;text-decoration:none;">🔍 SyncIQ <span style="color:#7c3aed;font-weight:600;">FREE</span> — Price check for resellers</a>
                                                 </span>
                                             </div>
                                         </div>
