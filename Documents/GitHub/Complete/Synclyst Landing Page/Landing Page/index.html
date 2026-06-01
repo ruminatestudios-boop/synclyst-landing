@@ -215,12 +215,16 @@
             padding: 1px;
             background: conic-gradient(
                 from 0deg,
-                transparent 0deg 312deg,
-                rgba(124, 58, 237, 0.2) 322deg,
-                rgba(196, 181, 253, 0.75) 332deg,
+                transparent 0deg 250deg,
+                rgba(124, 58, 237, 0.05) 265deg,
+                rgba(124, 58, 237, 0.12) 280deg,
+                rgba(167, 139, 250, 0.22) 295deg,
+                rgba(196, 181, 253, 0.42) 310deg,
+                rgba(221, 214, 254, 0.68) 322deg,
+                rgba(255, 255, 255, 0.92) 334deg,
                 rgba(255, 255, 255, 1) 340deg,
-                rgba(196, 181, 253, 0.75) 348deg,
-                rgba(124, 58, 237, 0.2) 358deg,
+                rgba(233, 213, 255, 0.55) 348deg,
+                rgba(167, 139, 250, 0.18) 356deg,
                 transparent 360deg
             );
             -webkit-mask:
@@ -231,7 +235,7 @@
                 linear-gradient(#fff 0 0) content-box,
                 linear-gradient(#fff 0 0);
             mask-composite: exclude;
-            animation: synclyst-hero-cta-border-travel 3.4s ease-in-out infinite;
+            animation: synclyst-hero-cta-border-trail 4s linear infinite;
             pointer-events: none;
             z-index: 1;
             filter: none;
@@ -241,20 +245,20 @@
             position: relative;
             z-index: 2;
         }
-        @keyframes synclyst-hero-cta-border-travel {
+        @keyframes synclyst-hero-cta-border-trail {
             0% {
                 transform: rotate(0deg);
                 opacity: 1;
             }
-            68% {
+            72% {
                 transform: rotate(360deg);
                 opacity: 1;
             }
-            82% {
+            84% {
                 transform: rotate(360deg);
                 opacity: 1;
             }
-            83% {
+            85% {
                 transform: rotate(0deg);
                 opacity: 0;
             }
