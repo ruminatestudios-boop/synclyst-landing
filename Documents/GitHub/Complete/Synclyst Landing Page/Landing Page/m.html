@@ -26,54 +26,65 @@
     <link rel="apple-touch-icon" href="/assets/imgs/synclyst-icon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/common/css/plugins.css?v=2">
-    <link rel="stylesheet" href="/assets/css/mobile-bridge.css?v=2">
+    <link rel="stylesheet" href="/assets/css/mobile-bridge.css?v=3">
 </head>
 
 <body>
 
     <header class="mb-header">
-        <a href="/" class="mb-logo" aria-label="SyncLyst home">SyncLyst<sup>®</sup></a>
-        <a href="/sign-in" class="mb-sign-in">Sign In</a>
+        <div class="mb-container mb-header-inner">
+            <a href="/" class="mb-logo" aria-label="SyncLyst home">SyncLyst<sup>®</sup></a>
+            <a href="/sign-in" class="mb-sign-in">Sign In</a>
+        </div>
     </header>
 
     <main class="mb-page">
 
         <!-- Hero -->
         <section class="mb-hero" id="hero">
-            <div class="mb-hero-video-wrap">
-                <video
-                    class="mb-hero-video"
-                    src="https://cdn.shopify.com/videos/c/o/v/a1339d2915174ff39f33e43a26d6925c.mp4"
-                    muted
-                    loop
-                    playsinline
-                    autoplay
-                    preload="auto"
-                    aria-label="SyncLyst demo: scan a product tag and auto-fill a marketplace listing form">
-                </video>
-                <span class="mb-hero-video-badge">Live demo</span>
+            <div class="mb-container">
+                <div class="mb-hero-grid">
+                    <div class="mb-hero-video-wrap">
+                        <video
+                            class="mb-hero-video"
+                            src="https://cdn.shopify.com/videos/c/o/v/a1339d2915174ff39f33e43a26d6925c.mp4"
+                            muted
+                            loop
+                            playsinline
+                            autoplay
+                            preload="auto"
+                            aria-label="SyncLyst demo: scan a product tag and auto-fill a marketplace listing form">
+                        </video>
+                        <span class="mb-hero-video-badge">Live demo</span>
+                    </div>
+
+                    <div class="mb-hero-copy">
+                        <h1 class="mb-h1">From Photo to Marketplace Listing in 60 Seconds.</h1>
+
+                        <p class="mb-subhead">
+                            SyncLyst is an AI-powered Chrome Extension that turns product photos into ready-to-publish listings for
+                            <strong>Shopify, eBay, and Etsy</strong> — titles, descriptions, tags, and pricing. No typing. Just scan and publish.
+                        </p>
+
+                        <div class="mb-hero-cta-block">
+                            <button type="button" class="mb-btn mb-btn-primary mb-btn-hero" id="heroCta" data-cta-role="hero">
+                                Claim Your 5 Free Scans (Create Account)
+                            </button>
+                            <p class="mb-trust">Free forever · <span>No credit card required</span></p>
+
+                            <p class="mb-social-proof">
+                                <span class="mb-stars" aria-hidden="true">★★★★★</span>
+                                Trusted by vintage &amp; streetwear resellers
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <h1 class="mb-h1">From Photo to Marketplace Listing in 60 Seconds.</h1>
-
-            <p class="mb-subhead">
-                SyncLyst is an AI-powered Chrome Extension that turns product photos into ready-to-publish listings for
-                <strong>Shopify, eBay, and Etsy</strong> — titles, descriptions, tags, and pricing. No typing. Just scan and publish.
-            </p>
-
-            <button type="button" class="mb-btn mb-btn-primary" id="heroCta" data-cta-role="hero">
-                Claim Your 5 Free Scans (Create Account)
-            </button>
-            <p class="mb-trust">Free forever · <span>No credit card required</span></p>
-
-            <p class="mb-social-proof">
-                <span class="mb-stars" aria-hidden="true">★★★★★</span>
-                Trusted by vintage &amp; streetwear resellers
-            </p>
         </section>
 
         <!-- How It Works (mobile bridge) -->
         <section class="mb-section mb-mobile-only" id="how-it-works">
+            <div class="mb-container">
             <span class="mb-eyebrow">How It Works</span>
             <h2 class="mb-section-head">You're on your phone.<br>SyncLyst lives on your computer.</h2>
             <p class="mb-section-sub">Here's how we connect the two in under 2 minutes:</p>
@@ -105,28 +116,46 @@
             <button type="button" class="mb-btn mb-btn-primary" data-open-signup style="margin-top: 28px;">
                 Lock In My 5 Free Scans →
             </button>
+            </div>
         </section>
 
-        <!-- Desktop-only quick install -->
-        <section class="mb-section mb-desktop-only" id="desktop-install">
-            <span class="mb-eyebrow">Ready to Install</span>
-            <h2 class="mb-section-head">You're on desktop — install in one click.</h2>
-            <p class="mb-section-sub">Add the SyncLyst Chrome Extension and get 5 free AI scans to automate your listings instantly.</p>
-            <a
-                href="https://chromewebstore.google.com/detail/synclyst-listing-autopilo/copjkijolfpmhjgiggafngmdeibnmfnm"
-                class="mb-btn mb-btn-primary mb-btn-link"
-                target="_blank"
-                rel="noopener noreferrer">
-                Install Chrome Extension (Get 5 Free Scans)
-            </a>
+        <!-- Desktop how-it-works -->
+        <section class="mb-section mb-desktop-only mb-desktop-steps" id="desktop-install">
+            <div class="mb-container">
+                <div class="mb-section-intro">
+                    <span class="mb-eyebrow">How It Works</span>
+                    <h2 class="mb-section-head">Install once. Automate every listing.</h2>
+                    <p class="mb-section-sub mb-section-sub-center">Three steps from product photo to live marketplace listing — no copy-paste, no manual typing.</p>
+                </div>
+                <div class="mb-desktop-steps-grid">
+                    <div class="mb-desktop-step">
+                        <span class="mb-desktop-step-num">1</span>
+                        <h3 class="mb-desktop-step-title">Install the Chrome Extension</h3>
+                        <p class="mb-desktop-step-text">Add SyncLyst to Chrome in one click. Sign in and unlock 5 free AI scans instantly.</p>
+                    </div>
+                    <div class="mb-desktop-step">
+                        <span class="mb-desktop-step-num">2</span>
+                        <h3 class="mb-desktop-step-title">Scan any product</h3>
+                        <p class="mb-desktop-step-text">Point SyncLyst at a photo or listing page — AI extracts tags, details, and pricing automatically.</p>
+                    </div>
+                    <div class="mb-desktop-step">
+                        <span class="mb-desktop-step-num">3</span>
+                        <h3 class="mb-desktop-step-title">Publish everywhere</h3>
+                        <p class="mb-desktop-step-text">Push optimized drafts to Shopify, eBay, Etsy, and more. Review once, list at scale.</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Features -->
         <section class="mb-section" id="features">
-            <span class="mb-eyebrow">Why SyncLyst</span>
-            <h2 class="mb-section-head">Everything a reseller hates doing — automated.</h2>
+            <div class="mb-container">
+                <div class="mb-section-intro">
+                    <span class="mb-eyebrow">Why SyncLyst</span>
+                    <h2 class="mb-section-head">Everything a reseller hates doing — automated.</h2>
+                </div>
 
-            <div class="mb-features">
+                <div class="mb-features">
 
                 <article class="mb-feature">
                     <div class="mb-feature-media">
@@ -197,10 +226,12 @@
                 <i class="fa-brands fa-etsy" title="Etsy"></i>
                 <i class="fa-brands fa-amazon" title="Amazon"></i>
             </div>
+            </div>
         </section>
 
         <!-- Testimonial -->
         <section class="mb-section" id="proof">
+            <div class="mb-container">
             <div class="mb-testimonial">
                 <div class="mb-testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
                 <blockquote class="mb-testimonial-quote">
@@ -210,18 +241,25 @@
                     <strong>BKK City Pasta</strong> · Vintage Reseller · Chrome Web Store
                 </p>
             </div>
+            </div>
         </section>
 
         <!-- Footer -->
         <footer class="mb-footer">
-            <div class="mb-footer-logo">SyncLyst<sup>®</sup></div>
-            <p class="mb-footer-tagline">Source, scan, and list products faster with AI.</p>
-            <p class="mb-footer-email"><a href="mailto:hello@synclyst.app">hello@synclyst.app</a></p>
-            <nav class="mb-footer-links" aria-label="Footer">
-                <a href="/terms">Terms</a>
-                <a href="/privacy">Privacy</a>
-                <a href="/sign-in">Sign In</a>
-            </nav>
+            <div class="mb-container mb-footer-inner">
+                <div class="mb-footer-brand">
+                    <div class="mb-footer-logo">SyncLyst<sup>®</sup></div>
+                    <p class="mb-footer-tagline">Source, scan, and list products faster with AI.</p>
+                </div>
+                <div class="mb-footer-contact">
+                    <p class="mb-footer-email"><a href="mailto:hello@synclyst.app">hello@synclyst.app</a></p>
+                    <nav class="mb-footer-links" aria-label="Footer">
+                        <a href="/terms">Terms</a>
+                        <a href="/privacy">Privacy</a>
+                        <a href="/sign-in">Sign In</a>
+                    </nav>
+                </div>
+            </div>
         </footer>
 
     </main>
@@ -264,7 +302,7 @@
         </form>
     </div>
 
-    <script src="/assets/js/mobile-bridge.js?v=2"></script>
+    <script src="/assets/js/mobile-bridge.js?v=3"></script>
 </body>
 
 </html>

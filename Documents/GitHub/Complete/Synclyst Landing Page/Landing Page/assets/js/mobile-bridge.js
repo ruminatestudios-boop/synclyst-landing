@@ -94,12 +94,6 @@
     }
 
     function setCtaAsLink(el, href, label) {
-        if (el.tagName === 'A') {
-            el.href = href;
-            el.textContent = label;
-            return;
-        }
-
         var link = document.createElement('a');
         link.className = el.className;
         link.id = el.id || '';
