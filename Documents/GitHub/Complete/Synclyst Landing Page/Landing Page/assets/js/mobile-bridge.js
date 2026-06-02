@@ -1,9 +1,18 @@
 (function () {
     'use strict';
 
+    var CHROME_STORE_URL = 'https://chromewebstore.google.com/detail/synclyst-listing-autopilo/copjkijolfpmhjgiggafngmdeibnmfnm';
     var STORAGE_EMAIL = 'synclyst_mobile_email';
     var STORAGE_FROM = 'synclyst_mobile_from';
     var RESEND_COOLDOWN_MS = 60000;
+
+    var LABELS = {
+        heroMobile: 'Claim Your 5 Free Scans (Create Account)',
+        heroDesktop: 'Install Chrome Extension (Get 5 Free Scans)',
+        stickyMobile: 'Secure My 5 Scans →',
+        stickyDesktop: 'Install Extension →',
+        secondaryMobile: 'Lock In My 5 Free Scans →'
+    };
 
     function $(sel, root) {
         return (root || document).querySelector(sel);
@@ -11,6 +20,21 @@
 
     function $$(sel, root) {
         return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+    }
+
+    function isMobileDevice() {
+        var ua = navigator.userAgent || '';
+        var mobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+        var coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+        var narrowScreen = window.matchMedia('(max-width: 768px)').matches;
+        return mobileUA || (coarsePointer && narrowScreen);
+    }
+
+    function applyDeviceClass() {
+        var mobile = isMobileDevice();
+        document.documentElement.classList.toggle('is-mobile', mobile);
+        document.documentElement.classList.toggle('is-desktop', !mobile);
+        return mobile;
     }
 
     function openSheet() {
@@ -54,8 +78,86 @@
         return window.location.origin + '/chromeextension/welcome';
     }
 
+    function navigateToChromeStore() {
+        window.location.href = CHROME_STORE_URL;
+    }
+
+    function bindSignupTrigger(el) {
+        el.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (isMobileDevice()) {
+                openSheet();
+            } else {
+                navigateToChromeStore();
+            }
+        });
+    }
+
+    function setCtaAsLink(el, href, label) {
+        if (el.tagName === 'A') {
+            el.href = href;
+            el.textContent = label;
+            return;
+        }
+
+        var link = document.createElement('a');
+        link.className = el.className;
+        link.id = el.id || '';
+        link.href = href;
+        link.textContent = label;
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+
+        if (el.hasAttribute('data-cta-role')) {
+            link.setAttribute('data-cta-role', el.getAttribute('data-cta-role'));
+        }
+
+        el.parentNode.replaceChild(link, el);
+    }
+
+    function initDeviceCTAs() {
+        var mobile = applyDeviceClass();
+        var heroCta = $('#heroCta');
+        var stickyCta = $('#stickyCtaBtn');
+        var stickyText = $('#stickyCtaText');
+
+        if (heroCta) {
+            if (mobile) {
+                heroCta.textContent = LABELS.heroMobile;
+                bindSignupTrigger(heroCta);
+            } else {
+                setCtaAsLink(heroCta, CHROME_STORE_URL, LABELS.heroDesktop);
+            }
+        }
+
+        if (stickyCta) {
+            if (mobile) {
+                stickyCta.textContent = LABELS.stickyMobile;
+                bindSignupTrigger(stickyCta);
+            } else {
+                if (stickyText) stickyText.textContent = 'Desktop ready';
+                setCtaAsLink(stickyCta, CHROME_STORE_URL, LABELS.stickyDesktop);
+            }
+        }
+
+        $$('[data-open-signup]').forEach(function (el) {
+            if (el.id === 'heroCta' || el.id === 'stickyCtaBtn') return;
+            if (mobile) {
+                bindSignupTrigger(el);
+            } else {
+                setCtaAsLink(el, CHROME_STORE_URL, el.textContent.trim() || LABELS.heroDesktop);
+            }
+        });
+    }
+
     function handleSignupSubmit(e) {
         e.preventDefault();
+
+        if (!isMobileDevice()) {
+            navigateToChromeStore();
+            return;
+        }
+
         var form = e.target;
         var emailInput = $('#signupEmail', form);
         var passwordInput = $('#signupPassword', form);
@@ -90,7 +192,8 @@
 
         var welcomeUrl = getWelcomeUrl();
         var signUpUrl = '/sign-up?redirect_url=' + encodeURIComponent(welcomeUrl) +
-            '&email=' + encodeURIComponent(email);
+            '&email=' + encodeURIComponent(email) +
+            '&source=mobile_bridge';
 
         window.location.href = signUpUrl;
     }
@@ -123,13 +226,22 @@
         });
     }
 
-    function initLandingPage() {
-        $$('[data-open-signup]').forEach(function (el) {
-            el.addEventListener('click', function (e) {
-                e.preventDefault();
-                openSheet();
-            });
+    function initFeatureVideos() {
+        $$('.mb-feature-video').forEach(function (video) {
+            video.muted = true;
+            video.playsInline = true;
+            video.loop = true;
+            video.autoplay = true;
+
+            var playPromise = video.play();
+            if (playPromise && typeof playPromise.catch === 'function') {
+                playPromise.catch(function () { /* autoplay blocked */ });
+            }
         });
+    }
+
+    function initLandingPage() {
+        initDeviceCTAs();
 
         var backdrop = $('#signupBackdrop');
         var closeBtn = $('#signupClose');
@@ -141,6 +253,7 @@
 
         initStickyCta();
         initPasswordToggle();
+        initFeatureVideos();
 
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') closeSheet();
@@ -158,6 +271,11 @@
     }
 
     function initWelcomePage() {
+        if (!isMobileDevice()) {
+            window.location.replace(CHROME_STORE_URL);
+            return;
+        }
+
         var emailEl = $('#userEmail');
         var resendBtn = $('#resendBtn');
         if (!emailEl) return;
@@ -174,8 +292,9 @@
 
         if (email) {
             emailEl.textContent = email;
+            emailEl.closest('.mb-email-card').classList.remove('is-hidden');
         } else {
-            emailEl.textContent = 'your email address';
+            emailEl.closest('.mb-email-card').classList.add('is-hidden');
         }
 
         if (!resendBtn) return;
@@ -228,10 +347,10 @@
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function () {
             if ($('#signupForm')) initLandingPage();
-            if ($('#userEmail')) initWelcomePage();
+            if ($('#welcomePage')) initWelcomePage();
         });
     } else {
         if ($('#signupForm')) initLandingPage();
-        if ($('#userEmail')) initWelcomePage();
+        if ($('#welcomePage')) initWelcomePage();
     }
 })();

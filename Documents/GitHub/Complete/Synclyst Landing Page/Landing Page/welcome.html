@@ -8,44 +8,47 @@
     <meta name="robots" content="noindex">
     <title>Account Created — SyncLyst</title>
 
+    <script>
+        (function () {
+            var ua = navigator.userAgent || '';
+            var mobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+            var coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+            var narrowScreen = window.matchMedia('(max-width: 768px)').matches;
+            var mobile = mobileUA || (coarsePointer && narrowScreen);
+            document.documentElement.classList.add(mobile ? 'is-mobile' : 'is-desktop');
+            if (!mobile) {
+                window.location.replace('https://chromewebstore.google.com/detail/synclyst-listing-autopilo/copjkijolfpmhjgiggafngmdeibnmfnm');
+            }
+        })();
+    </script>
+
     <link rel="shortcut icon" href="/assets/imgs/synclyst-icon.png" type="image/png">
     <link rel="apple-touch-icon" href="/assets/imgs/synclyst-icon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/mobile-bridge.css?v=1">
+    <link rel="stylesheet" href="/assets/css/mobile-bridge.css?v=2">
 </head>
 
 <body>
 
     <header class="mb-header">
-        <a href="/" class="mb-logo" aria-label="SyncLyst home">SyncLyst<sup>®</sup></a>
+        <a href="/chromeextension" class="mb-logo" aria-label="SyncLyst home">SyncLyst<sup>®</sup></a>
     </header>
 
-    <main class="mb-welcome-page">
+    <main class="mb-welcome-page" id="welcomePage">
 
-        <div class="mb-welcome-icon" aria-hidden="true">🎉</div>
-
-        <h1 class="mb-welcome-h1">Account Created!<br>Your 5 Free Scans Are Locked In.</h1>
+        <h1 class="mb-welcome-h1">
+            🎉 Account Created! Your 5 Free Scans Are Locked In.
+        </h1>
 
         <div class="mb-email-card">
             <div class="mb-email-card-icon" aria-hidden="true">✉️</div>
-            <p class="mb-email-card-title">Check your email</p>
+            <p class="mb-email-card-title">Sent to</p>
             <p class="mb-email-card-address" id="userEmail">your email address</p>
         </div>
 
         <p class="mb-welcome-body">
-            Because SyncLyst is a powerful desktop Chrome Extension, we just sent your secure download link straight to your email.
-            <br><br>
-            Step away from your phone, open that email on your <strong>laptop or computer</strong>, and run your first automated scan!
+            Because SyncLyst is a desktop Chrome Extension, we just sent your secure download link straight to your email inbox. Open that email on your <strong>laptop or computer</strong> to install the extension and run your first automated scan!
         </p>
-
-        <div class="mb-next-steps">
-            <p class="mb-next-steps-label">Next Steps</p>
-            <ol>
-                <li>Open the SyncLyst email on your <strong>desktop</strong></li>
-                <li>Click <strong>"Install Chrome Extension"</strong></li>
-                <li>Scan your first product — AI handles the listing</li>
-            </ol>
-        </div>
 
         <div class="mb-welcome-actions">
             <button type="button" class="mb-btn mb-btn-outline" id="resendBtn">Resend Desktop Link</button>
@@ -57,7 +60,7 @@
 
     <div class="mb-toast" id="toast" role="status" aria-live="polite"></div>
 
-    <script src="/assets/js/mobile-bridge.js?v=1"></script>
+    <script src="/assets/js/mobile-bridge.js?v=2"></script>
 </body>
 
 </html>

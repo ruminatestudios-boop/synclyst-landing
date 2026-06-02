@@ -11,11 +11,22 @@
     <meta property="og:url" content="https://synclyst.app/chromeextension">
     <title>SyncLyst — Claim 5 Free AI Scans | Mobile</title>
 
+    <script>
+        (function () {
+            var ua = navigator.userAgent || '';
+            var mobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+            var coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+            var narrowScreen = window.matchMedia('(max-width: 768px)').matches;
+            var mobile = mobileUA || (coarsePointer && narrowScreen);
+            document.documentElement.classList.add(mobile ? 'is-mobile' : 'is-desktop');
+        })();
+    </script>
+
     <link rel="shortcut icon" href="/assets/imgs/synclyst-icon.png" type="image/png">
     <link rel="apple-touch-icon" href="/assets/imgs/synclyst-icon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/common/css/plugins.css?v=2">
-    <link rel="stylesheet" href="/assets/css/mobile-bridge.css?v=1">
+    <link rel="stylesheet" href="/assets/css/mobile-bridge.css?v=2">
 </head>
 
 <body>
@@ -31,12 +42,14 @@
         <section class="mb-hero" id="hero">
             <div class="mb-hero-video-wrap">
                 <video
+                    class="mb-hero-video"
                     src="https://cdn.shopify.com/videos/c/o/v/a1339d2915174ff39f33e43a26d6925c.mp4"
                     muted
                     loop
                     playsinline
                     autoplay
-                    aria-label="SyncLyst demo: scan a product and generate a marketplace listing">
+                    preload="auto"
+                    aria-label="SyncLyst demo: scan a product tag and auto-fill a marketplace listing form">
                 </video>
                 <span class="mb-hero-video-badge">Live demo</span>
             </div>
@@ -48,7 +61,7 @@
                 <strong>Shopify, eBay, and Etsy</strong> — titles, descriptions, tags, and pricing. No typing. Just scan and publish.
             </p>
 
-            <button type="button" class="mb-btn mb-btn-primary" data-open-signup>
+            <button type="button" class="mb-btn mb-btn-primary" id="heroCta" data-cta-role="hero">
                 Claim Your 5 Free Scans (Create Account)
             </button>
             <p class="mb-trust">Free forever · <span>No credit card required</span></p>
@@ -59,11 +72,15 @@
             </p>
         </section>
 
-        <!-- How It Works -->
-        <section class="mb-section" id="how-it-works">
+        <!-- How It Works (mobile bridge) -->
+        <section class="mb-section mb-mobile-only" id="how-it-works">
             <span class="mb-eyebrow">How It Works</span>
             <h2 class="mb-section-head">You're on your phone.<br>SyncLyst lives on your computer.</h2>
             <p class="mb-section-sub">Here's how we connect the two in under 2 minutes:</p>
+
+            <p class="mb-bridge-intro">
+                SyncLyst transforms your smartphone into a high-speed inventory camera that instantly streams data straight to your desktop browser.
+            </p>
 
             <div class="mb-steps">
                 <div class="mb-step">
@@ -90,6 +107,20 @@
             </button>
         </section>
 
+        <!-- Desktop-only quick install -->
+        <section class="mb-section mb-desktop-only" id="desktop-install">
+            <span class="mb-eyebrow">Ready to Install</span>
+            <h2 class="mb-section-head">You're on desktop — install in one click.</h2>
+            <p class="mb-section-sub">Add the SyncLyst Chrome Extension and get 5 free AI scans to automate your listings instantly.</p>
+            <a
+                href="https://chromewebstore.google.com/detail/synclyst-listing-autopilo/copjkijolfpmhjgiggafngmdeibnmfnm"
+                class="mb-btn mb-btn-primary mb-btn-link"
+                target="_blank"
+                rel="noopener noreferrer">
+                Install Chrome Extension (Get 5 Free Scans)
+            </a>
+        </section>
+
         <!-- Features -->
         <section class="mb-section" id="features">
             <span class="mb-eyebrow">Why SyncLyst</span>
@@ -99,10 +130,16 @@
 
                 <article class="mb-feature">
                     <div class="mb-feature-media">
-                        <div class="mb-feature-placeholder">
-                            <i class="fa-solid fa-tags" aria-hidden="true"></i>
-                            <span>Feature demo GIF</span>
-                        </div>
+                        <video
+                            class="mb-feature-video"
+                            muted
+                            loop
+                            playsinline
+                            autoplay
+                            preload="metadata"
+                            aria-label="Demo: smart tag and detail scraping from a product photo">
+                            <source src="https://cdn.shopify.com/videos/c/o/v/a1339d2915174ff39f33e43a26d6925c.mp4" type="video/mp4">
+                        </video>
                     </div>
                     <div class="mb-feature-body">
                         <h3 class="mb-feature-title">Smart Tag &amp; Detail Scraping</h3>
@@ -113,10 +150,16 @@
 
                 <article class="mb-feature">
                     <div class="mb-feature-media">
-                        <div class="mb-feature-placeholder">
-                            <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
-                            <span>Feature demo GIF</span>
-                        </div>
+                        <video
+                            class="mb-feature-video"
+                            muted
+                            loop
+                            playsinline
+                            autoplay
+                            preload="metadata"
+                            aria-label="Demo: multi-channel syncing to Shopify, eBay, and Etsy">
+                            <source src="https://cdn.shopify.com/videos/c/o/v/a1339d2915174ff39f33e43a26d6925c.mp4" type="video/mp4">
+                        </video>
                     </div>
                     <div class="mb-feature-body">
                         <h3 class="mb-feature-title">Multi-Channel Syncing</h3>
@@ -127,10 +170,16 @@
 
                 <article class="mb-feature">
                     <div class="mb-feature-media">
-                        <div class="mb-feature-placeholder">
-                            <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
-                            <span>Feature demo GIF</span>
-                        </div>
+                        <video
+                            class="mb-feature-video"
+                            muted
+                            loop
+                            playsinline
+                            autoplay
+                            preload="metadata"
+                            aria-label="Demo: AI-optimized titles and descriptions for marketplace search">
+                            <source src="https://cdn.shopify.com/videos/c/o/v/a1339d2915174ff39f33e43a26d6925c.mp4" type="video/mp4">
+                        </video>
                     </div>
                     <div class="mb-feature-body">
                         <h3 class="mb-feature-title">AI-Optimized Titles &amp; Descriptions</h3>
@@ -167,7 +216,7 @@
         <footer class="mb-footer">
             <div class="mb-footer-logo">SyncLyst<sup>®</sup></div>
             <p class="mb-footer-tagline">Source, scan, and list products faster with AI.</p>
-            <p class="mb-footer-email"><a href="mailto:synclyst@gmail.com">synclyst@gmail.com</a></p>
+            <p class="mb-footer-email"><a href="mailto:hello@synclyst.app">hello@synclyst.app</a></p>
             <nav class="mb-footer-links" aria-label="Footer">
                 <a href="/terms">Terms</a>
                 <a href="/privacy">Privacy</a>
@@ -180,14 +229,14 @@
     <!-- Sticky CTA -->
     <div class="mb-sticky-cta" id="stickyCta" aria-hidden="true">
         <div class="mb-sticky-inner">
-            <span class="mb-sticky-text">5 free scans waiting</span>
-            <button type="button" class="mb-btn mb-btn-primary" data-open-signup>Claim Free →</button>
+            <span class="mb-sticky-text" id="stickyCtaText">5 free scans waiting</span>
+            <button type="button" class="mb-btn mb-btn-primary" id="stickyCtaBtn" data-cta-role="sticky">Secure My 5 Scans →</button>
         </div>
     </div>
 
-    <!-- Signup bottom sheet -->
-    <div class="mb-sheet-backdrop" id="signupBackdrop" aria-hidden="true"></div>
-    <div class="mb-sheet" id="signupSheet" role="dialog" aria-modal="true" aria-labelledby="signupTitle">
+    <!-- Signup bottom sheet (mobile only) -->
+    <div class="mb-sheet-backdrop mb-mobile-only" id="signupBackdrop" aria-hidden="true"></div>
+    <div class="mb-sheet mb-mobile-only" id="signupSheet" role="dialog" aria-modal="true" aria-labelledby="signupTitle">
         <div class="mb-sheet-handle" aria-hidden="true"></div>
         <button type="button" class="mb-sheet-close" id="signupClose" aria-label="Close signup form">×</button>
 
@@ -215,7 +264,7 @@
         </form>
     </div>
 
-    <script src="/assets/js/mobile-bridge.js?v=1"></script>
+    <script src="/assets/js/mobile-bridge.js?v=2"></script>
 </body>
 
 </html>
