@@ -220,20 +220,6 @@
         });
     }
 
-    function initFeatureVideos() {
-        $$('.mb-feature-video').forEach(function (video) {
-            video.muted = true;
-            video.playsInline = true;
-            video.loop = true;
-            video.autoplay = true;
-
-            var playPromise = video.play();
-            if (playPromise && typeof playPromise.catch === 'function') {
-                playPromise.catch(function () { /* autoplay blocked */ });
-            }
-        });
-    }
-
     function initLandingPage() {
         initDeviceCTAs();
 
@@ -247,7 +233,6 @@
 
         initStickyCta();
         initPasswordToggle();
-        initFeatureVideos();
 
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') closeSheet();
