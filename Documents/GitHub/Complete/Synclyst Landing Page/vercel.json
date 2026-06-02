@@ -1,5 +1,11 @@
 {
   "outputDirectory": "Landing Page",
+  "rewrites": [
+    { "source": "/chromeextension", "destination": "/m.html" },
+    { "source": "/chromeextension/welcome", "destination": "/welcome.html" },
+    { "source": "/m", "destination": "/m.html" },
+    { "source": "/welcome", "destination": "/welcome.html" }
+  ],
   "redirects": [
     { "source": "/scan", "destination": "https://app.synclyst.app/scan", "permanent": false },
     { "source": "/scan/:path*", "destination": "https://app.synclyst.app/scan/:path*", "permanent": false },

@@ -1,0 +1,237 @@
+(function () {
+    'use strict';
+
+    var STORAGE_EMAIL = 'synclyst_mobile_email';
+    var STORAGE_FROM = 'synclyst_mobile_from';
+    var RESEND_COOLDOWN_MS = 60000;
+
+    function $(sel, root) {
+        return (root || document).querySelector(sel);
+    }
+
+    function $$(sel, root) {
+        return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+    }
+
+    function openSheet() {
+        var backdrop = $('#signupBackdrop');
+        var sheet = $('#signupSheet');
+        if (!backdrop || !sheet) return;
+        backdrop.classList.add('is-open');
+        sheet.classList.add('is-open');
+        document.body.classList.add('sheet-open');
+        var emailInput = $('#signupEmail');
+        if (emailInput) {
+            setTimeout(function () { emailInput.focus(); }, 350);
+        }
+    }
+
+    function closeSheet() {
+        var backdrop = $('#signupBackdrop');
+        var sheet = $('#signupSheet');
+        if (!backdrop || !sheet) return;
+        backdrop.classList.remove('is-open');
+        sheet.classList.remove('is-open');
+        document.body.classList.remove('sheet-open');
+    }
+
+    function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function showFieldError(input, errorEl, message) {
+        input.classList.add('is-error');
+        errorEl.textContent = message;
+        errorEl.classList.add('is-visible');
+    }
+
+    function clearFieldError(input, errorEl) {
+        input.classList.remove('is-error');
+        errorEl.classList.remove('is-visible');
+    }
+
+    function getWelcomeUrl() {
+        return window.location.origin + '/chromeextension/welcome';
+    }
+
+    function handleSignupSubmit(e) {
+        e.preventDefault();
+        var form = e.target;
+        var emailInput = $('#signupEmail', form);
+        var passwordInput = $('#signupPassword', form);
+        var emailError = $('#emailError', form);
+        var passwordError = $('#passwordError', form);
+        var submitBtn = $('#signupSubmit', form);
+
+        var email = emailInput.value.trim();
+        var password = passwordInput.value;
+
+        clearFieldError(emailInput, emailError);
+        clearFieldError(passwordInput, passwordError);
+
+        var valid = true;
+        if (!validateEmail(email)) {
+            showFieldError(emailInput, emailError, 'Please enter a valid email address.');
+            valid = false;
+        }
+        if (password.length < 8) {
+            showFieldError(passwordInput, passwordError, 'Password must be at least 8 characters.');
+            valid = false;
+        }
+        if (!valid) return;
+
+        submitBtn.classList.add('is-loading');
+        submitBtn.disabled = true;
+
+        try {
+            sessionStorage.setItem(STORAGE_EMAIL, email);
+            sessionStorage.setItem(STORAGE_FROM, 'mobile_bridge');
+        } catch (err) { /* ignore */ }
+
+        var welcomeUrl = getWelcomeUrl();
+        var signUpUrl = '/sign-up?redirect_url=' + encodeURIComponent(welcomeUrl) +
+            '&email=' + encodeURIComponent(email);
+
+        window.location.href = signUpUrl;
+    }
+
+    function initStickyCta() {
+        var sticky = $('#stickyCta');
+        var hero = $('#hero');
+        if (!sticky || !hero) return;
+
+        var observer = new IntersectionObserver(
+            function (entries) {
+                entries.forEach(function (entry) {
+                    sticky.classList.toggle('is-visible', !entry.isIntersecting);
+                });
+            },
+            { threshold: 0, rootMargin: '0px 0px -20px 0px' }
+        );
+        observer.observe(hero);
+    }
+
+    function initPasswordToggle() {
+        var toggle = $('#passwordToggle');
+        var input = $('#signupPassword');
+        if (!toggle || !input) return;
+
+        toggle.addEventListener('click', function () {
+            var isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            toggle.textContent = isPassword ? 'Hide' : 'Show';
+        });
+    }
+
+    function initLandingPage() {
+        $$('[data-open-signup]').forEach(function (el) {
+            el.addEventListener('click', function (e) {
+                e.preventDefault();
+                openSheet();
+            });
+        });
+
+        var backdrop = $('#signupBackdrop');
+        var closeBtn = $('#signupClose');
+        if (backdrop) backdrop.addEventListener('click', closeSheet);
+        if (closeBtn) closeBtn.addEventListener('click', closeSheet);
+
+        var form = $('#signupForm');
+        if (form) form.addEventListener('submit', handleSignupSubmit);
+
+        initStickyCta();
+        initPasswordToggle();
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeSheet();
+        });
+    }
+
+    function showToast(message) {
+        var toast = $('#toast');
+        if (!toast) return;
+        toast.textContent = message;
+        toast.classList.add('is-visible');
+        setTimeout(function () {
+            toast.classList.remove('is-visible');
+        }, 3500);
+    }
+
+    function initWelcomePage() {
+        var emailEl = $('#userEmail');
+        var resendBtn = $('#resendBtn');
+        if (!emailEl) return;
+
+        var email = '';
+        try {
+            email = sessionStorage.getItem(STORAGE_EMAIL) || '';
+        } catch (err) { /* ignore */ }
+
+        var params = new URLSearchParams(window.location.search);
+        if (!email && params.get('email')) {
+            email = params.get('email');
+        }
+
+        if (email) {
+            emailEl.textContent = email;
+        } else {
+            emailEl.textContent = 'your email address';
+        }
+
+        if (!resendBtn) return;
+
+        var lastResend = 0;
+        try {
+            lastResend = parseInt(sessionStorage.getItem('synclyst_last_resend') || '0', 10);
+        } catch (err) { /* ignore */ }
+
+        function updateResendState() {
+            var elapsed = Date.now() - lastResend;
+            if (elapsed < RESEND_COOLDOWN_MS) {
+                var secs = Math.ceil((RESEND_COOLDOWN_MS - elapsed) / 1000);
+                resendBtn.disabled = true;
+                resendBtn.textContent = 'Resend again in ' + secs + 's';
+            } else {
+                resendBtn.disabled = false;
+                resendBtn.textContent = 'Resend Desktop Link';
+            }
+        }
+
+        updateResendState();
+        var interval = setInterval(updateResendState, 1000);
+
+        resendBtn.addEventListener('click', function () {
+            if (Date.now() - lastResend < RESEND_COOLDOWN_MS) return;
+
+            lastResend = Date.now();
+            try {
+                sessionStorage.setItem('synclyst_last_resend', String(lastResend));
+            } catch (err) { /* ignore */ }
+
+            updateResendState();
+            showToast('✓ Link resent! Check your inbox.');
+
+            if (email && validateEmail(email)) {
+                var welcomeUrl = window.location.href.split('?')[0];
+                setTimeout(function () {
+                    window.location.href = '/sign-in?email=' + encodeURIComponent(email) +
+                        '&redirect_url=' + encodeURIComponent(welcomeUrl);
+                }, 1500);
+            }
+        });
+
+        window.addEventListener('beforeunload', function () {
+            clearInterval(interval);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+            if ($('#signupForm')) initLandingPage();
+            if ($('#userEmail')) initWelcomePage();
+        });
+    } else {
+        if ($('#signupForm')) initLandingPage();
+        if ($('#userEmail')) initWelcomePage();
+    }
+})();
