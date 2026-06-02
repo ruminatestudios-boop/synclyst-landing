@@ -88,3 +88,4 @@ export async function sendDesktopLinkEmail(email) {
 
   return { id: body?.id || null };
 }
+
