@@ -10,24 +10,26 @@
         heroMobile: 'Claim Your 5 Free Scans (Create Account)',
         heroDesktop: 'Install Chrome Extension (Get 5 Free Scans)',
         stickyMobile: 'Secure My 5 Scans →',
-        stickyDesktop: 'Install Extension →',
-        secondaryMobile: 'Lock In My 5 Free Scans →'
+        stickyDesktop: 'Install Extension →'
     };
 
     function $(sel, root) {
         return (root || document).querySelector(sel);
     }
 
-    function $$(sel, root) {
-        return Array.prototype.slice.call((root || document).querySelectorAll(sel));
-    }
-
     function isMobileDevice() {
         var ua = navigator.userAgent || '';
-        var mobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
-        var coarsePointer = window.matchMedia('(pointer: coarse)').matches;
-        var narrowScreen = window.matchMedia('(max-width: 768px)').matches;
-        return mobileUA || (coarsePointer && narrowScreen);
+        var mobileUA = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|CriOS|FxiOS/i.test(ua);
+        var tabletUA = /iPad|Tablet|PlayBook|Silk/i.test(ua);
+        var inAppBrowser = /TikTok|BytedanceWebview|musical_ly|Instagram|FBAN|FBAV|Twitter/i.test(ua);
+        var narrowScreen = window.matchMedia('(max-width: 900px)').matches;
+        var touchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+        if (inAppBrowser) return true;
+        if (mobileUA || tabletUA) return true;
+        if (touchDevice && narrowScreen) return true;
+
+        return false;
     }
 
     function applyDeviceClass() {
@@ -78,22 +80,33 @@
         return window.location.origin + '/chromeextension/welcome';
     }
 
-    function navigateToChromeStore() {
-        window.location.href = CHROME_STORE_URL;
+    function goToChromeStore() {
+        window.open(CHROME_STORE_URL, '_blank', 'noopener,noreferrer');
     }
 
-    function bindSignupTrigger(el) {
-        el.addEventListener('click', function (e) {
-            e.preventDefault();
-            if (isMobileDevice()) {
-                openSheet();
-            } else {
-                navigateToChromeStore();
-            }
-        });
+    function handleSmartCta(e) {
+        var target = e.target.closest('[data-open-signup], #heroCta, #stickyCtaBtn');
+        if (!target) return;
+
+        e.preventDefault();
+
+        if (isMobileDevice()) {
+            openSheet();
+        } else {
+            goToChromeStore();
+        }
     }
 
     function setCtaAsLink(el, href, label) {
+        if (el.tagName === 'A') {
+            el.href = href;
+            el.textContent = label;
+            el.setAttribute('target', '_blank');
+            el.setAttribute('rel', 'noopener noreferrer');
+            el.removeAttribute('data-open-signup');
+            return el;
+        }
+
         var link = document.createElement('a');
         link.className = el.className;
         link.id = el.id || '';
@@ -107,6 +120,7 @@
         }
 
         el.parentNode.replaceChild(link, el);
+        return link;
     }
 
     function initDeviceCTAs() {
@@ -118,7 +132,9 @@
         if (heroCta) {
             if (mobile) {
                 heroCta.textContent = LABELS.heroMobile;
-                bindSignupTrigger(heroCta);
+                if (heroCta.tagName !== 'BUTTON') {
+                    heroCta.setAttribute('data-open-signup', '');
+                }
             } else {
                 setCtaAsLink(heroCta, CHROME_STORE_URL, LABELS.heroDesktop);
             }
@@ -127,28 +143,19 @@
         if (stickyCta) {
             if (mobile) {
                 stickyCta.textContent = LABELS.stickyMobile;
-                bindSignupTrigger(stickyCta);
+                stickyCta.setAttribute('data-open-signup', '');
             } else {
                 if (stickyText) stickyText.textContent = 'Desktop ready';
                 setCtaAsLink(stickyCta, CHROME_STORE_URL, LABELS.stickyDesktop);
             }
         }
-
-        $$('[data-open-signup]').forEach(function (el) {
-            if (el.id === 'heroCta' || el.id === 'stickyCtaBtn') return;
-            if (mobile) {
-                bindSignupTrigger(el);
-            } else {
-                setCtaAsLink(el, CHROME_STORE_URL, el.textContent.trim() || LABELS.heroDesktop);
-            }
-        });
     }
 
     function handleSignupSubmit(e) {
         e.preventDefault();
 
         if (!isMobileDevice()) {
-            navigateToChromeStore();
+            goToChromeStore();
             return;
         }
 
@@ -222,6 +229,8 @@
 
     function initLandingPage() {
         initDeviceCTAs();
+
+        document.addEventListener('click', handleSmartCta);
 
         var backdrop = $('#signupBackdrop');
         var closeBtn = $('#signupClose');
