@@ -28,7 +28,7 @@
     <link rel="apple-touch-icon" href="/assets/imgs/synclyst-icon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/common/css/plugins.css?v=2">
-    <link rel="stylesheet" href="/assets/css/mobile-bridge.css?v=8">
+    <link rel="stylesheet" href="/assets/css/mobile-bridge.css?v=9">
 </head>
 
 <body>
@@ -88,21 +88,14 @@
             <div class="mb-container">
                 <span class="mb-eyebrow">Get Started Free</span>
                 <h2 class="mb-section-head">Lock In Your 5 Free Scans</h2>
-                <p class="mb-section-sub">Create your free account now. We'll email your desktop Chrome Extension install link instantly.</p>
+                <p class="mb-section-sub">Enter your email — we'll create your account and send your desktop install link instantly.</p>
 
                 <form id="signupForm" class="mb-signup-form" novalidate>
+                    <p class="mb-form-error" id="formError" role="alert" aria-live="polite"></p>
                     <div class="mb-field">
                         <label for="signupEmail">Email</label>
                         <input type="email" id="signupEmail" name="email" placeholder="you@email.com" autocomplete="email" required>
                         <p class="mb-field-error" id="emailError"></p>
-                    </div>
-                    <div class="mb-field">
-                        <label for="signupPassword">Password</label>
-                        <div class="mb-password-wrap">
-                            <input type="password" id="signupPassword" name="password" placeholder="Create a password" autocomplete="new-password" minlength="8" required>
-                            <button type="button" class="mb-password-toggle" id="passwordToggle">Show</button>
-                        </div>
-                        <p class="mb-field-error" id="passwordError"></p>
                     </div>
                     <button type="submit" class="mb-btn mb-btn-primary" id="signupSubmit">Secure My Free Scans</button>
                     <p class="mb-legal">By signing up, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.</p>
@@ -297,7 +290,7 @@
         </div>
     </div>
 
-    <script src="/assets/js/mobile-bridge.js?v=8"></script>
+    <script src="/assets/js/mobile-bridge.js?v=9"></script>
 </body>
 
 </html>

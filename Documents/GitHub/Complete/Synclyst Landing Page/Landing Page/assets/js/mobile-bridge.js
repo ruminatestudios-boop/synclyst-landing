@@ -62,14 +62,30 @@
     }
 
     function showFieldError(input, errorEl, message) {
-        input.classList.add('is-error');
-        errorEl.textContent = message;
-        errorEl.classList.add('is-visible');
+        if (input) input.classList.add('is-error');
+        if (errorEl) {
+            errorEl.textContent = message;
+            errorEl.classList.add('is-visible');
+        }
     }
 
     function clearFieldError(input, errorEl) {
-        input.classList.remove('is-error');
-        errorEl.classList.remove('is-visible');
+        if (input) input.classList.remove('is-error');
+        if (errorEl) errorEl.classList.remove('is-visible');
+    }
+
+    function showFormError(message) {
+        var el = $('#formError');
+        if (!el) return;
+        el.textContent = message;
+        el.classList.add('is-visible');
+    }
+
+    function clearFormError() {
+        var el = $('#formError');
+        if (!el) return;
+        el.textContent = '';
+        el.classList.remove('is-visible');
     }
 
     function getWelcomeUrl() {
@@ -78,6 +94,18 @@
 
     function goToChromeStore() {
         window.location.href = CHROME_STORE_URL;
+    }
+
+    function registerMobileUser(email, isResend) {
+        return fetch('/api/mobile-register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, resend: !!isResend })
+        }).then(function (res) {
+            return res.json().then(function (data) {
+                return { ok: res.ok, status: res.status, data: data };
+            });
+        });
     }
 
     function handleSmartCta(e) {
@@ -143,6 +171,7 @@
 
     function handleSignupSubmit(e) {
         e.preventDefault();
+        clearFormError();
 
         if (!shouldUseMobileFlow()) {
             goToChromeStore();
@@ -151,42 +180,44 @@
 
         var form = e.target;
         var emailInput = $('#signupEmail', form);
-        var passwordInput = $('#signupPassword', form);
         var emailError = $('#emailError', form);
-        var passwordError = $('#passwordError', form);
         var submitBtn = $('#signupSubmit', form);
 
-        var email = emailInput.value.trim();
-        var password = passwordInput.value;
+        var email = emailInput.value.trim().toLowerCase();
 
         clearFieldError(emailInput, emailError);
-        clearFieldError(passwordInput, passwordError);
 
-        var valid = true;
         if (!validateEmail(email)) {
             showFieldError(emailInput, emailError, 'Please enter a valid email address.');
-            valid = false;
+            return;
         }
-        if (password.length < 8) {
-            showFieldError(passwordInput, passwordError, 'Password must be at least 8 characters.');
-            valid = false;
-        }
-        if (!valid) return;
 
         submitBtn.classList.add('is-loading');
         submitBtn.disabled = true;
+        submitBtn.textContent = 'Creating your account…';
 
-        try {
-            sessionStorage.setItem(STORAGE_EMAIL, email);
-            sessionStorage.setItem(STORAGE_FROM, 'mobile_bridge');
-        } catch (err) { /* ignore */ }
+        registerMobileUser(email, false)
+            .then(function (result) {
+                if (!result.ok) {
+                    showFormError(result.data?.error || 'Something went wrong. Please try again.');
+                    return;
+                }
 
-        var welcomeUrl = getWelcomeUrl();
-        var signUpUrl = '/sign-up?redirect_url=' + encodeURIComponent(welcomeUrl) +
-            '&email=' + encodeURIComponent(email) +
-            '&source=mobile_bridge';
+                try {
+                    sessionStorage.setItem(STORAGE_EMAIL, email);
+                    sessionStorage.setItem(STORAGE_FROM, 'mobile_bridge');
+                } catch (err) { /* ignore */ }
 
-        window.location.href = signUpUrl;
+                window.location.href = getWelcomeUrl();
+            })
+            .catch(function () {
+                showFormError('Network error. Check your connection and try again.');
+            })
+            .finally(function () {
+                submitBtn.classList.remove('is-loading');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Secure My Free Scans';
+            });
     }
 
     function initStickyCta() {
@@ -205,18 +236,6 @@
         observer.observe(hero);
     }
 
-    function initPasswordToggle() {
-        var toggle = $('#passwordToggle');
-        var input = $('#signupPassword');
-        if (!toggle || !input) return;
-
-        toggle.addEventListener('click', function () {
-            var isPassword = input.type === 'password';
-            input.type = isPassword ? 'text' : 'password';
-            toggle.textContent = isPassword ? 'Hide' : 'Show';
-        });
-    }
-
     function initLandingPage() {
         initDeviceCTAs();
 
@@ -226,7 +245,6 @@
         if (form) form.addEventListener('submit', handleSignupSubmit);
 
         initStickyCta();
-        initPasswordToggle();
 
         window.addEventListener('resize', function () {
             initDeviceCTAs();
@@ -294,22 +312,35 @@
 
         resendBtn.addEventListener('click', function () {
             if (Date.now() - lastResend < RESEND_COOLDOWN_MS) return;
-
-            lastResend = Date.now();
-            try {
-                sessionStorage.setItem('synclyst_last_resend', String(lastResend));
-            } catch (err) { /* ignore */ }
-
-            updateResendState();
-            showToast('✓ Link resent! Check your inbox.');
-
-            if (email && validateEmail(email)) {
-                var welcomeUrl = window.location.href.split('?')[0];
-                setTimeout(function () {
-                    window.location.href = '/sign-in?email=' + encodeURIComponent(email) +
-                        '&redirect_url=' + encodeURIComponent(welcomeUrl);
-                }, 1500);
+            if (!email || !validateEmail(email)) {
+                showToast('No email on file. Go back and sign up again.');
+                return;
             }
+
+            resendBtn.disabled = true;
+            resendBtn.textContent = 'Sending…';
+
+            registerMobileUser(email, true)
+                .then(function (result) {
+                    if (!result.ok) {
+                        showToast(result.data?.error || 'Could not resend. Try again.');
+                        return;
+                    }
+
+                    lastResend = Date.now();
+                    try {
+                        sessionStorage.setItem('synclyst_last_resend', String(lastResend));
+                    } catch (err) { /* ignore */ }
+
+                    updateResendState();
+                    showToast('✓ Link resent! Check your inbox.');
+                })
+                .catch(function () {
+                    showToast('Network error. Try again.');
+                })
+                .finally(function () {
+                    updateResendState();
+                });
         });
 
         window.addEventListener('beforeunload', function () {
