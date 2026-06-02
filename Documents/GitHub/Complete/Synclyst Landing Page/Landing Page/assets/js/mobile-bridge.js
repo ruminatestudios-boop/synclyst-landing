@@ -5,6 +5,7 @@
     var STORAGE_EMAIL = 'synclyst_mobile_email';
     var STORAGE_FROM = 'synclyst_mobile_from';
     var RESEND_COOLDOWN_MS = 60000;
+    var MOBILE_BREAKPOINT = 900;
 
     var LABELS = {
         heroMobile: 'Claim Your 5 Free Scans (Create Account)',
@@ -22,43 +23,38 @@
         var mobileUA = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|CriOS|FxiOS/i.test(ua);
         var tabletUA = /iPad|Tablet|PlayBook|Silk/i.test(ua);
         var inAppBrowser = /TikTok|BytedanceWebview|musical_ly|Instagram|FBAN|FBAV|Twitter/i.test(ua);
-        var narrowScreen = window.matchMedia('(max-width: 900px)').matches;
-        var touchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
         if (inAppBrowser) return true;
         if (mobileUA || tabletUA) return true;
-        if (touchDevice && narrowScreen) return true;
 
         return false;
     }
 
+    function isNarrowScreen() {
+        return window.matchMedia('(max-width: ' + MOBILE_BREAKPOINT + 'px)').matches;
+    }
+
+    function shouldUseMobileFlow() {
+        return isMobileDevice() || isNarrowScreen();
+    }
+
     function applyDeviceClass() {
-        var mobile = isMobileDevice();
+        var mobile = shouldUseMobileFlow();
         document.documentElement.classList.toggle('is-mobile', mobile);
         document.documentElement.classList.toggle('is-desktop', !mobile);
         return mobile;
     }
 
-    function openSheet() {
-        var backdrop = $('#signupBackdrop');
-        var sheet = $('#signupSheet');
-        if (!backdrop || !sheet) return;
-        backdrop.classList.add('is-open');
-        sheet.classList.add('is-open');
-        document.body.classList.add('sheet-open');
-        var emailInput = $('#signupEmail');
-        if (emailInput) {
-            setTimeout(function () { emailInput.focus(); }, 350);
-        }
-    }
+    function scrollToSignup() {
+        var section = $('#mobile-signup');
+        if (!section) return;
 
-    function closeSheet() {
-        var backdrop = $('#signupBackdrop');
-        var sheet = $('#signupSheet');
-        if (!backdrop || !sheet) return;
-        backdrop.classList.remove('is-open');
-        sheet.classList.remove('is-open');
-        document.body.classList.remove('sheet-open');
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        setTimeout(function () {
+            var emailInput = $('#signupEmail');
+            if (emailInput) emailInput.focus({ preventScroll: true });
+        }, 450);
     }
 
     function validateEmail(email) {
@@ -81,7 +77,7 @@
     }
 
     function goToChromeStore() {
-        window.open(CHROME_STORE_URL, '_blank', 'noopener,noreferrer');
+        window.location.href = CHROME_STORE_URL;
     }
 
     function handleSmartCta(e) {
@@ -90,8 +86,8 @@
 
         e.preventDefault();
 
-        if (isMobileDevice()) {
-            openSheet();
+        if (shouldUseMobileFlow()) {
+            scrollToSignup();
         } else {
             goToChromeStore();
         }
@@ -101,8 +97,6 @@
         if (el.tagName === 'A') {
             el.href = href;
             el.textContent = label;
-            el.setAttribute('target', '_blank');
-            el.setAttribute('rel', 'noopener noreferrer');
             el.removeAttribute('data-open-signup');
             return el;
         }
@@ -112,8 +106,6 @@
         link.id = el.id || '';
         link.href = href;
         link.textContent = label;
-        link.setAttribute('target', '_blank');
-        link.setAttribute('rel', 'noopener noreferrer');
 
         if (el.hasAttribute('data-cta-role')) {
             link.setAttribute('data-cta-role', el.getAttribute('data-cta-role'));
@@ -132,9 +124,7 @@
         if (heroCta) {
             if (mobile) {
                 heroCta.textContent = LABELS.heroMobile;
-                if (heroCta.tagName !== 'BUTTON') {
-                    heroCta.setAttribute('data-open-signup', '');
-                }
+                heroCta.setAttribute('data-open-signup', '');
             } else {
                 setCtaAsLink(heroCta, CHROME_STORE_URL, LABELS.heroDesktop);
             }
@@ -154,7 +144,7 @@
     function handleSignupSubmit(e) {
         e.preventDefault();
 
-        if (!isMobileDevice()) {
+        if (!shouldUseMobileFlow()) {
             goToChromeStore();
             return;
         }
@@ -232,19 +222,14 @@
 
         document.addEventListener('click', handleSmartCta);
 
-        var backdrop = $('#signupBackdrop');
-        var closeBtn = $('#signupClose');
-        if (backdrop) backdrop.addEventListener('click', closeSheet);
-        if (closeBtn) closeBtn.addEventListener('click', closeSheet);
-
         var form = $('#signupForm');
         if (form) form.addEventListener('submit', handleSignupSubmit);
 
         initStickyCta();
         initPasswordToggle();
 
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeSheet();
+        window.addEventListener('resize', function () {
+            initDeviceCTAs();
         });
     }
 
@@ -259,7 +244,7 @@
     }
 
     function initWelcomePage() {
-        if (!isMobileDevice()) {
+        if (!shouldUseMobileFlow()) {
             window.location.replace(CHROME_STORE_URL);
             return;
         }

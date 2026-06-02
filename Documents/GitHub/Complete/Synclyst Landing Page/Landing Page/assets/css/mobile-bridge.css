@@ -376,7 +376,7 @@ a:hover {
     margin: 0 0 20px;
 }
 
-/* Device visibility — also hide signup sheet on wide viewports */
+/* Device visibility */
 .is-desktop .mb-mobile-only {
     display: none !important;
 }
@@ -385,9 +385,40 @@ a:hover {
     display: none !important;
 }
 
+/* Inline mobile signup — visible on phone screens via CSS, not JS */
+.mb-signup-inline {
+    display: none;
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    background:
+        radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.14), transparent 55%),
+        var(--bg);
+}
+
+.mb-signup-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px 20px;
+    margin-top: 8px;
+}
+
+.mb-signup-inline .mb-section-head {
+    margin-bottom: 8px;
+}
+
+.mb-signup-inline .mb-section-sub {
+    margin-bottom: 20px;
+}
+
+@media (max-width: 900px) {
+    .mb-signup-inline {
+        display: block;
+    }
+}
+
 @media (min-width: 901px) {
-    .mb-sheet-backdrop,
-    .mb-sheet {
+    .mb-signup-inline {
         display: none !important;
     }
 }
