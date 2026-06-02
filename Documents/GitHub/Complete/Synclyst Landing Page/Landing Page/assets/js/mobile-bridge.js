@@ -199,7 +199,7 @@
         registerMobileUser(email, false)
             .then(function (result) {
                 if (!result.ok) {
-                    showFormError(result.data?.error || 'Something went wrong. Please try again.');
+                    showFormError((result.data && result.data.error) || 'Something went wrong. Please try again.');
                     return;
                 }
 
@@ -323,7 +323,7 @@
             registerMobileUser(email, true)
                 .then(function (result) {
                     if (!result.ok) {
-                        showToast(result.data?.error || 'Could not resend. Try again.');
+                        showToast((result.data && result.data.error) || 'Could not resend. Try again.');
                         return;
                     }
 
