@@ -26,7 +26,7 @@
     <link rel="apple-touch-icon" href="/assets/imgs/synclyst-icon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/common/css/plugins.css?v=2">
-    <link rel="stylesheet" href="/assets/css/mobile-bridge.css?v=4">
+    <link rel="stylesheet" href="/assets/css/mobile-bridge.css?v=5">
 </head>
 
 <body>
@@ -183,12 +183,44 @@
 
             </div>
 
-            <div class="mb-marketplaces" aria-label="Supported marketplaces">
-                <span>Works with</span>
-                <i class="fa-brands fa-shopify" title="Shopify"></i>
-                <i class="fa-brands fa-ebay" title="eBay"></i>
-                <i class="fa-brands fa-etsy" title="Etsy"></i>
-                <i class="fa-brands fa-amazon" title="Amazon"></i>
+            <div class="mb-marketplaces-wrap">
+                <div class="mb-marketplaces" aria-label="Supported marketplaces">
+                    <span class="mb-marketplaces-label">Works with</span>
+                    <div class="mb-marketplaces-row">
+                        <div class="mb-marketplace-item" title="Shopify">
+                            <i class="fa-brands fa-shopify" aria-hidden="true"></i>
+                        </div>
+                        <div class="mb-marketplace-item" title="eBay">
+                            <i class="fa-brands fa-ebay" aria-hidden="true"></i>
+                        </div>
+                        <div class="mb-marketplace-item" title="Etsy">
+                            <i class="fa-brands fa-etsy" aria-hidden="true"></i>
+                        </div>
+                        <div class="mb-marketplace-item" title="Shopee">
+                            <svg class="mb-marketplace-svg" xmlns="http://www.w3.org/2000/svg" viewBox="11 10 25 28" aria-hidden="true"><path fill="currentColor" d="M27,12v8h-6c-5,0-8,4.18-8,8.38c0,4.21,3.82,7.62,8,7.62h13V12H27z M27,31h-5c-1.86,0-3-1.14-3-3 s1.38-3,3.24-3H27V31z"/></svg>
+                        </div>
+                        <div class="mb-marketplace-item" title="Depop">
+                            <svg class="mb-marketplace-svg mb-marketplace-wordmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 32" aria-hidden="true"><text x="60" y="24" text-anchor="middle" fill="currentColor" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="800" letter-spacing="-0.5">depop</text></svg>
+                        </div>
+                        <div class="mb-marketplace-item" title="Vinted">
+                            <svg class="mb-marketplace-svg mb-marketplace-wordmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 32" aria-hidden="true"><text x="70" y="24" text-anchor="middle" fill="currentColor" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="800" letter-spacing="-0.5">Vinted</text></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-marketplaces mb-marketplaces-soon" aria-label="Coming soon marketplaces">
+                    <span class="mb-marketplaces-label">Coming soon</span>
+                    <div class="mb-marketplaces-row">
+                        <div class="mb-marketplace-item mb-marketplace-item--soon" title="Amazon">
+                            <i class="fa-brands fa-amazon" aria-hidden="true"></i>
+                            <span class="mb-marketplace-soon-tag">Soon</span>
+                        </div>
+                        <div class="mb-marketplace-item mb-marketplace-item--soon" title="TikTok Shop">
+                            <svg class="mb-marketplace-svg mb-marketplace-svg-tiktok" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-hidden="true"><rect x="8" y="30" width="84" height="62" rx="10" fill="currentColor"/><path fill="currentColor" d="M29,30 Q50,6 71,30 L64,30 Q50,16 36,30 Z"/><circle cx="30" cy="31" r="5" fill="var(--bg)"/><circle cx="70" cy="31" r="5" fill="var(--bg)"/><circle cx="35" cy="72" r="14" fill="var(--bg)"/><rect x="47" y="38" width="10" height="38" fill="var(--bg)" rx="2"/><path fill="var(--bg)" d="M47,38 Q60,32 67,40 Q73,49 66,57 Q61,63 55,59 L55,50 Q60,53 63,49 Q66,44 62,40 Q58,36 49,39 Z"/></svg>
+                            <span class="mb-marketplace-soon-tag">Soon</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             </div>
         </section>
