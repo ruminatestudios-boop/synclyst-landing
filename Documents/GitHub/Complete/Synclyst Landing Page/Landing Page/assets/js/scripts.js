@@ -86,20 +86,20 @@ $(function () {
     $(window).on("resize", synclystSizeWorkVideos);
 
     function synclystHeroCtaBorder() {
-        document.querySelectorAll('.synclyst-hero-cta').forEach(function(btn) {
-            var svg = btn.querySelector('.synclyst-hero-cta-border');
-            if (!svg) return;
+        document.querySelectorAll('.synclyst-hero-cta-wrap').forEach(function(wrap) {
+            var btn = wrap.querySelector('.synclyst-hero-cta');
+            var svg = wrap.querySelector('.synclyst-hero-cta-border');
+            if (!btn || !svg) return;
 
-            var pad = 0.5;
+            var outerPad = 4;
             var bw = btn.offsetWidth;
             var bh = btn.offsetHeight;
             if (bw < 2 || bh < 2) return;
 
-            var w = bw + (pad * 2);
-            var h = bh + (pad * 2);
-            var inset = pad + 0.5;
-            var stroke = 1;
-            var radius = Math.max(0, (bh - stroke) / 2);
+            var w = bw + (outerPad * 2);
+            var h = bh + (outerPad * 2);
+            var inset = outerPad;
+            var radius = Math.max(0, bh / 2);
 
             svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
             svg.setAttribute('width', w);
@@ -108,8 +108,8 @@ $(function () {
             svg.querySelectorAll('rect').forEach(function(rect) {
                 rect.setAttribute('x', inset);
                 rect.setAttribute('y', inset);
-                rect.setAttribute('width', bw - stroke);
-                rect.setAttribute('height', bh - stroke);
+                rect.setAttribute('width', bw);
+                rect.setAttribute('height', bh);
                 rect.setAttribute('rx', radius);
                 rect.setAttribute('ry', radius);
             });

@@ -184,19 +184,23 @@
             margin-left: 0;
             margin-right: 0;
         }
+        .synclyst-hero-cta-wrap {
+            position: relative;
+            display: inline-block;
+            overflow: visible;
+        }
         .synclyst-hero-cta {
             position: relative;
-            isolation: isolate;
-            overflow: visible;
+            z-index: 1;
         }
         .synclyst-hero-cta-border {
             position: absolute;
-            inset: -0.5px;
-            width: calc(100% + 1px);
-            height: calc(100% + 1px);
+            inset: -4px;
+            width: calc(100% + 8px);
+            height: calc(100% + 8px);
             overflow: visible;
             pointer-events: none;
-            z-index: 1;
+            z-index: 0;
         }
         .synclyst-hero-cta-border rect {
             shape-rendering: geometricPrecision;
@@ -256,7 +260,6 @@
         }
         .synclyst-hero-cta .d-flex {
             position: relative;
-            z-index: 2;
         }
         @keyframes synclyst-hero-cta-outline-trail {
             0% {
@@ -1119,7 +1122,7 @@
                                     <div class="text">
                                         <p>Photograph any item and get a complete, ready-to-publish listing for Shopify, eBay, Etsy and more. No typing required.</p>
                                         <div class="synclyst-hero-button-row mt-40" style="flex-direction:column;align-items:center;gap:0;">
-                                            <a href="https://chromewebstore.google.com/detail/synclyst-listing-autopilo/copjkijolfpmhjgiggafngmdeibnmfnm" target="_blank" rel="noopener noreferrer" class="butn butn-md butn-bg butn-rounded synclyst-hero-cta">
+                                            <div class="synclyst-hero-cta-wrap">
                                                 <svg class="synclyst-hero-cta-border" aria-hidden="true" focusable="false">
                                                     <defs>
                                                         <filter id="synclyst-cta-trail-glow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
@@ -1147,11 +1150,13 @@
                                                         <rect class="synclyst-hero-cta-border-trail-head" pathLength="100"></rect>
                                                     </g>
                                                 </svg>
-                                                <div class="d-flex align-items-center">
-                                                    <span>Install Chrome Extension</span>
-                                                    <span class="icon ml-10" style="color:#ffffff;font-size:18px;line-height:1;font-style:normal;">↗</span>
-                                                </div>
-                                            </a>
+                                                <a href="https://chromewebstore.google.com/detail/synclyst-listing-autopilo/copjkijolfpmhjgiggafngmdeibnmfnm" target="_blank" rel="noopener noreferrer" class="butn butn-md butn-bg butn-rounded synclyst-hero-cta">
+                                                    <div class="d-flex align-items-center">
+                                                        <span>Install Chrome Extension</span>
+                                                        <span class="icon ml-10" style="color:#ffffff;font-size:18px;line-height:1;font-style:normal;">↗</span>
+                                                    </div>
+                                                </a>
+                                            </div>
                                             <div style="margin-top:14px;text-align:center;">
                                                 <span style="font-size:13px;color:#888;display:block;">Chrome Extension · Desktop only · Mobile soon.</span>
                                             </div>
