@@ -22,6 +22,8 @@
     { "source": "/snap", "destination": "https://app.synclyst.app/snap", "permanent": false },
     { "source": "/snap/:path*", "destination": "https://app.synclyst.app/snap/:path*", "permanent": false },
     { "source": "/privacy", "destination": "https://app.synclyst.app/privacy", "permanent": false },
-    { "source": "/terms", "destination": "https://app.synclyst.app/terms", "permanent": false }
+    { "source": "/terms", "destination": "https://app.synclyst.app/terms", "permanent": false },
+    { "source": "/developers", "destination": "https://app.synclyst.app/developers", "permanent": false },
+    { "source": "/developers/:path*", "destination": "https://app.synclyst.app/developers/:path*", "permanent": false }
   ]
 }
