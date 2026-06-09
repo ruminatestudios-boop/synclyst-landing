@@ -1,0 +1,182 @@
+/* Mobile hero + SyncIQ return — uses viewport width so DevTools resize works */
+
+.hero-cta-mobile,
+#mobile-synciq-return,
+.hero-headline-mobile,
+.hero-desc-mobile,
+.hero-headline-extension,
+.hero-desc-extension {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .hero-cta-desktop,
+    .hero-headline-desktop,
+    .hero-desc-desktop {
+        display: none !important;
+    }
+
+    .hero-headline-mobile,
+    .hero-desc-mobile {
+        display: block;
+    }
+
+    .synclyst-hero-copy.mobile-extension-step .hero-headline-mobile,
+    .synclyst-hero-copy.mobile-extension-step .hero-desc-mobile {
+        display: none !important;
+    }
+
+    .synclyst-hero-copy.mobile-extension-step .hero-headline-extension,
+    .synclyst-hero-copy.mobile-extension-step .hero-desc-extension {
+        display: block;
+    }
+
+    .hero-cta-mobile:not(.hidden) {
+        display: block;
+        width: 100%;
+    }
+
+    #mobile-synciq-return.is-visible {
+        display: block;
+    }
+}
+
+.header-ds .text .hero-desc-mobile,
+.header-ds .text .hero-desc-extension {
+    margin: 0 auto 0;
+    width: 100%;
+    max-width: 28rem;
+}
+
+.mobile-synciq-hero-wrap {
+    width: 100%;
+    max-width: 22rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 8px;
+}
+
+.mobile-synciq-hero-btn {
+    width: 100%;
+    text-align: center;
+}
+
+.mobile-synciq-hero-btn .d-flex {
+    justify-content: center;
+}
+
+.header-ds .text .mobile-synciq-hero-note {
+    margin: 28px auto 0;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #888;
+    width: 100%;
+    max-width: 22rem;
+}
+
+#mobile-synciq-return {
+    width: 100%;
+    max-width: 22rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.header-ds .text .mobile-synciq-return-copy {
+    font-size: 14px;
+    line-height: 1.45;
+    color: #ccc;
+    margin: 0 auto 28px;
+    width: 100%;
+    max-width: 22rem;
+}
+
+.mobile-synciq-return-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.mobile-synciq-return-form input[type="email"] {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+}
+
+.mobile-synciq-return-form input[type="email"]::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.mobile-synciq-return-form input[type="email"]:focus {
+    outline: none;
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+}
+
+.mobile-synciq-return-form input[type="email"].is-error {
+    border-color: #ef4444;
+}
+
+.mobile-synciq-return-form button[type="submit"] {
+    width: 100%;
+    margin: 0;
+}
+
+.mobile-synciq-return-status {
+    font-size: 13px;
+    line-height: 1.4;
+    margin-top: 10px;
+}
+
+.mobile-synciq-return-status.is-error {
+    color: #fca5a5;
+}
+
+.mobile-synciq-return-status.is-success {
+    color: #6ee7b7;
+}
+
+.header-ds .text .mobile-synciq-return-success {
+    margin-top: 4px;
+}
+
+.mobile-synciq-return-success-note {
+    font-size: 13px;
+    color: #a1a1aa;
+    margin: 0 0 12px;
+}
+
+.mobile-synciq-install-btn {
+    display: inline-block;
+    width: 100%;
+    max-width: 22rem;
+    text-decoration: none;
+    margin: 0 auto;
+}
+
+.mobile-synciq-return-success-email {
+    font-size: 13px;
+    color: #6ee7b7;
+    margin: 14px 0 0;
+}
+
+.header-ds .text .mobile-synciq-return-reset-wrap {
+    margin: 20px auto 0;
+    width: 100%;
+}
+
+.mobile-synciq-return-reset {
+    font-size: 13px;
+    color: #a78bfa;
+    text-decoration: none;
+}
+
+.mobile-synciq-return-reset:hover {
+    color: #c4b5fd;
+    text-decoration: underline;
+}

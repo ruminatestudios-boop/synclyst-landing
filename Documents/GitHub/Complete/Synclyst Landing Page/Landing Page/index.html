@@ -21,6 +21,34 @@
     <!-- Title  -->
     <title>Synclyst – AI Listing Tool for Resellers | Scan, Price & List Faster</title>
 
+    <script>
+        (function () {
+            var ua = navigator.userAgent || '';
+            var mobileUA = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|CriOS|FxiOS/i.test(ua);
+            var tabletUA = /iPad|Tablet|PlayBook|Silk/i.test(ua);
+            var inAppBrowser = /TikTok|BytedanceWebview|musical_ly|Instagram|FBAN|FBAV|Twitter/i.test(ua);
+            var narrowScreen = window.matchMedia('(max-width: 900px)').matches;
+            var mobile = inAppBrowser || mobileUA || tabletUA || narrowScreen;
+            document.documentElement.classList.add(mobile ? 'is-mobile' : 'is-desktop');
+        })();
+    </script>
+    <link rel="stylesheet" href="assets/css/mobile-hero.css?v=8">
+    <style>
+        .hero-cta-mobile, #mobile-synciq-return,
+        .hero-headline-mobile, .hero-desc-mobile,
+        .hero-headline-extension, .hero-desc-extension { display: none; }
+        @media (max-width: 900px) {
+            .hero-cta-desktop, .hero-headline-desktop, .hero-desc-desktop { display: none !important; }
+            .hero-headline-mobile, .hero-desc-mobile { display: block; }
+            .synclyst-hero-copy.mobile-extension-step .hero-headline-mobile,
+            .synclyst-hero-copy.mobile-extension-step .hero-desc-mobile { display: none !important; }
+            .synclyst-hero-copy.mobile-extension-step .hero-headline-extension,
+            .synclyst-hero-copy.mobile-extension-step .hero-desc-extension { display: block; }
+            .hero-cta-mobile:not(.hidden) { display: block; width: 100%; }
+            #mobile-synciq-return.is-visible { display: block; }
+        }
+    </style>
+
     <!-- Favicon -->
     <link rel="shortcut icon" href="assets/imgs/synclyst-icon.png" type="image/png">
     <link rel="apple-touch-icon" href="assets/imgs/synclyst-icon.png">
@@ -1117,55 +1145,112 @@
                             <div class="col-lg-11">
                                 <div class="synclyst-hero-copy">
                                     <div class="caption md-mb30">
-                                        <h1>AI Turns Your Photos Into Ready-to-Publish Listings. <br> <span class="play-font">From photo to listed — in seconds.</span></h1>
+                                        <h1 class="hero-headline-desktop">AI Turns Your Photos Into Ready-to-Publish Listings. <br> <span class="play-font">From photo to listed in seconds.</span></h1>
+                                        <h1 class="hero-headline-mobile">Is This Flip Worth It? <br> <span class="play-font">Live sold comps in seconds.</span></h1>
+                                        <h1 class="hero-headline-extension">Ready to List It Too? <br> <span class="play-font">Get the Chrome extension for desktop.</span></h1>
                                     </div>
                                     <div class="text">
-                                        <p>Photograph any item and get a complete, ready-to-publish listing for Shopify, eBay, Etsy and more. No typing required.</p>
+                                        <p class="hero-desc-desktop">Install the SyncLyst Chrome extension and auto-fill listings on Shopify, eBay, Etsy and more. Pair your phone once, scan any product, and every field fills itself — titles, descriptions, tags and pricing. No typing required.</p>
+                                        <p class="hero-desc-mobile">Snap any thrift find or market pickup with SyncIQ. Get live sold comps and a buy-or-pass read in seconds — 10 free scans a day, no sign up needed.</p>
+                                        <p class="hero-desc-extension">Install the SyncLyst Chrome extension on your laptop to publish listings to Shopify, eBay and Etsy. Pair your phone once, scan a product, and titles, descriptions, tags and pricing fill themselves — no typing.</p>
                                         <div class="synclyst-hero-button-row mt-40" style="flex-direction:column;align-items:center;gap:0;">
-                                            <div class="synclyst-hero-cta-wrap">
-                                                <svg class="synclyst-hero-cta-border" aria-hidden="true" focusable="false">
-                                                    <defs>
-                                                        <filter id="synclyst-cta-trail-glow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
-                                                            <feGaussianBlur in="SourceGraphic" stdDeviation="2.4"></feGaussianBlur>
-                                                        </filter>
-                                                        <filter id="synclyst-cta-trail-soften" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
-                                                            <feGaussianBlur in="SourceGraphic" stdDeviation="0.85" result="blur"></feGaussianBlur>
-                                                            <feMerge>
-                                                                <feMergeNode in="blur"></feMergeNode>
-                                                                <feMergeNode in="SourceGraphic"></feMergeNode>
-                                                            </feMerge>
-                                                        </filter>
-                                                    </defs>
-                                                    <rect class="synclyst-hero-cta-border-base" pathLength="100"></rect>
-                                                    <g class="synclyst-hero-cta-border-trail-glow-wrap" filter="url(#synclyst-cta-trail-glow)">
-                                                        <rect class="synclyst-hero-cta-border-trail-glow" pathLength="100"></rect>
-                                                    </g>
-                                                    <g class="synclyst-hero-cta-border-trail" filter="url(#synclyst-cta-trail-soften)">
-                                                        <rect class="synclyst-hero-cta-border-trail-fade-6" pathLength="100"></rect>
-                                                        <rect class="synclyst-hero-cta-border-trail-fade-5" pathLength="100"></rect>
-                                                        <rect class="synclyst-hero-cta-border-trail-fade-4" pathLength="100"></rect>
-                                                        <rect class="synclyst-hero-cta-border-trail-fade-3" pathLength="100"></rect>
-                                                        <rect class="synclyst-hero-cta-border-trail-fade-2" pathLength="100"></rect>
-                                                        <rect class="synclyst-hero-cta-border-trail-fade-1" pathLength="100"></rect>
-                                                        <rect class="synclyst-hero-cta-border-trail-head" pathLength="100"></rect>
-                                                    </g>
-                                                </svg>
-                                                <a href="https://chromewebstore.google.com/detail/synclyst-listing-autopilo/copjkijolfpmhjgiggafngmdeibnmfnm" target="_blank" rel="noopener noreferrer" class="butn butn-md butn-bg butn-rounded synclyst-hero-cta">
-                                                    <div class="d-flex align-items-center">
-                                                        <span>Install Chrome Extension</span>
-                                                        <span class="icon ml-10" style="color:#ffffff;font-size:18px;line-height:1;font-style:normal;">↗</span>
+                                            <div class="hero-cta-desktop">
+                                                <div class="synclyst-hero-cta-wrap">
+                                                    <svg class="synclyst-hero-cta-border" aria-hidden="true" focusable="false">
+                                                        <defs>
+                                                            <filter id="synclyst-cta-trail-glow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+                                                                <feGaussianBlur in="SourceGraphic" stdDeviation="2.4"></feGaussianBlur>
+                                                            </filter>
+                                                            <filter id="synclyst-cta-trail-soften" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+                                                                <feGaussianBlur in="SourceGraphic" stdDeviation="0.85" result="blur"></feGaussianBlur>
+                                                                <feMerge>
+                                                                    <feMergeNode in="blur"></feMergeNode>
+                                                                    <feMergeNode in="SourceGraphic"></feMergeNode>
+                                                                </feMerge>
+                                                            </filter>
+                                                        </defs>
+                                                        <rect class="synclyst-hero-cta-border-base" pathLength="100"></rect>
+                                                        <g class="synclyst-hero-cta-border-trail-glow-wrap" filter="url(#synclyst-cta-trail-glow)">
+                                                            <rect class="synclyst-hero-cta-border-trail-glow" pathLength="100"></rect>
+                                                        </g>
+                                                        <g class="synclyst-hero-cta-border-trail" filter="url(#synclyst-cta-trail-soften)">
+                                                            <rect class="synclyst-hero-cta-border-trail-fade-6" pathLength="100"></rect>
+                                                            <rect class="synclyst-hero-cta-border-trail-fade-5" pathLength="100"></rect>
+                                                            <rect class="synclyst-hero-cta-border-trail-fade-4" pathLength="100"></rect>
+                                                            <rect class="synclyst-hero-cta-border-trail-fade-3" pathLength="100"></rect>
+                                                            <rect class="synclyst-hero-cta-border-trail-fade-2" pathLength="100"></rect>
+                                                            <rect class="synclyst-hero-cta-border-trail-fade-1" pathLength="100"></rect>
+                                                            <rect class="synclyst-hero-cta-border-trail-head" pathLength="100"></rect>
+                                                        </g>
+                                                    </svg>
+                                                    <a href="https://chromewebstore.google.com/detail/synclyst-listing-autopilo/copjkijolfpmhjgiggafngmdeibnmfnm" target="_blank" rel="noopener noreferrer" class="butn butn-md butn-bg butn-rounded synclyst-hero-cta">
+                                                        <div class="d-flex align-items-center">
+                                                            <span>Install Chrome Extension</span>
+                                                            <span class="icon ml-10" style="color:#ffffff;font-size:18px;line-height:1;font-style:normal;">↗</span>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div style="margin-top:14px;text-align:center;">
+                                                    <span style="font-size:13px;color:#888;display:block;">Chrome Extension · Desktop only · Mobile soon.</span>
+                                                </div>
+                                                <div style="margin-top:14px;text-align:center;">
+                                                    <span style="font-size:13px;color:#888;display:block;margin-bottom:6px;">Also available:</span>
+                                                    <span style="font-size:13px;">
+                                                        <a href="https://app.synclyst.app/scan" style="color:#fff;text-decoration:none;">🔍 SyncIQ <span style="color:#7c3aed;font-weight:600;">FREE</span> — Price check for resellers</a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="hero-cta-mobile">
+                                                <div class="synclyst-hero-cta-wrap mobile-synciq-hero-wrap">
+                                                    <svg class="synclyst-hero-cta-border" aria-hidden="true" focusable="false">
+                                                        <defs>
+                                                            <filter id="synclyst-cta-trail-glow-mobile" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+                                                                <feGaussianBlur in="SourceGraphic" stdDeviation="2.4"></feGaussianBlur>
+                                                            </filter>
+                                                            <filter id="synclyst-cta-trail-soften-mobile" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+                                                                <feGaussianBlur in="SourceGraphic" stdDeviation="0.85" result="blur"></feGaussianBlur>
+                                                                <feMerge>
+                                                                    <feMergeNode in="blur"></feMergeNode>
+                                                                    <feMergeNode in="SourceGraphic"></feMergeNode>
+                                                                </feMerge>
+                                                            </filter>
+                                                        </defs>
+                                                        <rect class="synclyst-hero-cta-border-base" pathLength="100"></rect>
+                                                        <g class="synclyst-hero-cta-border-trail-glow-wrap" filter="url(#synclyst-cta-trail-glow-mobile)">
+                                                            <rect class="synclyst-hero-cta-border-trail-glow" pathLength="100"></rect>
+                                                        </g>
+                                                        <g class="synclyst-hero-cta-border-trail" filter="url(#synclyst-cta-trail-soften-mobile)">
+                                                            <rect class="synclyst-hero-cta-border-trail-fade-6" pathLength="100"></rect>
+                                                            <rect class="synclyst-hero-cta-border-trail-fade-5" pathLength="100"></rect>
+                                                            <rect class="synclyst-hero-cta-border-trail-fade-4" pathLength="100"></rect>
+                                                            <rect class="synclyst-hero-cta-border-trail-fade-3" pathLength="100"></rect>
+                                                            <rect class="synclyst-hero-cta-border-trail-fade-2" pathLength="100"></rect>
+                                                            <rect class="synclyst-hero-cta-border-trail-fade-1" pathLength="100"></rect>
+                                                            <rect class="synclyst-hero-cta-border-trail-head" pathLength="100"></rect>
+                                                        </g>
+                                                    </svg>
+                                                    <a href="https://app.synclyst.app/scan" id="mobile-synciq-hero-btn" class="butn butn-md butn-bg butn-rounded synclyst-hero-cta mobile-synciq-hero-btn">
+                                                        <div class="d-flex align-items-center justify-content-center">
+                                                            <span>🔍 SyncIQ — Check Any Product Value Free</span>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <p class="mobile-synciq-hero-note">No sign up needed.<br>Point your camera at anything.</p>
+                                            </div>
+                                            <div id="mobile-synciq-return" aria-live="polite">
+                                                <p class="mobile-synciq-return-copy">Enter your email — we'll send the Chrome Web Store install link:</p>
+                                                <form id="mobile-synciq-return-form" class="mobile-synciq-return-form" novalidate>
+                                                    <input type="email" id="mobile-synciq-return-email" name="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required aria-label="Email address">
+                                                    <button type="submit" id="mobile-synciq-return-submit" class="butn butn-md butn-bg butn-rounded">Send</button>
+                                                </form>
+                                                    <p id="mobile-synciq-return-status" class="mobile-synciq-return-status" role="status"></p>
+                                                    <div id="mobile-synciq-return-success" class="mobile-synciq-return-success" hidden>
+                                                        <p class="mobile-synciq-return-success-note">Open on your laptop or desktop:</p>
+                                                        <a id="mobile-synciq-install-link" href="https://chromewebstore.google.com/detail/synclyst-listing-autopilo/copjkijolfpmhjgiggafngmdeibnmfnm" target="_blank" rel="noopener noreferrer" class="butn butn-md butn-bg butn-rounded mobile-synciq-install-btn">Install Chrome Extension →</a>
+                                                        <p class="mobile-synciq-return-success-email">We also emailed you this link.</p>
                                                     </div>
-                                                </a>
-                                            </div>
-                                            <div style="margin-top:14px;text-align:center;">
-                                                <span style="font-size:13px;color:#888;display:block;">Chrome Extension · Desktop only · Mobile soon.</span>
-                                            </div>
-                                            <div style="margin-top:14px;text-align:center;">
-                                                <span style="font-size:13px;color:#888;display:block;margin-bottom:6px;">Also available:</span>
-                                                <span style="font-size:13px;">
-                                                    <a href="https://scan.synclyst.app" target="_blank" rel="noopener noreferrer" style="color:#fff;text-decoration:none;">🔍 SyncIQ <span style="color:#7c3aed;font-weight:600;">FREE</span> — Price check for resellers</a>
-                                                </span>
-                                            </div>
+                                                    <p class="mobile-synciq-return-reset-wrap"><a href="#" id="mobile-synciq-return-reset" class="mobile-synciq-return-reset">← Try SyncIQ again</a></p>
+                                                </div>
                                         </div>
                                     </div>
                                     <div class="synclyst-video">
@@ -2281,6 +2366,8 @@
             }, 0);
         })();
     </script>
+
+    <script src="assets/js/mobile-hero.js?v=5"></script>
 
 </body>
 
