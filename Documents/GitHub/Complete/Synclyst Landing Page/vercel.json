@@ -1,5 +1,13 @@
 {
   "outputDirectory": "Landing Page",
+  "functions": {
+    "api/*.js": {
+      "maxDuration": 10
+    },
+    "Landing Page/api/*.js": {
+      "maxDuration": 10
+    }
+  },
   "rewrites": [
     { "source": "/chromeextension", "destination": "/m.html" },
     { "source": "/chromeextension/welcome", "destination": "/welcome.html" },
