@@ -1,7 +1,7 @@
-import { EMAIL_REGEX } from './lib/constants.js';
-import { createClerkUser, findClerkUserByEmail } from './lib/clerk.js';
-import { sendDesktopLinkEmail } from './lib/email.js';
-import { logMobileSignup } from './lib/supabase-log.js';
+import { EMAIL_REGEX } from '../lib/constants.js';
+import { createClerkUser, findClerkUserByEmail } from '../lib/clerk.js';
+import { sendDesktopLinkEmail } from '../lib/email.js';
+import { logMobileSignup } from '../lib/supabase-log.js';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');

@@ -1,6 +1,6 @@
-import { CHROME_STORE_URL, EMAIL_REGEX } from './lib/constants.js';
-import { sendChromeExtensionLinkEmail } from './lib/email.js';
-import { logSynciqReturnEmail } from './lib/supabase-log.js';
+import { CHROME_STORE_URL, EMAIL_REGEX } from '../lib/constants.js';
+import { sendChromeExtensionLinkEmail } from '../lib/email.js';
+import { logSynciqReturnEmail } from '../lib/supabase-log.js';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
