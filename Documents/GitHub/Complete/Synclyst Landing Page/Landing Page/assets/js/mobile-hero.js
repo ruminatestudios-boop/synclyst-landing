@@ -207,12 +207,18 @@
             })
                 .then(function (res) {
                     return res.json().catch(function () { return {}; }).then(function (data) {
-                        return { ok: res.ok, data: data };
+                        return { ok: res.ok, status: res.status, data: data };
                     });
                 })
                 .then(function (result) {
                     if (!result.ok) {
-                        throw new Error(result.data && result.data.error ? result.data.error : 'Something went wrong. Please try again.');
+                        if (result.data && result.data.error) {
+                            throw new Error(result.data.error);
+                        }
+                        if (result.status === 404) {
+                            throw new Error('Email service is not available yet. Please try again in a few minutes.');
+                        }
+                        throw new Error('Something went wrong. Please try again.');
                     }
 
                     try {
