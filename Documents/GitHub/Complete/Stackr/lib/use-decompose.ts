@@ -36,7 +36,7 @@ export function useDecompose() {
             imageBase64: originalDataUrl,
             width,
             height,
-            mode: mode === "auto" ? 0 : 1,
+            mode,
             points: mode === "points" ? points : undefined,
           }),
         });
