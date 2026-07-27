@@ -65,21 +65,23 @@ export function SwipeCompare({
       onTouchEnd={handleTouchEnd}
     >
       {/* Before Image */}
-      <img
-        src={beforeSrc}
-        alt={beforeAlt}
-        className="absolute inset-0 h-full w-full object-contain"
-      />
+      <div className="absolute inset-0">
+        <img
+          src={beforeSrc}
+          alt={beforeAlt}
+          className="h-full w-full object-contain"
+        />
+      </div>
 
       {/* After Image - Clipped */}
       <div
-        className="absolute top-0 left-0 bottom-0 h-full overflow-hidden"
+        className="absolute inset-0 overflow-hidden"
         style={{ width: `${position}%` }}
       >
         <img
           src={afterSrc}
           alt={afterAlt}
-          className="absolute inset-0 h-full w-full object-contain"
+          className="h-full w-full object-contain"
         />
       </div>
 
