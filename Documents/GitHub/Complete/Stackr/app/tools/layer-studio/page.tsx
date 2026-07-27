@@ -4,11 +4,13 @@ import { useCallback, useMemo, useState } from "react";
 import { Dropzone } from "@/components/Dropzone";
 import { LayerEditor } from "@/components/LayerEditor";
 import { DynamicLoadingState } from "@/components/DynamicLoadingState";
+import { EmailCaptureModal } from "@/components/EmailCaptureModal";
 import { fileToImageData } from "@/lib/image-utils";
 import { usePro } from "@/lib/pro-context";
 import { useRights } from "@/lib/rights-context";
 import { RightsCheckbox } from "@/components/RightsCheckbox";
 import { useDecompose, type Point } from "@/lib/use-decompose";
+import { useEmailCapture } from "@/lib/use-email-capture";
 import { exportLayersAsPsd } from "@/lib/psd-export";
 import { exportLayersAsPdf } from "@/lib/pdf-export";
 import { IconLayers, IconDownload, IconRefresh } from "@/components/icons";
@@ -28,7 +30,10 @@ export default function LayerStudioPage() {
   const [points, setPoints] = useState<Point[]>([]);
   const [exporting, setExporting] = useState<"psd" | "pdf" | null>(null);
   const [editingLayerId, setEditingLayerId] = useState<string | null>(null);
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [pendingExportType, setPendingExportType] = useState<"psd" | "pdf" | null>(null);
   const { status, layers, error, run, toggleLayer, reset, phase, progress } = useDecompose();
+  const { hasOptedIn, captureEmail, isHydrated } = useEmailCapture();
 
   const displaySize = useMemo(() => {
     if (!original) return { width: 0, height: 0 };
@@ -73,23 +78,41 @@ export default function LayerStudioPage() {
     run(original.dataUrl, original.width, original.height, "points", points);
   }
 
-  async function handleExportPsd() {
-    if (!original) return;
-    setExporting("psd");
-    const base = original.name.replace(/\.[^.]+$/, "");
-    try {
-      await exportLayersAsPsd(layers, original.width, original.height, `${base}.psd`);
-    } finally {
-      setExporting(null);
+  function handleExportClick(type: "psd" | "pdf") {
+    if (!isHydrated) return;
+
+    if (!hasOptedIn) {
+      setPendingExportType(type);
+      setShowEmailModal(true);
+    } else {
+      performExport(type);
     }
   }
 
-  async function handleExportPdf() {
+  async function handleEmailSubmit(email: string) {
+    await captureEmail(email);
+    if (pendingExportType) {
+      await performExport(pendingExportType);
+    }
+    setShowEmailModal(false);
+    setPendingExportType(null);
+  }
+
+  function handleSkipEmail() {
+    setShowEmailModal(false);
+    setPendingExportType(null);
+  }
+
+  async function performExport(type: "psd" | "pdf") {
     if (!original) return;
-    setExporting("pdf");
+    setExporting(type);
     const base = original.name.replace(/\.[^.]+$/, "");
     try {
-      await exportLayersAsPdf(layers, original.width, original.height, `${base}.pdf`);
+      if (type === "psd") {
+        await exportLayersAsPsd(layers, original.width, original.height, `${base}.psd`);
+      } else {
+        await exportLayersAsPdf(layers, original.width, original.height, `${base}.pdf`);
+      }
     } finally {
       setExporting(null);
     }
@@ -308,8 +331,8 @@ export default function LayerStudioPage() {
             <div className="mt-5 space-y-2 border-t border-[#e1e3e6] pt-4">
               <button
                 type="button"
-                onClick={handleExportPsd}
-                disabled={layers.length === 0 || exporting !== null}
+                onClick={() => handleExportClick("psd")}
+                disabled={layers.length === 0 || exporting !== null || !isHydrated}
                 className="flex w-full items-center justify-center gap-2 rounded-md bg-[#0061fe] px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#0050d0] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {exporting === "psd" ? <Spinner /> : <IconDownload className="h-4 w-4" />}
@@ -317,8 +340,8 @@ export default function LayerStudioPage() {
               </button>
               <button
                 type="button"
-                onClick={handleExportPdf}
-                disabled={layers.length === 0 || exporting !== null}
+                onClick={() => handleExportClick("pdf")}
+                disabled={layers.length === 0 || exporting !== null || !isHydrated}
                 className="flex w-full items-center justify-center gap-2 rounded-md border border-[#e1e3e6] bg-white px-4 py-2 text-sm font-semibold text-[#1e1919] transition-colors hover:border-[#63676b] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {exporting === "pdf" ? (
@@ -334,6 +357,12 @@ export default function LayerStudioPage() {
           )}
         </div>
       </div>
+
+      <EmailCaptureModal
+        isOpen={showEmailModal}
+        onSubmit={handleEmailSubmit}
+        onSkip={handleSkipEmail}
+      />
     </div>
   );
 }

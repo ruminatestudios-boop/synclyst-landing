@@ -3,7 +3,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { Dropzone } from "@/components/Dropzone";
 import { DynamicLoadingState } from "@/components/DynamicLoadingState";
+import { EmailCaptureModal } from "@/components/EmailCaptureModal";
 import { takePendingFile } from "@/lib/pending-upload";
+import { useEmailCapture } from "@/lib/use-email-capture";
 import {
   fileToImageData,
   dataUrlToImageData,
@@ -101,10 +103,13 @@ export default function VectorizerPage() {
   const [showPresetDropdown, setShowPresetDropdown] = useState(false);
   const [view, setView] = useState<"original" | "vector">("vector");
   const [showDownloadMenu, setShowDownloadMenu] = useState(false);
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [pendingFormat, setPendingFormat] = useState<"svg" | "png" | "jpg" | "pdf" | "eps" | null>(null);
   const { status, svg, error, vectorize, reset, phase } = useVectorize();
   const enhance = useEnhance();
   const upscaler = useUpscaler();
   const upscaleUsage = useUsageLimit("upscaler", UPSCALE_FREE_LIMIT);
+  const { hasOptedIn, captureEmail, isHydrated } = useEmailCapture();
 
   const svgDataUrl = useMemo(() => {
     if (!svg) return null;
@@ -157,7 +162,33 @@ export default function VectorizerPage() {
     if (original) vectorize(original.imageData, next);
   }
 
-  async function handleDownload(format: "svg" | "png" | "jpg" | "pdf" | "eps") {
+  async function handleDownloadClick(format: "svg" | "png" | "jpg" | "pdf" | "eps") {
+    if (!isHydrated) return;
+
+    if (!hasOptedIn) {
+      setPendingFormat(format);
+      setShowEmailModal(true);
+    } else {
+      await performDownload(format);
+    }
+  }
+
+  async function handleEmailSubmit(email: string) {
+    await captureEmail(email);
+    if (pendingFormat) {
+      await performDownload(pendingFormat);
+    }
+    setShowEmailModal(false);
+    setPendingFormat(null);
+    setShowDownloadMenu(false);
+  }
+
+  function handleSkipEmail() {
+    setShowEmailModal(false);
+    setPendingFormat(null);
+  }
+
+  async function performDownload(format: "svg" | "png" | "jpg" | "pdf" | "eps") {
     if (!svg || !original) return;
     const base = original.name.replace(/\.[^.]+$/, "");
 
@@ -361,35 +392,35 @@ export default function VectorizerPage() {
                     <div className="absolute top-full right-0 mt-1 bg-white border border-[#e1e3e6] rounded-md shadow-lg z-50 min-w-[150px]" data-dropdown>
                       <button
                         type="button"
-                        onClick={() => handleDownload("svg")}
+                        onClick={() => handleDownloadClick("svg")}
                         className="w-full text-left px-4 py-2 text-sm text-[#1e1919] hover:bg-[#f7f9fa] border-b border-[#e1e3e6] last:border-b-0"
                       >
                         SVG (Vector)
                       </button>
                       <button
                         type="button"
-                        onClick={() => handleDownload("png")}
+                        onClick={() => handleDownloadClick("png")}
                         className="w-full text-left px-4 py-2 text-sm text-[#1e1919] hover:bg-[#f7f9fa] border-b border-[#e1e3e6] last:border-b-0"
                       >
                         PNG (Transparent)
                       </button>
                       <button
                         type="button"
-                        onClick={() => handleDownload("jpg")}
+                        onClick={() => handleDownloadClick("jpg")}
                         className="w-full text-left px-4 py-2 text-sm text-[#1e1919] hover:bg-[#f7f9fa] border-b border-[#e1e3e6] last:border-b-0"
                       >
                         JPG (Compressed)
                       </button>
                       <button
                         type="button"
-                        onClick={() => handleDownload("pdf")}
+                        onClick={() => handleDownloadClick("pdf")}
                         className="w-full text-left px-4 py-2 text-sm text-[#1e1919] hover:bg-[#f7f9fa] border-b border-[#e1e3e6] last:border-b-0"
                       >
                         PDF (Print)
                       </button>
                       <button
                         type="button"
-                        onClick={() => handleDownload("eps")}
+                        onClick={() => handleDownloadClick("eps")}
                         className="w-full text-left px-4 py-2 text-sm text-[#1e1919] hover:bg-[#f7f9fa] border-b border-[#e1e3e6] last:border-b-0"
                       >
                         EPS (PostScript)
@@ -497,6 +528,12 @@ export default function VectorizerPage() {
             }}
           />
         )}
+
+        <EmailCaptureModal
+          isOpen={showEmailModal}
+          onSubmit={handleEmailSubmit}
+          onSkip={handleSkipEmail}
+        />
         </div>
       </div>
     </div>

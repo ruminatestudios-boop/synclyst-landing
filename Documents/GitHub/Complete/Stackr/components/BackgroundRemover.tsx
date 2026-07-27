@@ -5,7 +5,9 @@ import Link from "next/link";
 import { Dropzone } from "@/components/Dropzone";
 import { SwipeCompare } from "@/components/SwipeCompare";
 import { DynamicLoadingState } from "@/components/DynamicLoadingState";
+import { EmailCaptureModal } from "@/components/EmailCaptureModal";
 import { useBackgroundRemoval } from "@/lib/use-background-removal";
+import { useEmailCapture } from "@/lib/use-email-capture";
 import { downloadBlob } from "@/lib/image-utils";
 import { IconDownload, IconRefresh, IconSparkles } from "@/components/icons";
 
@@ -16,9 +18,12 @@ export function BackgroundRemover() {
   const [view, setView] = useState<"before" | "after" | "edit" | "compare">("after");
   const [selectionMode, setSelectionMode] = useState<"add" | "remove">("add");
   const [threshold, setThreshold] = useState(30);
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [pendingDownload, setPendingDownload] = useState<{ type: "highres" | "lowres" } | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { status, progressPercent, resultUrl, error, run, reset, phase } =
     useBackgroundRemoval();
+  const { hasOptedIn, captureEmail, isHydrated } = useEmailCapture();
 
   const isBusy = status === "loading-model" || status === "processing";
 
@@ -115,7 +120,30 @@ export function BackgroundRemover() {
     ctx.putImageData(imageData, 0, 0);
   }
 
-  async function handleDownload() {
+  function handleDownloadClick() {
+    if (!isHydrated) return;
+
+    if (!hasOptedIn) {
+      setPendingDownload({ type: "highres" });
+      setShowEmailModal(true);
+    } else {
+      performDownload("highres");
+    }
+  }
+
+  function handleSkipDownload() {
+    performDownload("lowres");
+    setShowEmailModal(false);
+  }
+
+  async function handleEmailSubmit(email: string) {
+    await captureEmail(email);
+    performDownload("highres");
+    setShowEmailModal(false);
+    setPendingDownload(null);
+  }
+
+  async function performDownload(quality: "highres" | "lowres") {
     if (!resultUrl || !original) return;
 
     if (view === "edit" && canvasRef.current) {
@@ -267,8 +295,8 @@ export function BackgroundRemover() {
       <div className="mt-4 flex flex-col gap-3 sm:flex-row">
         <button
           type="button"
-          disabled={!resultUrl}
-          onClick={handleDownload}
+          disabled={!resultUrl || !isHydrated}
+          onClick={handleDownloadClick}
           className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#0061fe] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#0050d0] disabled:cursor-not-allowed disabled:opacity-40"
         >
           <IconDownload className="h-4 w-4" />
@@ -282,6 +310,12 @@ export function BackgroundRemover() {
           Auto-Split Layers with AI (Pro)
         </Link>
       </div>
+
+      <EmailCaptureModal
+        isOpen={showEmailModal}
+        onSubmit={handleEmailSubmit}
+        onSkip={handleSkipDownload}
+      />
     </div>
   );
 }
