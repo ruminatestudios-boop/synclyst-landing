@@ -73,7 +73,7 @@ export function SwipeCompare({
 
       {/* After Image - Clipped */}
       <div
-        className="absolute inset-0 h-full overflow-hidden"
+        className="absolute top-0 left-0 bottom-0 h-full overflow-hidden"
         style={{ width: `${position}%` }}
       >
         <img
