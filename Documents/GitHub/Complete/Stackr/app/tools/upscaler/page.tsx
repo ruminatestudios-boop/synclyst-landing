@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Dropzone } from "@/components/Dropzone";
+import { SwipeCompare } from "@/components/SwipeCompare";
 // import { UpgradeModal } from "@/components/UpgradeModal"; // DISABLED FOR DEVELOPMENT
 import { fileToImageData, downloadBlob } from "@/lib/image-utils";
 import { useUpscaler } from "@/lib/use-upscaler";
@@ -19,6 +20,7 @@ export default function UpscalerPage() {
   const [original, setOriginal] = useState<Source | null>(null);
   const [scale, setScale] = useState<UpscaleScale>(2);
   const [showUpgrade, setShowUpgrade] = useState(false);
+  const [viewMode, setViewMode] = useState<"grid" | "compare">("grid");
   const { status, progress, resultDataUrl, backend, error, run, reset } = useUpscaler();
   const usage = useUsageLimit("upscaler", FREE_LIMIT);
 
@@ -63,45 +65,31 @@ export default function UpscalerPage() {
       </p>
 
       {!original && (
-        <>
-          <Dropzone onFile={handleFile} label="Drop a photo to upscale" />
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
-            <Step
-              number={1}
-              title="Drop a low-res photo"
-              description="JPG or PNG — dragged in or picked from your files."
-            />
-            <Step
-              number={2}
-              title="Enhanced by local AI"
-              description="A neural super-resolution model reconstructs detail, right in your browser."
-            />
-            <Step
-              number={3}
-              title="Download the result"
-              description="A sharper, higher-resolution PNG — no pixelated stretching."
-            />
-          </div>
-          <p className="mt-8 text-xs text-[#63676b]">
-            Free tier includes {FREE_LIMIT} enhancements. {usage.count > 0 && (
-              <span className="font-semibold text-[#1e1919]">
-                {usage.remaining} remaining.
-              </span>
-            )}
-          </p>
-        </>
+        <Dropzone onFile={handleFile} label="Drop a photo to upscale" />
       )}
 
       {original && (
         <div className="rounded-xl border border-[#e1e3e6] bg-white p-5 shadow-sm sm:p-6">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-1 rounded-lg border border-[#e1e3e6] bg-[#f7f9fa] p-1 text-xs">
-              <ScaleToggle active={scale === 2} onClick={() => setScale(2)}>
-                2x
-              </ScaleToggle>
-              <ScaleToggle active={scale === 4} onClick={() => setScale(4)}>
-                4x (larger download)
-              </ScaleToggle>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 rounded-lg border border-[#e1e3e6] bg-[#f7f9fa] p-1 text-xs">
+                <ScaleToggle active={scale === 2} onClick={() => setScale(2)}>
+                  2x
+                </ScaleToggle>
+                <ScaleToggle active={scale === 4} onClick={() => setScale(4)}>
+                  4x (larger download)
+                </ScaleToggle>
+              </div>
+              {resultDataUrl && (
+                <div className="flex items-center gap-1 rounded-lg border border-[#e1e3e6] bg-[#f7f9fa] p-1 text-xs">
+                  <ScaleToggle active={viewMode === "grid"} onClick={() => setViewMode("grid")}>
+                    Grid
+                  </ScaleToggle>
+                  <ScaleToggle active={viewMode === "compare"} onClick={() => setViewMode("compare")}>
+                    Compare
+                  </ScaleToggle>
+                </div>
+              )}
             </div>
 
             <div className="flex items-center gap-2">
@@ -163,25 +151,35 @@ export default function UpscalerPage() {
             </p>
           )}
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <PreviewPane
-              label="Original"
-              src={original.dataUrl}
-              dimensions={`${original.width}x${original.height}px`}
+          {viewMode === "compare" && resultDataUrl ? (
+            <SwipeCompare
+              beforeSrc={original.dataUrl}
+              beforeAlt="Original"
+              afterSrc={resultDataUrl}
+              afterAlt="Enhanced"
+              maxHeight="500px"
             />
-            <PreviewPane
-              label={
-                resultDataUrl && backend
-                  ? `Enhanced (${scale}x · ${backend})`
-                  : "Enhanced"
-              }
-              src={resultDataUrl}
-              placeholder='Run "Enhance with AI" to see the result here.'
-              dimensions={
-                resultDataUrl ? `${original.width * scale}x${original.height * scale}px` : undefined
-              }
-            />
-          </div>
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <PreviewPane
+                label="Original"
+                src={original.dataUrl}
+                dimensions={`${original.width}x${original.height}px`}
+              />
+              <PreviewPane
+                label={
+                  resultDataUrl && backend
+                    ? `Enhanced (${scale}x · ${backend})`
+                    : "Enhanced"
+                }
+                src={resultDataUrl}
+                placeholder='Run "Enhance with AI" to see the result here.'
+                dimensions={
+                  resultDataUrl ? `${original.width * scale}x${original.height * scale}px` : undefined
+                }
+              />
+            </div>
+          )}
         </div>
       )}
 
