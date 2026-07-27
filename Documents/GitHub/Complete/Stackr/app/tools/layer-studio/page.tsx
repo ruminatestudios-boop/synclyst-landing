@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo, useState } from "react";
 import { Dropzone } from "@/components/Dropzone";
+import { LayerEditor } from "@/components/LayerEditor";
 import { fileToImageData } from "@/lib/image-utils";
 import { usePro } from "@/lib/pro-context";
 import { useRights } from "@/lib/rights-context";
@@ -25,6 +26,7 @@ export default function LayerStudioPage() {
   const [mode, setMode] = useState<"auto" | "points">("auto");
   const [points, setPoints] = useState<Point[]>([]);
   const [exporting, setExporting] = useState<"psd" | "pdf" | null>(null);
+  const [editingLayerId, setEditingLayerId] = useState<string | null>(null);
   const { status, layers, error, run, toggleLayer, reset } = useDecompose();
 
   const displaySize = useMemo(() => {
