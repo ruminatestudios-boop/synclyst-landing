@@ -429,33 +429,42 @@ export default function VectorizerPage() {
           )}
 
           <div
-            className="relative flex items-center justify-center overflow-hidden rounded-lg border border-[#e1e3e6] bg-[repeating-conic-gradient(#f0f2f4_0%_25%,white_0%_50%)] bg-[length:20px_20px]"
+            className="relative flex flex-col items-center justify-center overflow-hidden rounded-lg border border-[#e1e3e6] bg-[repeating-conic-gradient(#f0f2f4_0%_25%,white_0%_50%)] bg-[length:20px_20px]"
             style={{ minHeight: 420 }}
           >
-            {view === "original" && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={original.dataUrl}
-                alt="Original upload"
-                className="max-h-[520px] max-w-full object-contain"
-              />
-            )}
-            {view === "vector" && status === "done" && svgDataUrl && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={svgDataUrl}
-                alt="Vectorized result"
-                className="max-h-[520px] max-w-full object-contain"
-              />
-            )}
-            {view === "vector" && status === "processing" && (
-              <div className="flex flex-col items-center gap-3 py-16 text-[#63676b]">
-                <span className="h-8 w-8 animate-spin rounded-full border-2 border-[#e1e3e6] border-t-[#0061fe]" />
-                {preset === "vtracer" ? "Vectorizing with Splines…" : "Tracing paths…"}
+            <div className="flex-1 flex items-center justify-center w-full">
+              {view === "original" && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={original.dataUrl}
+                  alt="Original upload"
+                  className="max-h-[520px] max-w-full object-contain"
+                />
+              )}
+              {view === "vector" && status === "done" && svgDataUrl && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={svgDataUrl}
+                  alt="Vectorized result"
+                  className="max-h-[520px] max-w-full object-contain"
+                />
+              )}
+              {view === "vector" && status === "processing" && (
+                <div className="flex flex-col items-center gap-3 py-16 text-[#63676b]">
+                  <span className="h-8 w-8 animate-spin rounded-full border-2 border-[#e1e3e6] border-t-[#0061fe]" />
+                  {preset === "vtracer" ? "Vectorizing with Splines…" : "Tracing paths…"}
+                </div>
+              )}
+              {view === "vector" && status === "error" && (
+                <p className="p-8 text-sm text-red-600">{error}</p>
+              )}
+            </div>
+            {status === "done" && (
+              <div className="border-t border-[#e1e3e6] bg-white/80 w-full py-2 text-center">
+                <p className="text-xs text-[#63676b]">
+                  {original.width}×{original.height}px → SVG
+                </p>
               </div>
-            )}
-            {view === "vector" && status === "error" && (
-              <p className="p-8 text-sm text-red-600">{error}</p>
             )}
           </div>
 

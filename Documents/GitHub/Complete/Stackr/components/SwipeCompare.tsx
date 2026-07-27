@@ -79,8 +79,7 @@ export function SwipeCompare({
         <img
           src={afterSrc}
           alt={afterAlt}
-          className="h-full w-full object-contain"
-          style={{ width: `${(100 / position) * 100}%` }}
+          className="absolute inset-0 h-full w-full object-contain"
         />
       </div>
 
