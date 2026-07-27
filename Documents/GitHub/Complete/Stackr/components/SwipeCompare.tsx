@@ -56,7 +56,7 @@ export function SwipeCompare({
   return (
     <div
       ref={containerRef}
-      className="relative w-full overflow-hidden rounded-lg border border-[#e1e3e6] bg-gray-100 flex items-center justify-center"
+      className="relative w-full overflow-hidden rounded-lg border border-[#e1e3e6] bg-gray-100"
       style={{ height: maxHeight, maxHeight }}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -65,23 +65,23 @@ export function SwipeCompare({
       onTouchEnd={handleTouchEnd}
     >
       {/* Before Image */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <img
-          src={beforeSrc}
-          alt={beforeAlt}
-          className="max-h-full max-w-full object-contain"
-        />
-      </div>
+      <img
+        src={beforeSrc}
+        alt={beforeAlt}
+        className="absolute inset-0 max-h-full max-w-full object-contain"
+        style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
+      />
 
       {/* After Image - Clipped */}
       <div
-        className="absolute inset-0 overflow-hidden flex items-center justify-center"
+        className="absolute top-0 left-0 bottom-0 overflow-hidden"
         style={{ width: `${position}%` }}
       >
         <img
           src={afterSrc}
           alt={afterAlt}
-          className="max-h-full max-w-full object-contain"
+          className="absolute max-h-full max-w-full object-contain"
+          style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
         />
       </div>
 
