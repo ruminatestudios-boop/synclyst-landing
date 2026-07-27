@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Dropzone } from "@/components/Dropzone";
+import { SwipeCompare } from "@/components/SwipeCompare";
 import { useBackgroundRemoval } from "@/lib/use-background-removal";
 import { downloadBlob } from "@/lib/image-utils";
 import { IconDownload, IconRefresh, IconSparkles } from "@/components/icons";
@@ -11,7 +12,7 @@ type Source = { url: string; name: string };
 
 export function BackgroundRemover() {
   const [original, setOriginal] = useState<Source | null>(null);
-  const [view, setView] = useState<"before" | "after" | "edit">("after");
+  const [view, setView] = useState<"before" | "after" | "edit" | "compare">("after");
   const [selectionMode, setSelectionMode] = useState<"add" | "remove">("add");
   const [threshold, setThreshold] = useState(30);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -145,6 +146,9 @@ export function BackgroundRemover() {
           <ViewToggle active={view === "after"} onClick={() => setView("after")}>
             After
           </ViewToggle>
+          <ViewToggle active={view === "compare"} onClick={() => setView("compare")}>
+            Compare
+          </ViewToggle>
           <ViewToggle active={view === "edit"} onClick={() => setView("edit")}>
             Refine
           </ViewToggle>
@@ -242,6 +246,14 @@ export function BackgroundRemover() {
         {view === "before" ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={original.url} alt="Original" className="max-h-[440px] max-w-full object-contain" />
+        ) : view === "compare" && resultUrl ? (
+          <SwipeCompare
+            beforeSrc={original.url}
+            beforeAlt="Original"
+            afterSrc={resultUrl}
+            afterAlt="Background removed"
+            maxHeight="440px"
+          />
         ) : view === "edit" && resultUrl ? (
           <canvas
             ref={canvasRef}
