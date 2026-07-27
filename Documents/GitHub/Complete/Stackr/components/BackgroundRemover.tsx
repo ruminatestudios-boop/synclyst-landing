@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Dropzone } from "@/components/Dropzone";
 import { SwipeCompare } from "@/components/SwipeCompare";
+import { DynamicLoadingState } from "@/components/DynamicLoadingState";
 import { useBackgroundRemoval } from "@/lib/use-background-removal";
 import { downloadBlob } from "@/lib/image-utils";
 import { IconDownload, IconRefresh, IconSparkles } from "@/components/icons";
@@ -16,7 +17,7 @@ export function BackgroundRemover() {
   const [selectionMode, setSelectionMode] = useState<"add" | "remove">("add");
   const [threshold, setThreshold] = useState(30);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { status, progressLabel, progressPercent, resultUrl, error, run, reset } =
+  const { status, progressPercent, resultUrl, error, run, reset, phase } =
     useBackgroundRemoval();
 
   const isBusy = status === "loading-model" || status === "processing";
@@ -168,20 +169,12 @@ export function BackgroundRemover() {
         </button>
       </div>
 
-      {isBusy && (
+      {isBusy && phase && <DynamicLoadingState phase={phase} progress={progressPercent} />}
+      {isBusy && !phase && (
         <div className="mb-4 rounded-md border border-[#e1e3e6] bg-[#f7f9fa] p-3">
-          <div className="flex items-center justify-between text-xs text-[#63676b]">
-            <span className="inline-flex items-center gap-2">
-              <span className="h-3 w-3 animate-pulse rounded-full bg-[#0061fe]" />
-              {progressLabel}
-            </span>
-            <span className="font-semibold text-[#1e1919]">{progressPercent}%</span>
-          </div>
-          <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-[#e1e3e6]">
-            <div
-              className="h-full rounded-full bg-[#0061fe] transition-all"
-              style={{ width: `${Math.max(4, progressPercent)}%` }}
-            />
+          <div className="flex items-center gap-2 text-xs text-[#63676b]">
+            <span className="h-3 w-3 animate-pulse rounded-full bg-[#0061fe]" />
+            <span>Processing…</span>
           </div>
         </div>
       )}

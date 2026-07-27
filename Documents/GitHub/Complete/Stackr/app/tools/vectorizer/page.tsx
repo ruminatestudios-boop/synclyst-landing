@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Dropzone } from "@/components/Dropzone";
+import { DynamicLoadingState } from "@/components/DynamicLoadingState";
 import { takePendingFile } from "@/lib/pending-upload";
 import {
   fileToImageData,
@@ -100,7 +101,7 @@ export default function VectorizerPage() {
   const [showPresetDropdown, setShowPresetDropdown] = useState(false);
   const [view, setView] = useState<"original" | "vector">("vector");
   const [showDownloadMenu, setShowDownloadMenu] = useState(false);
-  const { status, svg, error, vectorize, reset } = useVectorize();
+  const { status, svg, error, vectorize, reset, phase } = useVectorize();
   const enhance = useEnhance();
   const upscaler = useUpscaler();
   const upscaleUsage = useUsageLimit("upscaler", UPSCALE_FREE_LIMIT);
@@ -241,28 +242,29 @@ export default function VectorizerPage() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-12">
-      <div className="mb-8 flex flex-col items-center justify-center text-center">
-        <span className="text-xs font-semibold uppercase tracking-wide text-[#0061fe]">
-          Free tool
-        </span>
-        <h1 className="text-3xl font-bold text-[#1e1919]">
-          Image → SVG Vectorizer
-        </h1>
-      </div>
-      <p className="-mt-4 mb-8 max-w-2xl mx-auto text-center text-[#63676b]">
-        Everything runs locally in your browser via a web worker — nothing is
-        uploaded anywhere.
-      </p>
+    <div className="min-h-screen bg-white">
+      <div className="mx-auto max-w-6xl px-6 py-24">
+        <div className="mb-16 text-center">
+          <span className="inline-block text-sm font-bold uppercase tracking-widest text-[#0061fe] mb-6">
+            Free Tool
+          </span>
+          <h1 className="text-6xl md:text-7xl font-black text-[#1e1919] leading-tight mb-8">
+            Image Vectorizer
+          </h1>
+          <p className="text-xl md:text-2xl text-[#63676b] max-w-3xl mx-auto leading-relaxed">
+            Convert raster images to clean SVG vectors. Everything runs locally in your browser via a web worker — nothing is uploaded anywhere.
+          </p>
+        </div>
 
-      {!original && (
-        <>
-          <Dropzone onFile={handleFile} label="Drop a raster image to vectorize" />
-        </>
-      )}
+        <div className="mt-24">
+              {!original && (
+            <>
+              <Dropzone onFile={handleFile} label="Drop a raster image to vectorize" />
+            </>
+          )}
 
-      {original && (
-        <div className="rounded-xl border border-[#e1e3e6] bg-white p-5 shadow-sm sm:p-6">
+          {original && (
+            <div className="rounded-xl border border-[#e1e3e6] bg-white p-5 shadow-sm sm:p-6">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-1 rounded-lg border border-[#e1e3e6] bg-[#f7f9fa] p-1">
               <ViewToggle
@@ -449,10 +451,9 @@ export default function VectorizerPage() {
                   className="max-h-[520px] max-w-full object-contain"
                 />
               )}
-              {view === "vector" && status === "processing" && (
-                <div className="flex flex-col items-center gap-3 py-16 text-[#63676b]">
-                  <span className="h-8 w-8 animate-spin rounded-full border-2 border-[#e1e3e6] border-t-[#0061fe]" />
-                  {preset === "vtracer" ? "Vectorizing with Splines…" : "Tracing paths…"}
+              {view === "vector" && status === "processing" && phase && (
+                <div className="flex flex-col items-center gap-4 py-8">
+                  <DynamicLoadingState phase={phase} progress={50} showProgress={false} />
                 </div>
               )}
               {view === "vector" && status === "error" && (
@@ -485,17 +486,19 @@ export default function VectorizerPage() {
         </div>
       )}
 
-      {showUpscaleUpgrade && (
-        <UpgradeModal
-          title="You've used all 5 free upscales"
-          description="Enable Pro (demo) to keep upscaling before you vectorize — no billing is wired up yet, this just previews the upgrade flow."
-          onClose={() => setShowUpscaleUpgrade(false)}
-          onUpgrade={() => {
-            togglePro();
-            setShowUpscaleUpgrade(false);
-          }}
-        />
-      )}
+        {showUpscaleUpgrade && (
+          <UpgradeModal
+            title="You've used all 5 free upscales"
+            description="Enable Pro (demo) to keep upscaling before you vectorize — no billing is wired up yet, this just previews the upgrade flow."
+            onClose={() => setShowUpscaleUpgrade(false)}
+            onUpgrade={() => {
+              togglePro();
+              setShowUpscaleUpgrade(false);
+            }}
+          />
+        )}
+        </div>
+      </div>
     </div>
   );
 }
@@ -522,6 +525,7 @@ function UpscalePanel({
   limit: number;
 }) {
   const running = upscaler.status === "running";
+  const { phase, progress } = upscaler;
 
   return (
     <div className="mb-4 rounded-lg border border-[#e1e3e6] bg-white p-4 sm:p-5">
@@ -578,12 +582,9 @@ function UpscalePanel({
         </div>
       </div>
 
-      {running && (
-        <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-[#e1e3e6]">
-          <div
-            className="h-full rounded-full bg-[#0061fe] transition-all"
-            style={{ width: `${Math.max(4, upscaler.progress)}%` }}
-          />
+      {running && phase && (
+        <div className="mt-3">
+          <DynamicLoadingState phase={phase} progress={progress} />
         </div>
       )}
 
@@ -648,6 +649,7 @@ function EnhancePanel({
 }) {
   const running = enhance.status === "running";
   const disabled = running || !acknowledged;
+  const { phase } = enhance;
 
   return (
     <div className="mb-4 rounded-lg border border-[#0061fe]/20 bg-gradient-to-br from-[#0061fe]/[0.04] to-transparent p-4 sm:p-5">
@@ -677,6 +679,12 @@ function EnhancePanel({
           </button>
         )}
       </div>
+
+      {isPro && running && phase && (
+        <div className="mt-4 border-t border-[#0061fe]/10 pt-4">
+          <DynamicLoadingState phase={phase} progress={50} showProgress={false} />
+        </div>
+      )}
 
       {isPro && (
         <div className="mt-4 grid gap-4 border-t border-[#0061fe]/10 pt-4 sm:grid-cols-2">

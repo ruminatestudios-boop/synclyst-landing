@@ -10,6 +10,8 @@ type State = {
   status: "idle" | "running" | "done" | "error";
   layers: Layer[];
   error: string | null;
+  phase: "layer-decomposition" | null;
+  progress: number;
 };
 
 export function useDecompose() {
@@ -17,6 +19,8 @@ export function useDecompose() {
     status: "idle",
     layers: [],
     error: null,
+    phase: null,
+    progress: 0,
   });
 
   const run = useCallback(
@@ -27,7 +31,15 @@ export function useDecompose() {
       mode: DecomposeMode,
       points: Point[]
     ) => {
-      setState({ status: "running", layers: [], error: null });
+      setState({ status: "running", layers: [], error: null, phase: "layer-decomposition", progress: 5 });
+
+      const progressInterval = setInterval(() => {
+        setState((prev) => ({
+          ...prev,
+          progress: Math.min(90, prev.progress + Math.random() * 20),
+        }));
+      }, 800);
+
       try {
         const res = await fetch("/api/decompose", {
           method: "POST",
@@ -64,12 +76,16 @@ export function useDecompose() {
           (l): l is Layer => l !== null
         );
 
-        setState({ status: "done", layers, error: null });
+        clearInterval(progressInterval);
+        setState({ status: "done", layers, error: null, phase: null, progress: 100 });
       } catch (err) {
+        clearInterval(progressInterval);
         setState({
           status: "error",
           layers: [],
           error: err instanceof Error ? err.message : "Decomposition failed.",
+          phase: null,
+          progress: 0,
         });
       }
     },
@@ -86,7 +102,7 @@ export function useDecompose() {
   }, []);
 
   const reset = useCallback(() => {
-    setState({ status: "idle", layers: [], error: null });
+    setState({ status: "idle", layers: [], error: null, phase: null, progress: 0 });
   }, []);
 
   return { ...state, run, toggleLayer, reset };

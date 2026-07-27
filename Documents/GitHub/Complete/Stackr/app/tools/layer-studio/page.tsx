@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { Dropzone } from "@/components/Dropzone";
 import { LayerEditor } from "@/components/LayerEditor";
+import { DynamicLoadingState } from "@/components/DynamicLoadingState";
 import { fileToImageData } from "@/lib/image-utils";
 import { usePro } from "@/lib/pro-context";
 import { useRights } from "@/lib/rights-context";
@@ -27,7 +28,7 @@ export default function LayerStudioPage() {
   const [points, setPoints] = useState<Point[]>([]);
   const [exporting, setExporting] = useState<"psd" | "pdf" | null>(null);
   const [editingLayerId, setEditingLayerId] = useState<string | null>(null);
-  const { status, layers, error, run, toggleLayer, reset } = useDecompose();
+  const { status, layers, error, run, toggleLayer, reset, phase, progress } = useDecompose();
 
   const displaySize = useMemo(() => {
     if (!original) return { width: 0, height: 0 };
@@ -96,57 +97,58 @@ export default function LayerStudioPage() {
 
   if (!isPro) {
     return (
-      <div className="mx-auto max-w-3xl px-6 py-20 text-center">
-        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-[#0061fe]/10 text-[#0061fe]">
-          <IconLayers className="h-7 w-7" />
-        </span>
-        <span className="mt-5 block text-xs font-semibold uppercase tracking-wide text-[#0061fe]">
-          Pro tool
-        </span>
-        <h1 className="mt-2 text-3xl font-bold text-[#1e1919]">
-          Layer Decomposition Studio
-        </h1>
-        <p className="mx-auto mt-3 max-w-xl text-[#63676b]">
-          Segment complex graphics into isolated transparent layers with AI,
-          then export a structured multi-layer PSD or PDF. This is a Pro
-          feature — flip the demo toggle below to preview it (no billing is
-          wired up yet).
-        </p>
-        <button
-          type="button"
-          onClick={togglePro}
-          className="mt-8 rounded-lg bg-[#0061fe] px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#0050d0]"
-        >
-          Enable Pro (demo)
-        </button>
+      <div className="min-h-screen bg-white">
+        <div className="mx-auto max-w-6xl px-6 py-24">
+          <div className="mb-16 text-center">
+            <span className="inline-block text-sm font-bold uppercase tracking-widest text-[#0061fe] mb-6">
+              Pro Tool
+            </span>
+            <h1 className="text-6xl md:text-7xl font-black text-[#1e1919] leading-tight mb-8">
+              Layer Studio
+            </h1>
+            <p className="text-xl md:text-2xl text-[#63676b] max-w-3xl mx-auto leading-relaxed">
+              Segment complex graphics into isolated transparent layers with AI, then export a structured multi-layer PSD or PDF. Flip the demo toggle below to preview it (no billing is wired up yet).
+            </p>
+          </div>
+          <div className="text-center mt-16">
+            <button
+              type="button"
+              onClick={togglePro}
+              className="rounded-lg bg-[#0061fe] px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-[#0050d0]"
+            >
+              Enable Pro (demo)
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
-      <div className="mb-8 text-center">
-        <span className="text-xs font-semibold uppercase tracking-wide text-[#0061fe]">
-          Pro tool
-        </span>
-        <h1 className="text-3xl font-bold text-[#1e1919]">
-          Layer Decomposition Studio
-        </h1>
-      </div>
-      <p className="mb-8 text-center text-[#63676b]">
-        Isolate elements with AI segmentation, then export a native
-        multi-layer PSD or a per-layer PDF.
-      </p>
+    <div className="min-h-screen bg-white">
+      <div className="mx-auto max-w-6xl px-6 py-24">
+        <div className="mb-16 text-center">
+          <span className="inline-block text-sm font-bold uppercase tracking-widest text-[#0061fe] mb-6">
+            Pro Tool
+          </span>
+          <h1 className="text-6xl md:text-7xl font-black text-[#1e1919] leading-tight mb-8">
+            Layer Studio
+          </h1>
+          <p className="text-xl md:text-2xl text-[#63676b] max-w-3xl mx-auto leading-relaxed">
+            Isolate elements with AI segmentation, then export a native multi-layer PSD or a per-layer PDF.
+          </p>
+        </div>
 
-      {!original && (
-        <Dropzone
-          onFile={handleFile}
-          label="Drop a complex graphic to decompose"
-          hint="or click to browse — PNG, JPG, WEBP"
-        />
-      )}
+        <div className="mt-24">
+          {!original && (
+            <Dropzone
+              onFile={handleFile}
+              label="Drop a complex graphic to decompose"
+              hint="or click to browse — PNG, JPG, WEBP"
+            />
+          )}
 
-      {original && (
+          {original && (
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
           <div className="rounded-xl border border-[#e1e3e6] bg-white p-5 shadow-sm sm:p-6">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
@@ -250,6 +252,12 @@ export default function LayerStudioPage() {
               </p>
             </div>
 
+            {status === "running" && phase && (
+              <div className="mt-4">
+                <DynamicLoadingState phase={phase} progress={progress} />
+              </div>
+            )}
+
             {status === "error" && (
               <p className="mt-3 rounded-md bg-red-50 px-3 py-2 text-sm text-red-600">
                 {error}
@@ -323,7 +331,9 @@ export default function LayerStudioPage() {
             </div>
           </aside>
         </div>
-      )}
+          )}
+        </div>
+      </div>
     </div>
   );
 }
