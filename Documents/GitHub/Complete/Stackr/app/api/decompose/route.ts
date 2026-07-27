@@ -43,8 +43,8 @@ export async function POST(request: Request) {
 
   const effectivePoints: PointPrompt[] =
     mode === "points" && points
-      ? points.map(p => ({ x: p.x / width, y: p.y / height, label: p.label }))
-      : [{ x: 0.5, y: 0.5, label: 1 }];
+      ? points
+      : [{ x: Math.round(width / 2), y: Math.round(height / 2), label: 1 }];
 
   try {
     const [subject, element] = await Promise.all([
