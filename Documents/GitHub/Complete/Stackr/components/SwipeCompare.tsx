@@ -80,8 +80,13 @@ export function SwipeCompare({
         <img
           src={afterSrc}
           alt={afterAlt}
-          className="absolute max-h-full max-w-full object-contain"
-          style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
+          className="absolute max-h-full object-contain"
+          style={{
+            left: 0,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: `calc(100% / ${position / 100})`
+          }}
         />
       </div>
 
