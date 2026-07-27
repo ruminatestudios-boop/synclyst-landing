@@ -26,6 +26,7 @@ export default function UpscalerPage() {
 
   async function handleFile(file: File) {
     reset();
+    setViewMode("grid");
     const { width, height, dataUrl } = await fileToImageData(file);
     setOriginal({ dataUrl, width, height, name: file.name });
   }
@@ -80,7 +81,7 @@ export default function UpscalerPage() {
                   4x (larger download)
                 </ScaleToggle>
               </div>
-              {resultDataUrl && (
+              {resultDataUrl ? (
                 <div className="flex items-center gap-1 rounded-lg border border-[#e1e3e6] bg-[#f7f9fa] p-1 text-xs">
                   <ScaleToggle active={viewMode === "grid"} onClick={() => setViewMode("grid")}>
                     Grid
@@ -89,7 +90,7 @@ export default function UpscalerPage() {
                     Compare
                   </ScaleToggle>
                 </div>
-              )}
+              ) : null}
             </div>
 
             <div className="flex items-center gap-2">
