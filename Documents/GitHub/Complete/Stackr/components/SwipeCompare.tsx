@@ -57,7 +57,7 @@ export function SwipeCompare({
     <div
       ref={containerRef}
       className="relative w-full overflow-hidden rounded-lg border border-[#e1e3e6] bg-gray-100"
-      style={{ maxHeight }}
+      style={{ height: maxHeight, maxHeight }}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
