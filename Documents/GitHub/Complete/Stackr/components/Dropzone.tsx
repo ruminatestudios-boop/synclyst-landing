@@ -41,41 +41,56 @@ export function Dropzone({
     <div>
       <div
         {...getRootProps({
-          className: `group flex min-h-[420px] cursor-pointer flex-col items-center justify-center gap-5 rounded-xl border-2 border-dashed px-8 py-16 text-center shadow-sm transition-colors ${
+          className: `group relative flex min-h-[420px] cursor-pointer flex-col items-center justify-center gap-6 overflow-hidden rounded-2xl px-8 py-16 text-center transition-all duration-300 ${
             isDragActive
-              ? "border-[#0061fe] bg-[#0061fe]/5"
-              : "border-[#e1e3e6] bg-white hover:border-[#0061fe] hover:bg-[#f7f9fa]"
+              ? "bg-gradient-to-br from-[#0061fe]/10 to-[#0061fe]/5 shadow-lg scale-[1.02]"
+              : "bg-gradient-to-br from-[#f7f9fa] to-white hover:shadow-lg border border-[#e1e3e6] hover:border-[#0061fe]"
           }`,
         })}
       >
+        {/* Animated background gradient on drag */}
+        {isDragActive && (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0061fe]/5 via-transparent to-[#7db2ff]/5 animate-pulse pointer-events-none" />
+        )}
+
         <input {...getInputProps()} />
-        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#0061fe]/10 text-[#0061fe]">
-          <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
-            <rect
-              x="4"
-              y="4"
-              width="40"
-              height="40"
-              rx="8"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeDasharray={isDragActive ? "6 6" : "0"}
-            />
-            <path
-              d="M24 30V16M24 16l-6 6M24 16l6 6"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </span>
-        <div>
-          <p className="text-lg font-semibold text-[#1e1919]">{label}</p>
-          <p className="mt-1 text-sm text-[#63676b]">{hint}</p>
+
+        {/* Icon container */}
+        <div className={`relative transition-all duration-300 ${isDragActive ? "scale-110" : "scale-100"}`}>
+          <div className={`flex h-20 w-20 items-center justify-center rounded-2xl transition-all duration-300 ${
+            isDragActive
+              ? "bg-[#0061fe] text-white shadow-lg shadow-[#0061fe]/20"
+              : "bg-gradient-to-br from-[#0061fe]/10 to-[#0061fe]/5 text-[#0061fe] group-hover:from-[#0061fe]/15 group-hover:to-[#0061fe]/10"
+          }`}>
+            <svg width="40" height="40" viewBox="0 0 48 48" fill="none" className="transition-transform duration-300 group-hover:scale-110">
+              <path
+                d="M24 34V14M24 14l-8 8M24 14l8 8"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M12 32h24"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>
+        </div>
+
+        {/* Text content */}
+        <div className="relative">
+          <p className="text-2xl font-bold text-[#1e1919] tracking-tight">{label}</p>
+          <p className="mt-2 text-base text-[#63676b] leading-relaxed">{hint}</p>
         </div>
       </div>
-      {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+      {error && (
+        <div className="mt-3 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600 border border-red-200">
+          {error}
+        </div>
+      )}
     </div>
   );
 }
