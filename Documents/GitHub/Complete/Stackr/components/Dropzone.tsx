@@ -41,53 +41,57 @@ export function Dropzone({
     <div>
       <div
         {...getRootProps({
-          className: `group relative flex min-h-[420px] cursor-pointer flex-col items-center justify-center gap-6 overflow-hidden rounded-2xl px-8 py-16 text-center transition-all duration-300 ${
+          className: `group relative flex min-h-[420px] cursor-pointer flex-col items-center justify-center gap-8 overflow-hidden rounded-3xl px-8 py-20 text-center transition-all duration-300 ${
             isDragActive
-              ? "bg-gradient-to-br from-[#0061fe]/10 to-[#0061fe]/5 shadow-lg scale-[1.02]"
-              : "bg-gradient-to-br from-[#f7f9fa] to-white hover:shadow-lg border border-[#e1e3e6] hover:border-[#0061fe]"
+              ? "bg-gradient-to-br from-[#0061fe] via-[#0061fe]/90 to-[#0050d0] shadow-2xl shadow-[#0061fe]/30 scale-[1.02]"
+              : "bg-gradient-to-br from-[#0061fe]/5 via-[#0061fe]/[0.02] to-[#7db2ff]/5 border-2 border-[#0061fe]/20 hover:border-[#0061fe]/50 hover:shadow-xl hover:shadow-[#0061fe]/10"
           }`,
         })}
       >
-        {/* Animated background gradient on drag */}
+        {/* Animated gradient overlay on drag */}
         {isDragActive && (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0061fe]/5 via-transparent to-[#7db2ff]/5 animate-pulse pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0050d0]/20 to-transparent animate-pulse pointer-events-none" />
         )}
 
         <input {...getInputProps()} />
 
-        {/* Icon container */}
-        <div className={`relative transition-all duration-300 ${isDragActive ? "scale-110" : "scale-100"}`}>
-          <div className={`flex h-20 w-20 items-center justify-center rounded-2xl transition-all duration-300 ${
+        {/* Icon container with enhanced styling */}
+        <div className={`relative transition-all duration-300 ${isDragActive ? "scale-125" : "scale-100 group-hover:scale-110"}`}>
+          <div className={`flex h-24 w-24 items-center justify-center rounded-full transition-all duration-300 ${
             isDragActive
-              ? "bg-[#0061fe] text-white shadow-lg shadow-[#0061fe]/20"
-              : "bg-gradient-to-br from-[#0061fe]/10 to-[#0061fe]/5 text-[#0061fe] group-hover:from-[#0061fe]/15 group-hover:to-[#0061fe]/10"
+              ? "bg-white text-[#0061fe] shadow-2xl shadow-white/50"
+              : "bg-gradient-to-br from-[#0061fe]/15 to-[#0061fe]/5 text-[#0061fe] group-hover:from-[#0061fe]/25 group-hover:to-[#0061fe]/15 group-hover:shadow-lg group-hover:shadow-[#0061fe]/15"
           }`}>
-            <svg width="40" height="40" viewBox="0 0 48 48" fill="none" className="transition-transform duration-300 group-hover:scale-110">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="transition-transform duration-300 group-hover:scale-125">
               <path
                 d="M24 34V14M24 14l-8 8M24 14l8 8"
                 stroke="currentColor"
-                strokeWidth="2.5"
+                strokeWidth="3"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
               <path
                 d="M12 32h24"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.5"
                 strokeLinecap="round"
               />
             </svg>
           </div>
         </div>
 
-        {/* Text content */}
-        <div className="relative">
-          <p className="text-2xl font-bold text-[#1e1919] tracking-tight">{label}</p>
-          <p className="mt-2 text-base text-[#63676b] leading-relaxed">{hint}</p>
+        {/* Text content with enhanced typography */}
+        <div className="relative space-y-3">
+          <p className={`text-4xl font-black tracking-tight transition-colors duration-300 ${
+            isDragActive ? "text-white" : "text-[#1e1919]"
+          }`}>{label}</p>
+          <p className={`text-lg transition-colors duration-300 ${
+            isDragActive ? "text-white/90" : "text-[#63676b]"
+          }`}>{hint}</p>
         </div>
       </div>
       {error && (
-        <div className="mt-3 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600 border border-red-200">
+        <div className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600 border border-red-200">
           {error}
         </div>
       )}
