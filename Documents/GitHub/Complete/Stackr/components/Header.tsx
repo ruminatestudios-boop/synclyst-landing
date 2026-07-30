@@ -1,10 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { usePro } from "@/lib/pro-context";
 
 export function Header() {
   const { isPro, togglePro } = usePro();
+  const searchParams = useSearchParams();
+
+  if (searchParams.get("embed") === "1") {
+    return null;
+  }
 
   return (
     <header className="sticky top-0 z-30 border-b border-[#e1e3e6] bg-white/90 backdrop-blur">
@@ -34,6 +40,17 @@ export function Header() {
           <Link href="/tools/layer-studio" className="flex items-center gap-2 hover:text-[#1e1919]">
             Layer Studio
             <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-semibold text-blue-700">PRO</span>
+          </Link>
+          <Link href="/tools/before-after" className="flex items-center gap-2 hover:text-[#1e1919]">
+            Before &amp; After
+            <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">FREE</span>
+          </Link>
+          <Link href="/tools/batch" className="flex items-center gap-2 hover:text-[#1e1919]">
+            Batch
+            <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">FREE</span>
+          </Link>
+          <Link href="/about" className="hover:text-[#1e1919]">
+            About
           </Link>
         </nav>
 

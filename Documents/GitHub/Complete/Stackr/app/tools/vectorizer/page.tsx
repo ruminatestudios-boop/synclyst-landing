@@ -137,9 +137,10 @@ export default function VectorizerPage() {
   // reactive subscription, so the usual cascading-render concern doesn't
   // apply here.
   useEffect(() => {
-    const file = takePendingFile();
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (file) handleFile(file);
+    takePendingFile().then((file) => {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (file) handleFile(file);
+    });
     // Only ever runs once, on mount.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -283,7 +284,7 @@ export default function VectorizerPage() {
             Image Vectorizer
           </h1>
           <p className="text-xl md:text-2xl text-[#63676b] max-w-3xl mx-auto leading-relaxed">
-            Convert raster images to clean SVG vectors. Everything runs locally in your browser via a web worker — nothing is uploaded anywhere.
+            Convert messy logos, sketches, and graphics into clean, smooth, scalable SVG vectors in seconds.
           </p>
         </div>
 

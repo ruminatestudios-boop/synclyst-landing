@@ -1,12 +1,13 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Dropzone } from "@/components/Dropzone";
 import { LayerEditor } from "@/components/LayerEditor";
 import { DynamicLoadingState } from "@/components/DynamicLoadingState";
 import { EmailCaptureModal } from "@/components/EmailCaptureModal";
 import { fileToImageData } from "@/lib/image-utils";
 import { usePro } from "@/lib/pro-context";
+import { takePendingFile } from "@/lib/pending-upload";
 import { useRights } from "@/lib/rights-context";
 import { RightsCheckbox } from "@/components/RightsCheckbox";
 import { useDecompose, type Point } from "@/lib/use-decompose";
@@ -48,6 +49,20 @@ export default function LayerStudioPage() {
     const { width, height, dataUrl } = await fileToImageData(file);
     setOriginal({ dataUrl, width, height, name: file.name });
   }
+
+  // Picks up a file sent from the homepage hero or the static marketing
+  // site's tool picker, if any, and enables Pro so the tool is usable
+  // immediately instead of landing on the gate screen. Only runs once, on mount.
+  useEffect(() => {
+    takePendingFile().then((file) => {
+      if (!file) return;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (!isPro) togglePro();
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      handleFile(file);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleCanvasClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -130,7 +145,7 @@ export default function LayerStudioPage() {
               Layer Studio
             </h1>
             <p className="text-xl md:text-2xl text-[#63676b] max-w-3xl mx-auto leading-relaxed">
-              Segment complex graphics into isolated transparent layers with AI, then export a structured multi-layer PSD or PDF. Flip the demo toggle below to preview it (no billing is wired up yet).
+              Automatically split flat files and vectors into organized, production-ready design stacks for screen printing and editing.
             </p>
           </div>
           <div className="text-center mt-16">
@@ -158,7 +173,7 @@ export default function LayerStudioPage() {
             Layer Studio
           </h1>
           <p className="text-xl md:text-2xl text-[#63676b] max-w-3xl mx-auto leading-relaxed">
-            Isolate elements with AI segmentation, then export a native multi-layer PSD or a per-layer PDF.
+            Automatically split flat files and vectors into organized, production-ready design stacks for screen printing and editing.
           </p>
         </div>
 

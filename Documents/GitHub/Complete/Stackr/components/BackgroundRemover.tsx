@@ -8,6 +8,7 @@ import { DynamicLoadingState } from "@/components/DynamicLoadingState";
 import { EmailCaptureModal } from "@/components/EmailCaptureModal";
 import { useBackgroundRemoval } from "@/lib/use-background-removal";
 import { useEmailCapture } from "@/lib/use-email-capture";
+import { takePendingFile } from "@/lib/pending-upload";
 import { downloadBlob } from "@/lib/image-utils";
 import { IconDownload, IconRefresh, IconSparkles } from "@/components/icons";
 
@@ -33,6 +34,16 @@ export function BackgroundRemover() {
     setView("after");
     run(file);
   }
+
+  // Picks up a file sent from the homepage hero or the static marketing
+  // site's tool picker, if any. Only ever runs once, on mount.
+  useEffect(() => {
+    takePendingFile().then((file) => {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (file) handleFile(file);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (view !== "edit" || !resultUrl || !canvasRef.current) return;

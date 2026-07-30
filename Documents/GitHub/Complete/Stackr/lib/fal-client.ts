@@ -149,7 +149,7 @@ export async function segmentAtPoints(
         prompts: prompts.map((p) => ({
           x: p.x,
           y: p.y,
-          label: p.label,
+          label: (p.label === 1 ? "1" : "0") as "0" | "1",
         })),
         apply_mask: true,
         sync_mode: true,

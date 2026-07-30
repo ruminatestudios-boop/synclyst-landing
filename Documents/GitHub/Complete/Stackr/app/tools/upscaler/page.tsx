@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dropzone } from "@/components/Dropzone";
 import { SwipeCompare } from "@/components/SwipeCompare";
 // import { UpgradeModal } from "@/components/UpgradeModal"; // DISABLED FOR DEVELOPMENT
@@ -8,6 +8,7 @@ import { fileToImageData, downloadBlob } from "@/lib/image-utils";
 import { useUpscaler } from "@/lib/use-upscaler";
 import { useUsageLimit } from "@/lib/use-usage-limit";
 import { usePro } from "@/lib/pro-context";
+import { takePendingFile } from "@/lib/pending-upload";
 import type { UpscaleScale } from "@/lib/upscaler-client";
 import { IconUpscale, IconDownload, IconRefresh } from "@/components/icons";
 
@@ -31,6 +32,16 @@ export default function UpscalerPage() {
     setOriginal({ dataUrl, width, height, name: file.name });
   }
 
+  // Picks up a file sent from the homepage hero or the static marketing
+  // site's tool picker, if any. Only ever runs once, on mount.
+  useEffect(() => {
+    takePendingFile().then((file) => {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (file) handleFile(file);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   async function handleRun() {
     if (!original) return;
     // DEVELOPMENT MODE: Limit check disabled for testing. Uncomment to re-enable 5-limit.
@@ -51,26 +62,27 @@ export default function UpscalerPage() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-12">
-      <div className="mb-8 text-center">
-        <span className="text-xs font-semibold uppercase tracking-wide text-[#0061fe]">
-          Free tool
-        </span>
-        <h1 className="text-3xl font-bold text-[#1e1919]">
-          AI Image Upscaler &amp; Enhancer
-        </h1>
-      </div>
-      <p className="mb-8 text-center text-[#63676b]">
-        Reconstructs detail and increases resolution with a local AI model —
-        runs entirely on your device (WebGPU/WASM/WebGL), nothing is uploaded.
-      </p>
+    <div className="min-h-screen bg-white">
+      <div className="mx-auto max-w-6xl px-6 py-24">
+        <div className="mb-16 text-center">
+          <span className="inline-block text-sm font-bold uppercase tracking-widest text-[#0061fe] mb-6">
+            Limited Free
+          </span>
+          <h1 className="text-6xl md:text-7xl font-black text-[#1e1919] leading-tight mb-8">
+            AI Image Upscaler
+          </h1>
+          <p className="text-xl md:text-2xl text-[#63676b] max-w-3xl mx-auto leading-relaxed">
+            Blow up low-res thumbnails and assets instantly with sharp edge-contrast, making them ready for clean tracing.
+          </p>
+        </div>
 
-      {!original && (
-        <Dropzone onFile={handleFile} label="Drop a photo to upscale" />
-      )}
+        <div className="mt-24">
+          {!original && (
+            <Dropzone onFile={handleFile} label="Drop a photo to upscale" />
+          )}
 
-      {original && (
-        <div className="rounded-xl border border-[#e1e3e6] bg-white p-5 shadow-sm sm:p-6">
+          {original && (
+            <div className="rounded-xl border border-[#e1e3e6] bg-white p-5 shadow-sm sm:p-6">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <div className="flex items-center gap-1 rounded-lg border border-[#e1e3e6] bg-[#f7f9fa] p-1 text-xs">
@@ -181,10 +193,12 @@ export default function UpscalerPage() {
               />
             </div>
           )}
-        </div>
-      )}
+            </div>
+          )}
 
-      {/* DEVELOPMENT MODE: UpgradeModal completely removed for testing */}
+          {/* DEVELOPMENT MODE: UpgradeModal completely removed for testing */}
+        </div>
+      </div>
     </div>
   );
 }

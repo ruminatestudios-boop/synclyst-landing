@@ -93,7 +93,6 @@ export function DynamicLoadingState({
     <div className="rounded-md border border-[#e1e3e6] bg-[#f7f9fa] p-3">
       <div className="flex items-center justify-between text-xs text-[#63676b]">
         <span className="inline-flex items-center gap-2">
-          <span className="h-3 w-3 animate-pulse rounded-full bg-[#0061fe]" />
           {steps[stepIndex]}
         </span>
         {showProgress && (
