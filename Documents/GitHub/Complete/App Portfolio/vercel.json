@@ -1,0 +1,205 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/stackr/",
+      "destination": "/stackr",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/thai",
+      "destination": "/thai/index.html"
+    },
+    {
+      "source": "/thai/",
+      "destination": "/thai/index.html"
+    },
+    {
+      "source": "/gallery",
+      "destination": "/gallery.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/admin/outreach",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/tasks",
+      "destination": "https://job-hunter-tasks.vercel.app/tasks"
+    },
+    {
+      "source": "/tasks/:path*",
+      "destination": "https://job-hunter-tasks.vercel.app/tasks/:path*"
+    },
+    {
+      "source": "/strideiq",
+      "destination": "https://fightflo.vercel.app/strideiq"
+    },
+    {
+      "source": "/strideiq/:path*",
+      "destination": "https://fightflo.vercel.app/strideiq/:path*"
+    },
+    {
+      "source": "/run",
+      "destination": "https://fightflo.vercel.app/strideiq"
+    },
+    {
+      "source": "/run/:path*",
+      "destination": "https://fightflo.vercel.app/strideiq/:path*"
+    },
+    {
+      "source": "/pryderun",
+      "destination": "https://fightflo.vercel.app/strideiq"
+    },
+    {
+      "source": "/pryderun/:path*",
+      "destination": "https://fightflo.vercel.app/strideiq/:path*"
+    },
+    {
+      "source": "/lighting",
+      "destination": "https://lighting-demo-seven.vercel.app/lighting"
+    },
+    {
+      "source": "/lighting/:path*",
+      "destination": "https://lighting-demo-seven.vercel.app/lighting/:path*"
+    },
+    {
+      "source": "/thaical",
+      "destination": "https://thaical.vercel.app/thaical"
+    },
+    {
+      "source": "/thaical/:path*",
+      "destination": "https://thaical.vercel.app/thaical/:path*"
+    },
+    {
+      "source": "/thaicala",
+      "destination": "https://thaical.vercel.app/thaical"
+    },
+    {
+      "source": "/thaicala/:path*",
+      "destination": "https://thaical.vercel.app/thaical/:path*"
+    },
+    {
+      "source": "/thaicalb",
+      "destination": "https://thaical.vercel.app/thaical"
+    },
+    {
+      "source": "/thaicalb/:path*",
+      "destination": "https://thaical.vercel.app/thaical/:path*"
+    },
+    {
+      "source": "/thaicalc",
+      "destination": "https://thaical.vercel.app/thaical"
+    },
+    {
+      "source": "/thaicalc/:path*",
+      "destination": "https://thaical.vercel.app/thaical/:path*"
+    },
+    {
+      "source": "/api/lighting-coach",
+      "destination": "https://lighting-demo-seven.vercel.app/api/lighting-coach"
+    },
+    {
+      "source": "/api/lighting-coach/:path*",
+      "destination": "https://lighting-demo-seven.vercel.app/api/lighting-coach/:path*"
+    },
+    {
+      "source": "/api/waitlist",
+      "destination": "https://lighting-demo-seven.vercel.app/api/waitlist"
+    },
+    {
+      "source": "/_next/:path*",
+      "destination": "https://lighting-demo-seven.vercel.app/_next/:path*"
+    },
+    {
+      "source": "/onboarding/:path*",
+      "destination": "https://lighting-demo-seven.vercel.app/onboarding/:path*"
+    },
+    {
+      "source": "/manifest.webmanifest",
+      "destination": "https://lighting-demo-seven.vercel.app/manifest.webmanifest"
+    },
+    {
+      "source": "/icon-192.png",
+      "destination": "https://lighting-demo-seven.vercel.app/icon-192.png"
+    },
+    {
+      "source": "/icon-512.png",
+      "destination": "https://lighting-demo-seven.vercel.app/icon-512.png"
+    },
+    {
+      "source": "/icon.svg",
+      "destination": "https://lighting-demo-seven.vercel.app/icon.svg"
+    },
+    {
+      "source": "/stackr",
+      "destination": "https://stackr-smoky.vercel.app/stackr/site/index.html"
+    },
+    {
+      "source": "/stackr/",
+      "destination": "https://stackr-smoky.vercel.app/stackr/site/index.html"
+    },
+    {
+      "source": "/stackr/:path*",
+      "destination": "https://stackr-smoky.vercel.app/stackr/:path*"
+    },
+    {
+      "source": "/vector",
+      "destination": "https://stackr-smoky.vercel.app/stackr/site/vectorizer-tool.html"
+    },
+    {
+      "source": "/upscale",
+      "destination": "https://stackr-smoky.vercel.app/stackr/site/upscaler-tool.html"
+    },
+    {
+      "source": "/remove-bg",
+      "destination": "https://stackr-smoky.vercel.app/stackr/site/background-remover-tool.html"
+    },
+    {
+      "source": "/layers",
+      "destination": "https://stackr-smoky.vercel.app/stackr/site/layer-studio-tool.html"
+    },
+    {
+      "source": "/before-after",
+      "destination": "https://stackr-smoky.vercel.app/stackr/site/before-after-tool.html"
+    },
+    {
+      "source": "/batch",
+      "destination": "https://stackr-smoky.vercel.app/stackr/site/batch-tool.html"
+    },
+    {
+      "source": "/site-assets/:path*",
+      "destination": "https://stackr-smoky.vercel.app/stackr/site/assets/:path*"
+    },
+    {
+      "source": "/GeoAi",
+      "destination": "https://geoai-livid.vercel.app/GeoAi"
+    },
+    {
+      "source": "/GeoAi/",
+      "destination": "https://geoai-livid.vercel.app/GeoAi"
+    },
+    {
+      "source": "/GeoAi/:path*",
+      "destination": "https://geoai-livid.vercel.app/GeoAi/:path*"
+    },
+    {
+      "source": "/fightlore",
+      "destination": "https://fightlore-content-management.vercel.app/fightlore"
+    },
+    {
+      "source": "/fightlore/",
+      "destination": "https://fightlore-content-management.vercel.app/fightlore"
+    },
+    {
+      "source": "/fightlore/:path*",
+      "destination": "https://fightlore-content-management.vercel.app/fightlore/:path*"
+    }
+  ]
+}

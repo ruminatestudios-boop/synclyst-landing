@@ -1,0 +1,392 @@
+{
+  "name": "",
+  "title": "I turn ambitious ideas into working products",
+  "tagline": "I partner with founders and teams to define the right problem, design the experience, and ship production-ready products built around measurable outcomes.",
+  "email": "hello@example.com",
+  "location": "Available for select product builds",
+  "skills": [
+    {
+      "group": "Strategy",
+      "items": [
+        "Product direction",
+        "User insight",
+        "Rapid validation",
+        "Clear roadmaps"
+      ]
+    },
+    {
+      "group": "Design",
+      "items": [
+        "UX & UI systems",
+        "Conversion flows",
+        "Rapid prototypes",
+        "Product polish"
+      ]
+    },
+    {
+      "group": "Build",
+      "items": [
+        "React & Next.js",
+        "AI integrations",
+        "Production launches",
+        "Fast iteration"
+      ]
+    },
+    {
+      "group": "Outcomes",
+      "items": [
+        "Faster launches",
+        "Clearer journeys",
+        "Better activation",
+        "Scalable systems"
+      ]
+    }
+  ],
+  "apps": [
+    {
+      "name": "Visicart",
+      "slug": "visicart",
+      "url": "assets/visicart.png",
+      "website": "https://visicart.app/embed?client=cadence",
+      "focus": "50% 20%",
+      "role": "Founder · Design & product",
+      "categories": [
+        "commerce",
+        "AI"
+      ],
+      "model": "saas",
+      "status": "validating",
+      "plan": "SaaS embeds for brands — charge per client / monthly embed seats. Cadence is the proof case.",
+      "next": "Turn Cadence embed into a paid pilot. Define pricing for the next brand.",
+      "summary": "Scan. Match. Shop.",
+      "description": "Scan a session, skin, or fit and get matched to the right product instantly. Visicart powers shopable brand experiences — Cadence is the live electrolyte embed.",
+      "highlights": [
+        "Brand embeds",
+        "Shopable media",
+        "Client: Cadence"
+      ],
+      "offer": "Brand embed seats — monthly",
+      "buyer": "Cadence (pilot) → next brand",
+      "collection": "mine"
+    },
+    {
+      "name": "GeoAI",
+      "slug": "geoai",
+      "url": "assets/apps/geoai.png",
+      "website": "https://pritesh.online/GeoAi",
+      "focus": "center",
+      "role": "Founder · Design & product",
+      "categories": [
+        "AI",
+        "SEO"
+      ],
+      "model": "saas",
+      "status": "live",
+      "plan": "YouTube → citeable articles for ChatGPT, Perplexity, and AI Overviews.",
+      "next": "Get creators publishing hubs and converting free scans to paid.",
+      "palette": [
+        "#000000",
+        "#FFFFFF",
+        "#111111"
+      ],
+      "summary": "Get cited when AI search answers.",
+      "description": "Turn a long-form YouTube video into a public article ChatGPT, Perplexity, and Google AI Overviews can quote. Paste a URL, publish the page, then scan if engines already cite you.",
+      "highlights": [
+        "YouTube → citeable HTML",
+        "ChatGPT · Perplexity · AI Overviews",
+        "Live visibility scans"
+      ],
+      "offer": "Free publish → paid visibility scans",
+      "buyer": "Creators and brands in AI search",
+      "collection": "mine"
+    },
+    {
+      "name": "Fightflo",
+      "slug": "fightflo",
+      "url": "assets/fightflo-icon.png",
+      "website": "https://fightflo.app/",
+      "focus": "center",
+      "role": "Founder · Design & product",
+      "categories": [
+        "fitness",
+        "AI"
+      ],
+      "model": "saas",
+      "status": "live",
+      "plan": "SaaS subscriptions for fighters + coaches. Recurring revenue from video analysis credits.",
+      "next": "Ship one paid conversion path this week and track first paying users.",
+      "palette": [
+        "#111111",
+        "#FFFFFF",
+        "#5C4033"
+      ],
+      "summary": "AI video coaching for fighters.",
+      "description": "Film your training and get timestamped technical coaching back in minutes. Fightflo uses computer vision to break down movement for serious fighters and coaches.",
+      "highlights": [
+        "Computer vision coaching",
+        "Timestamped feedback",
+        "Built for fighters"
+      ],
+      "offer": "Fighter/coach subscription + analysis credits",
+      "buyer": "Serious fighters & coaches",
+      "collection": "mine"
+    },
+    {
+      "name": "Synclyst",
+      "slug": "synclyst",
+      "url": "assets/synclyst.png",
+      "website": "https://www.synclyst.app/",
+      "role": "Founder · Design & product",
+      "categories": [
+        "commerce",
+        "AI"
+      ],
+      "model": "saas",
+      "status": "live",
+      "plan": "SaaS for sellers — freemium to paid Magic Fill / marketplace seats.",
+      "next": "Improve paid upgrade funnel and measure activation → paid conversion.",
+      "palette": [
+        "#000000",
+        "#A78BFA",
+        "#22D3EE"
+      ],
+      "summary": "List any product in under 60 seconds.",
+      "description": "Snap a photo — Synclyst’s AI writes a full marketplace listing, then Magic Fill publishes to eBay, Etsy, Depop, Shopify, Shopee, and Vinted in under 60 seconds.",
+      "highlights": [
+        "Photo → listing AI",
+        "Chrome Magic Fill",
+        "6 marketplaces"
+      ],
+      "offer": "Freemium → paid Magic Fill / marketplace seats",
+      "buyer": "Multi-marketplace sellers",
+      "collection": "mine"
+    },
+    {
+      "name": "Run",
+      "slug": "strideiq",
+      "url": "assets/awaybook.png",
+      "website": "https://pritesh.online/strideiq/feed",
+      "focus": "50% 15%",
+      "role": "Founder · Design & product",
+      "categories": [
+        "fitness",
+        "AI"
+      ],
+      "model": "saas",
+      "status": "building",
+      "plan": "SaaS coaching for runners. Start free, convert to paid training plans.",
+      "next": "Define the paid offer and a single metric for weekly accountability.",
+      "summary": "Film your run. Get clear form coaching.",
+      "description": "Upload a short running clip and Pryde scores bounce, lean, and symmetry — then gives you one clear form cue to fix before you film again.",
+      "highlights": [
+        "Training focus",
+        "Performance feedback",
+        "Built for runners"
+      ],
+      "offer": "Free start → paid training plans",
+      "buyer": "Runners who want coaching",
+      "collection": "mine"
+    },
+    {
+      "name": "Lighting Coach",
+      "slug": "lighting-coach",
+      "url": "assets/lighting.png",
+      "website": "https://pritesh.online/lighting",
+      "role": "Design & prototyping",
+      "categories": [
+        "photo",
+        "education"
+      ],
+      "model": "sell",
+      "status": "validating",
+      "plan": "Sell as a product or license to photo education brands / studios.",
+      "next": "Talk to 3 studios about buy vs license. Pick one path by month end.",
+      "palette": [
+        "#FFFFFF",
+        "#111111",
+        "#C4A574"
+      ],
+      "summary": "Phone coaches. Camera shoots.",
+      "description": "A studio lighting coach on your phone: watch and correct the light in real time while your camera takes the shot.",
+      "highlights": [
+        "Real-time light coaching",
+        "Studio education",
+        "Mobile-first UX"
+      ],
+      "offer": "One-time product sale or studio license",
+      "buyer": "Photo studios / education brands",
+      "collection": "mine"
+    },
+    {
+      "name": "Fightlore+",
+      "slug": "fightlore",
+      "url": "assets/fightlore.png",
+      "website": "https://fightloreplus.com/",
+      "role": "Founder · Design & product",
+      "categories": [
+        "fitness",
+        "travel",
+        "AI"
+      ],
+      "model": "saas",
+      "status": "live",
+      "plan": "Paid unlocks + concierge booking. One-time purchases with optional upsells.",
+      "next": "Push free plan → $19 unlock conversion. Review weekly unlock count.",
+      "palette": [
+        "#0A0A0A",
+        "#FFFFFF",
+        "#2563EB"
+      ],
+      "summary": "Verified Muay Thai gyms + AI trip plans.",
+      "description": "Build a free Thailand training trip plan from 100+ personally verified gyms, then unlock contacts, comparisons, and concierge booking from $19.",
+      "highlights": [
+        "Live gym database",
+        "AI ranking feeds",
+        "Personalized trip plans"
+      ],
+      "offer": "$19 unlock + concierge upsells",
+      "buyer": "Fighters planning training trips",
+      "collection": "mine"
+    },
+    {
+      "name": "Stackr",
+      "slug": "stackr",
+      "internal": true,
+      "url": "assets/apps/stackr.png",
+      "website": "https://pritesh.online/stackr",
+      "focus": "center",
+      "role": "Founder · Design & product",
+      "categories": [
+        "design",
+        "AI"
+      ],
+      "model": "saas",
+      "status": "live",
+      "plan": "Freemium AI image tools → Pro ($12/mo) for Layer Studio and unlimited upscales.",
+      "next": "Drive free → Pro conversion on Layer Studio and unlimited upscales.",
+      "palette": [
+        "#1E4FD6",
+        "#FFFFFF",
+        "#0A0A0A"
+      ],
+      "summary": "AI image tools that run locally.",
+      "description": "Upscale, vectorize, remove backgrounds, and split layers — free AI image tools that run in your browser. No uploads. No servers. Pure privacy.",
+      "highlights": [
+        "On-device AI",
+        "Upscale · Vectorize · BG remove",
+        "Layer Studio (Pro)"
+      ],
+      "offer": "Free tools + Pro $12/mo",
+      "buyer": "Creators & freelancers",
+      "collection": "mine"
+    },
+    {
+      "name": "PitchForge",
+      "slug": "pitchforge",
+      "internal": true,
+      "url": "assets/apps/pitchforge.png",
+      "website": "https://visicart.app/outreach/app",
+      "focus": "center",
+      "role": "Founder · Design & product",
+      "categories": [
+        "sales",
+        "AI"
+      ],
+      "model": "saas",
+      "status": "live",
+      "plan": "Sales deal rooms from a prospect domain — track views, clicks, and claims.",
+      "next": "Drive first paid sales teams through Instant Pitch → claimed deal rooms.",
+      "palette": [
+        "#09090b",
+        "#f4f4f5",
+        "#ffffff"
+      ],
+      "summary": "Instant co-branded sales pitches.",
+      "description": "Paste a prospect domain — PitchForge extracts logo, colors, and presence, then compiles a shareable deal room that looks built just for them. Track opens, clicks, and claims.",
+      "highlights": [
+        "10-second domain input",
+        "Shareable deal rooms",
+        "Pipeline analytics"
+      ],
+      "offer": "Instant pitch + deal-room analytics",
+      "buyer": "Sales teams & founders",
+      "collection": "mine"
+    },
+    {
+      "name": "ThaiCal",
+      "slug": "thaical",
+      "url": "assets/apps/thaical.png",
+      "website": "https://pritesh.online/thaicalc",
+      "focus": "50% 20%",
+      "role": "Founder · Design & product",
+      "categories": [
+        "health",
+        "food"
+      ],
+      "model": "saas",
+      "status": "live",
+      "plan": "Thai-first calorie logging — everyday meals, not Western defaults.",
+      "next": "Get first users logging real Thai plates weekly.",
+      "palette": [
+        "#1F6B4A",
+        "#FFFFFF",
+        "#111111"
+      ],
+      "summary": "Thai food calories, made simple.",
+      "description": "Log Thai meals and see calories in seconds — built for real plates, not Western defaults. Track what you actually eat.",
+      "highlights": [
+        "Thai-first food logging",
+        "Fast calorie estimates",
+        "Built for everyday meals"
+      ],
+      "offer": "Free tracker → paid plans",
+      "buyer": "People who eat Thai food daily",
+      "collection": "mine"
+    },
+    {
+      "name": "The Muay Thai Pass",
+      "slug": "muaythaipass",
+      "url": "assets/apps/muaythaipass.png",
+      "website": "https://themuaythaipass.com",
+      "focus": "50% 28%",
+      "role": "Founder · Design & product",
+      "categories": [
+        "muay-thai",
+        "education"
+      ],
+      "model": "saas",
+      "status": "live",
+      "plan": "Specialist Muay Thai courses — practical day plus digital library.",
+      "next": "Fill the next course cohort and grow library access.",
+      "palette": [
+        "#C41E3A",
+        "#111111",
+        "#FFFFFF"
+      ],
+      "summary": "Book the course. Unlock the library.",
+      "description": "Specialist Muay Thai courses — book the practical day, then unlock the digital library. Train in the gym, keep learning after.",
+      "highlights": [
+        "Practical course days",
+        "Digital library access",
+        "Built for Muay Thai"
+      ],
+      "offer": "Course booking + library access",
+      "buyer": "Muay Thai students and gyms",
+      "collection": "mine"
+    }
+  ],
+  "collections": [
+    {
+      "id": "mine",
+      "label": "Mine"
+    },
+    {
+      "id": "client",
+      "label": "Client"
+    },
+    {
+      "id": "other",
+      "label": "Other"
+    }
+  ]
+}
