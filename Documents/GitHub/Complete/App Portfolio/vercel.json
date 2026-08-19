@@ -39,27 +39,27 @@
     },
     {
       "source": "/strideiq",
-      "destination": "https://fightflo.vercel.app/strideiq"
+      "destination": "https://fightflo.vercel.app"
     },
     {
       "source": "/strideiq/:path*",
-      "destination": "https://fightflo.vercel.app/strideiq/:path*"
+      "destination": "https://fightflo.vercel.app/:path*"
     },
     {
       "source": "/run",
-      "destination": "https://fightflo.vercel.app/strideiq"
+      "destination": "https://fightflo.vercel.app"
     },
     {
       "source": "/run/:path*",
-      "destination": "https://fightflo.vercel.app/strideiq/:path*"
+      "destination": "https://fightflo.vercel.app/:path*"
     },
     {
       "source": "/pryderun",
-      "destination": "https://fightflo.vercel.app/strideiq"
+      "destination": "https://fightflo.vercel.app"
     },
     {
       "source": "/pryderun/:path*",
-      "destination": "https://fightflo.vercel.app/strideiq/:path*"
+      "destination": "https://fightflo.vercel.app/:path*"
     },
     {
       "source": "/lighting",
