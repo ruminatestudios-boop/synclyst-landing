@@ -162,7 +162,7 @@
       "collection": "mine"
     },
     {
-      "name": "Run",
+      "name": "StrideIQ",
       "slug": "strideiq",
       "url": "assets/awaybook.png",
       "website": "https://pritesh.online/strideiq/feed",
@@ -173,11 +173,11 @@
         "AI"
       ],
       "model": "saas",
-      "status": "building",
+      "status": "live",
       "plan": "SaaS coaching for runners. Start free, convert to paid training plans.",
-      "next": "Define the paid offer and a single metric for weekly accountability.",
+      "next": "Drive free → Pro conversion on running form analysis.",
       "summary": "Film your run. Get clear form coaching.",
-      "description": "Upload a short running clip and Pryde scores bounce, lean, and symmetry — then gives you one clear form cue to fix before you film again.",
+      "description": "Upload a short running clip and StrideIQ analyzes bounce, lean, and symmetry — then gives you one clear form cue to fix before you film again.",
       "highlights": [
         "Training focus",
         "Performance feedback",
